@@ -12,8 +12,11 @@ import { WsService } from '../services/ws.service';
 export class HomeComponent implements OnInit {
 
   private userId!: string;
+  public userName!: string;
 
-  constructor(private auth:AuthService,private router:Router,private activatedRoute: ActivatedRoute,private ws:WsService,) { this.userId = this.auth.getMyUser()?.uid!;}
+
+  constructor(private auth:AuthService,private router:Router,private activatedRoute: ActivatedRoute,private ws:WsService,) { this.userId = this.auth.getMyUser()?.uid!;this.userName=this.auth.getMyUser()?.displayName! }
+
 
 
 
