@@ -1,12 +1,14 @@
 .login-container-parent {
+    
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    width: 100%;
+    overflow: hidden;
     .header {
       display: flex;
       flex-grow: 1;
       justify-content: center;
-      padding: 30px 0px 30px 0px;
+      padding: 0px 0px 30px 0px;
       align-items: center;
       background-color: #32609500;
       .logo-wallet {
@@ -100,11 +102,11 @@
   }
   @media (min-width: 768px) {
     .login-container-parent {
-      height: 100vh;
+     
       .header {
-        padding-top: 60px !important;
-        height: 320px;
-        background: linear-gradient(0deg, #f8f9f9 70%, #326095 30%);
+        flex-grow: 1;
+        
+        background: linear-gradient(0deg, #f8f9f9 70%, #32609500 30%);
         .logo-wallet,
         .app-title-container {
           margin-top: 100px;
@@ -130,8 +132,7 @@
   @media only screen and (min-width: 1200px) {
     .login-container-parent {
       .header {
-        padding-top: 60px !important;
-        height: 320px;
+        
         background: linear-gradient(0deg, #f8f9f9 70%, #32609500 30%);
         .logo-wallet,
         .app-title-container {
