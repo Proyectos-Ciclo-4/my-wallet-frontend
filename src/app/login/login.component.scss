@@ -1,0 +1,165 @@
+.login-container-parent {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    .header {
+      display: flex;
+      flex-grow: 1;
+      justify-content: center;
+      padding: 30px 0px 30px 0px;
+      align-items: center;
+      background-color: #32609500;
+      .logo-wallet {
+        background-image: url("../../assets/miwalletlogo.png");
+        background-size: cover;
+        width: 100px;
+        height: 100px;
+      }
+      .app-title-container {
+        padding: 0px 20px;
+        width: 200px;
+        .app-title-container h1 {
+          margin-bottom: 0px;
+        }
+        .title-header {
+          margin-bottom: 0px;
+        }
+        .subtitle {
+          margin-top: 0px;
+          text-align: end;
+        }
+      }
+    }
+    .session-method {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .login-container:last-child {
+        margin-top: 10px;
+      }
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .title {
+          margin: 10px 0px;
+        }
+        .type-account {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          justify-content: space-around;
+          height: fit-content;
+          .account-container:first-child {
+            margin-bottom: 15px;
+          }
+          .account-container {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 5px;
+            width: 250px;
+            padding: 0px 10px;
+            .logo-google {
+              background-image: url("../../assets/googleicon.png");
+              background-size: cover;
+              background-position: center;
+            }
+            .logo-microsoft {
+              background-image: url("../../assets/microsofticon.png");
+              background-position: center;
+              background-size: contain;
+            }
+            .logo {
+              width: 30px;
+              height: 30px;
+              padding: 0px;
+              margin: 0px;
+              border-radius: 100px;
+            }
+            p {
+              text-align: center;
+              padding-left: 10px;
+              margin: 6px;
+            }
+          }
+        }
+      }
+    }
+    .footer {
+      margin-top: 10px;
+      height: 30px;
+      width: 100vw;
+      background: #393939;
+    }
+  }
+  @media (min-width: 768px) {
+    .login-container-parent {
+      height: 100vh;
+      .header {
+        padding-top: 60px !important;
+        height: 320px;
+        background: linear-gradient(0deg, #f8f9f9 70%, #326095 30%);
+        .logo-wallet,
+        .app-title-container {
+          margin-top: 100px;
+        }
+      }
+      .session-method {
+        flex-direction: row !important;
+        justify-content: center !important;
+        width: 100vw;
+        margin: 0px;
+        .login-container {
+          margin: 40px !important;
+          p {
+            font-size: 1.2em;
+          }
+        }
+      }
+      .footer {
+        flex-grow: 1;
+      }
+    }
+  }
+  @media only screen and (min-width: 1200px) {
+    .login-container-parent {
+      .header {
+        padding-top: 60px !important;
+        height: 320px;
+        background: linear-gradient(0deg, #f8f9f9 70%, #32609500 30%);
+        .logo-wallet,
+        .app-title-container {
+          margin-top: 100px;
+        }
+      .session-method {
+        flex-direction: row !important;
+        justify-content: center !important;
+        width: 80vw;
+        margin: 0px;
+        .login-container {
+          margin: 40px !important;
+          .title {
+          }
+          .type-account {
+            width: 40vw;
+            margin: 0px;
+            padding: 0px;
+              p {
+                font-size: 1.2em;
+              }
+            }
+          }
+        }
+      }
+      .footer {
+        flex-grow: 1;
+      }
+    }
+  }
+  
