@@ -18,7 +18,7 @@ export class UserService {
     const userref=doc(databaseref,user?.uid)
     return setDoc(userref,{id:user?.uid,nombre:user?.displayName,email:user?.email,telefono:user?.phoneNumber})
   }
- 
+
   private URL_HTTP: String = "http://localhost:8080";
 
 
@@ -26,7 +26,7 @@ export class UserService {
     const databaseref=collection(this.firestore,"users")
     return collectionData(databaseref,{idField:"id"})as Observable<Usuario[]>
   }
- 
+
   verificarUsuarioPost(body: any) {
     return this.http.post(`${this.URL_HTTP}/juego/poner`, { ...body });
   }
