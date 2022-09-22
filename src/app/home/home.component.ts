@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { WsService } from '../services/ws.service';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +11,31 @@ import { AuthService } from '../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private auth:AuthService,private router:Router) { }
+  private userId!: string;
 
-  ngOnInit(): void {
-  }
-  onClick(){
-    this.auth.logout()
-   .then(response => {
-   this.router.navigate(['/']);
-   })
-   .catch(error=> console.log(error))
-     }
+  constructor(private auth:AuthService,private router:Router,private activatedRoute: ActivatedRoute,private ws:WsService,) { this.userId = this.auth.getMyUser()?.uid!;}
+
+
+
+  ngOnInit() {
+
+    this.activatedRoute.params
+      .pipe(switchMap(({ id }) => {
+        return this.ws.start(id);
+      })
+      ).subscribe({
+
+        next: (event: any) => {
+          console.log({type:event.type, event});
+
+          switch (event.type) {
+
+            case 'primer,evento':
+
+              break;
+            }
+          }
+        });
+    }
 
 }
