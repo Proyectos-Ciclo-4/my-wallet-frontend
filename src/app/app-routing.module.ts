@@ -9,11 +9,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 const routes: Routes = [
   {path:"",component:LoginComponent},
   {path:"registro",component:RegistroComponent},
-  {path:"nav",component:NavbarComponent},
   {path:"home",component:HomeComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
 
 ];
-
+//{path:"nav",component:NavbarComponent},
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
