@@ -5,6 +5,9 @@ import { query, QueryDocumentSnapshot } from 'firebase/firestore';
 import { Usuario } from '../models/Usuario.model';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { NgForm } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-registro',
@@ -16,6 +19,11 @@ export class RegistroComponent implements OnInit {
   nombre!: string | null;
   email!:string| null;
   resp!:User
+  arreglo_enviar: Array<Usuario> = new Array<Usuario>();
+  nuevo_arreglo: any;
+  telefono!:string| null;
+  Telefono:string="";
+
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -27,10 +35,18 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit(): void {
     this.autoComplete()
-
-
+    this.resp=this.auth.usuarioLogueado()
+    this.nuevo_arreglo = {
+      nombre: this.resp.displayName,
+      email: this.resp.email,
+      telefono: this.Telefono,
+      id: this.resp.uid,
+    };
+    console.log(this.nuevo_arreglo)
 
   }
+
+
 
 
   autoComplete(){
@@ -40,15 +56,15 @@ export class RegistroComponent implements OnInit {
   console.log(this.nombre,this.email)
   }
 
+  crear(){
+      console.log(this.nuevo_arreglo)
+      this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+      });
 
-
-
-  verificacion(nuevo_arreglo: Usuario) {
-    console.log(nuevo_arreglo)
-    this.user.verificarUsuarioPost(nuevo_arreglo).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-    });
   }
+
+
 }
