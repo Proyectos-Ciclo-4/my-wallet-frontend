@@ -35,11 +35,17 @@ export class LoginComponent implements OnInit {
       };
       console.log(this.nuevo_arreglo);
       this.verificacion(this.nuevo_arreglo);
-
       this.dataResponse = response;
-      //this.router.navigate(['/home']);
     });
   }
+
+  registro() {
+    this.auth.loginWithGoogle().then((response) => {
+      this.dataResponse = response;
+      this.router.navigate(['/registro']);
+    });
+  }
+
 
 
   verificacion(nuevo_arreglo: Usuario) {
