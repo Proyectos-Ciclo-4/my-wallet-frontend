@@ -23,8 +23,8 @@ export class RegistroComponent implements OnInit {
   nuevo_arreglo: any;
   telefono!:string| null;
   Telefono:string= '';
-  
-  
+
+
 
   constructor(
     private auth: AuthService,
@@ -32,8 +32,6 @@ export class RegistroComponent implements OnInit {
     private user: UserService
   ) {  }
 //this.nombre = this.auth.getMyUser()?.displayName!;this.email=this.auth.getMyUser()?.email!
-
-
 
   ngOnInit(): void {
     this.autoComplete()
