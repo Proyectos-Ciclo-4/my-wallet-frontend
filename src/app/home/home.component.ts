@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { WsService } from '../services/ws.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
   private userId!: string;
 
   constructor(private auth:AuthService,private router:Router,private activatedRoute: ActivatedRoute,private ws:WsService,) { this.userId = this.auth.getMyUser()?.uid!;}
+  
 
 
 
