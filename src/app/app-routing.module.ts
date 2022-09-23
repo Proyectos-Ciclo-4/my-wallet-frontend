@@ -9,16 +9,31 @@ import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
 
 const routes: Routes = [
-  {path:"",component:LoginComponent},
-  {path:"registro",component:RegistroComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"transaccion",component:TransaccionComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"historial",component:HistorialComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"home",component:HomeComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-
+  { path: '', component: LoginComponent },
+  {
+    path: 'registro',
+    component: RegistroComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: 'transaccion',
+    component: TransaccionComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: 'historial',
+    component: HistorialComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
 ];
 //{path:"nav",component:NavbarComponent},
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
