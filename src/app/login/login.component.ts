@@ -46,8 +46,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
+
   verificacion(nuevo_arreglo: Usuario) {
-    console.log(nuevo_arreglo);
+    console.log(nuevo_arreglo)
     this.user.verificarUsuarioPost(nuevo_arreglo).subscribe({
       next: (res) => {
         console.log(res);
@@ -55,3 +57,4 @@ export class LoginComponent implements OnInit {
     });
   }
 }
+
