@@ -22,7 +22,9 @@ export class RegistroComponent implements OnInit {
   arreglo_enviar: Array<Usuario> = new Array<Usuario>();
   nuevo_arreglo: any;
   telefono!:string| null;
-  Telefono:string="";
+  Telefono:string= '';
+  
+  
 
   constructor(
     private auth: AuthService,
@@ -36,6 +38,7 @@ export class RegistroComponent implements OnInit {
   ngOnInit(): void {
     this.autoComplete()
     this.resp=this.auth.usuarioLogueado()
+    console.log(this.Telefono)
     this.nuevo_arreglo = {
       nombre: this.resp.displayName,
       email: this.resp.email,
@@ -57,7 +60,9 @@ export class RegistroComponent implements OnInit {
   }
 
   crear(){
+    console.log(this.Telefono)
       console.log(this.nuevo_arreglo)
+      this.nuevo_arreglo.telefono = this.Telefono
       this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
         next: (res) => {
           console.log(res);

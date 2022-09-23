@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { HistorialComponent } from './historial/historial.component';
     HistorialComponent
   ],
   imports: [
+    BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,

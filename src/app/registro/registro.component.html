@@ -7,15 +7,16 @@
     </h5>
   </div>
 
-  <form  >
+ 
     <!-- Name input -->
     <div class="form-outline mb-4">
       <input type="text"  class="form-control Nombre" value="{{nombre}}" readonly/>
       <label class="form-label bold" for="form5Example1" >Nombre Completo</label>
     </div>
+    
 
     <div class="form-outline mb-4 ">
-      <input required minlength="10" type="text"  class="form-control telefono"  />
+      <input required minlength="10" type="text" name="telefono" [(ngModel)]="Telefono"  class="form-control telefono"  />
       <label class="form-label" for="form5Example1">Telefono</label>
     </div>
 
@@ -27,7 +28,7 @@
 
     <!-- Submit button -->
     <button type="submit" class="btn btn-primary btn-block mb-4" (click)="crear()">Crear</button>
-  </form>
+  
 
 
 
