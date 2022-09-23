@@ -1,32 +1,53 @@
-
 <div>
   <div class="mensaje">
     <h1>Completa tu informacion</h1>
-    <h5>Cada vez mas cerca de acceder a los beneficios de MY WALLET para finalizar el registro y crear tu cuenta,
-      por favor diligencia la siguiente Informacion
+    <h5>
+      Cada vez mas cerca de acceder a los beneficios de MY WALLET para finalizar
+      el registro y crear tu cuenta, por favor diligencia la siguiente
+      Informacion
     </h5>
   </div>
 
-    <!-- Name input -->
-    <div class="form-outline mb-4">
-      <input type="text"  class="form-control Nombre" value="{{nombre}}" readonly/>
-      <label class="form-label bold" for="form5Example1" >Nombre Completo</label>
-    </div>
+  <!-- Name input -->
+  <div class="form-outline mb-4">
+    <input
+      type="text"
+      class="form-control Nombre"
+      value="{{ nombre }}"
+      readonly
+    />
+    <label class="form-label bold" for="form5Example1">Nombre Completo</label>
+  </div>
 
+  <div class="form-outline mb-4">
+    <input
+      required
+      minlength="10"
+      type="text"
+      name="telefono"
+      [(ngModel)]="Telefono"
+      class="form-control telefono"
+    />
+    <label class="form-label" for="form5Example1">Telefono</label>
+  </div>
 
-    <div class="form-outline mb-4 ">
-      <input required minlength="10" type="text" name="telefono" [(ngModel)]="Telefono"  class="form-control telefono"  />
-      <label class="form-label" for="form5Example1">Telefono</label>
-    </div>
+  <!-- Email input -->
+  <div class="form-outline mb-4">
+    <input
+      type="email"
+      id="form5Example2"
+      class="form-control email"
+      value="{{ email }}"
+    />
+    <label class="form-label" for="form5Example2">Email</label>
+  </div>
 
-    <!-- Email input -->
-    <div class="form-outline mb-4">
-      <input type="email" id="form5Example2" class="form-control email"  value="{{email}}" readonly/>
-      <label class="form-label" for="form5Example2">Email</label>
-    </div>
-
-    <!-- Submit button -->
-    <button type="submit" class="btn btn-primary btn-block mb-4" (click)="crear()">Crear</button>
-
+  <!-- Submit button -->
+  <button
+    type="submit"
+    class="btn btn-primary btn-block mb-4"
+    (click)="crear()"
+  >
+    Crear
+  </button>
 </div>
-
