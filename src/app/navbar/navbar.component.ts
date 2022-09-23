@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
         this.visible=false
       }
       }})
-    console.log(this.rout.snapshot.root)
+    //console.log(this.rout.snapshot.root)
 
   }
 

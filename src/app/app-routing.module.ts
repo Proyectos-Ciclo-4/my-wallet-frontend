@@ -8,7 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
-  {path:"registro",component:RegistroComponent},
+  {path:"registro",component:RegistroComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"home",component:HomeComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
 
 ];

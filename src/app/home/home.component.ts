@@ -33,7 +33,13 @@ export class HomeComponent implements OnInit {
 
           switch (event.type) {
 
-            case 'primer,evento':
+            case 'UsuarioDenegado':
+              this.router.navigate(['registro']);
+
+              break;
+
+            case 'Usuarioasignado':
+              this.router.navigate(['home']);
 
               break;
             }

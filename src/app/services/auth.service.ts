@@ -1,15 +1,29 @@
 import { Injectable } from '@angular/core';
 import {Auth, signInWithPopup, GoogleAuthProvider,signOut, User} from '@angular/fire/auth'
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private auth: Auth) { }
+  user!:User| null
+  constructor(private auth: Auth,private router:Router) {
+    this.auth.onAuthStateChanged(user=>(this.user = user));
+   }
 
 
   getMyUser(): User | null {
     return this.auth.currentUser;
+  }
+
+  usuarioLogueado():User{
+
+    if(this.user!== null){
+      return this.user
+    }
+
+    alert("Debes estar logueado puinche pendejo");
+    this.router.navigate(['/']);
+    return {}as User
   }
 
   loginWithGoogle(){
