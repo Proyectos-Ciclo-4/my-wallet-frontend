@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
@@ -10,6 +11,11 @@ import { WsService } from '../services/ws.service';
   styleUrls: ['./transaccion.component.scss'],
 })
 export class TransaccionComponent implements OnInit {
+
+  transferenciaIcon=faMoneyBillTransfer
+  contactosIcon= faAddressBook
+  historialIcon=faClockRotateLeft
+
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -22,7 +28,7 @@ export class TransaccionComponent implements OnInit {
   dinero: string = '';
 
   ngOnInit(): void {}
-  
+
   enviar_transaccion() {
     this.user.enviarTransaccion({
       telefono: this.telefono,
@@ -31,4 +37,14 @@ export class TransaccionComponent implements OnInit {
       dinero: this.dinero,
     });
   }
+
+  trasferenciasRoute() {
+    this.router.navigate(['/transaccion']);
+    }
+    contactoRoute() {
+      this.router.navigate(['/contacto']);
+      }
+    historialRoute() {
+      this.router.navigate(['/historial']);
+      }
 }

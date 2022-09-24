@@ -16,6 +16,11 @@ import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ContactoComponent } from './contacto/contacto.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -33,6 +38,7 @@ import { ContactoComponent } from './contacto/contacto.component';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    FontAwesomeModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())

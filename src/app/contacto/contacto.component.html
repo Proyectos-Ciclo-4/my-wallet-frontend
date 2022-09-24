@@ -1,15 +1,32 @@
-<div>
+<nav class="sidebar-navigation" >
+  <ul>
+    <li class="" (click)="trasferenciasRoute()">
+      <fa-icon [icon]="transferenciaIcon"></fa-icon>
+      <span src="" class="tooltip"  >Transacciones</span>
+    </li>
+    <li (click)="contactoRoute()">
+      <fa-icon [icon]="contactosIcon"></fa-icon>
+      <span class="tooltip">Contactos</span>
+    </li>
+    <li (click)="historialRoute()">
+      <fa-icon [icon]="historialIcon"></fa-icon>
+      <span class="tooltip">Historial</span>
+    </li>
+  </ul>
+</nav>
+
+<div class="cont">
     <div class="mensaje">
-      <h1>Realiza una transferencia</h1>
-  
+      <h1>Realiza transferencias a tus Contactos</h1>
+
       <h3>Datos de destinatario</h3>
-  
+
       <p>
         Puedes seleccionar un contacto, si no lo tienes en tu lista,diligencia el
         número de celular de destinatario o el correo electronico
       </p>
     </div>
-  
+
     <form>
       <div class="form-outline mb-4">
         <input
@@ -20,7 +37,7 @@
         />
         <label class="form-label" for="form5Example1 ">Telefono</label>
       </div>
-  
+
       <div class="form-outline mb-4">
         <input
           type="email"
@@ -30,8 +47,8 @@
         />
         <label class="form-label" for="form5Example2">Email</label>
       </div>
-     
-  
+
+
       <button
         type="submit"
         class="btn btn-primary btn-block mb-4"
@@ -41,4 +58,4 @@
       </button>
     </form>
   </div>
-  
+

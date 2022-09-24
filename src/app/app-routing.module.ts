@@ -12,10 +12,11 @@ import { ContactoComponent } from './contacto/contacto.component';
 const routes: Routes = [
   {path:"",component:LoginComponent},
   {path:"registro",component:RegistroComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
+  {path:"home",component:HomeComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"transaccion",component:TransaccionComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"historial",component:HistorialComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"contacto",component:ContactoComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"home",component:HomeComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
+
 
 ];
 //{path:"nav",component:NavbarComponent},

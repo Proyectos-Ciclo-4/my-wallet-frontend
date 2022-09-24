@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { NgForm } from '@angular/forms';
 import { WsService } from '../services/ws.service';
+import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-registro',
@@ -21,6 +22,9 @@ export class RegistroComponent implements OnInit {
   nuevo_arreglo: any;
   telefono!: string | null;
   Telefono: string = '';
+  transferenciaIcon=faMoneyBillTransfer
+  contactosIcon= faAddressBook
+  historialIcon=faClockRotateLeft
 
   constructor(
     private auth: AuthService,

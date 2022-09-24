@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { WsService } from '../services/ws.service';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { UserService } from '../services/user.service';
+import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +15,9 @@ export class HomeComponent implements OnInit {
   private userId!: string;
   public userName!: string;
   saldo: number = 0;
+  transferenciaIcon=faMoneyBillTransfer
+  contactosIcon= faAddressBook
+  historialIcon=faClockRotateLeft
 
   constructor(
     private auth: AuthService,
@@ -56,4 +59,15 @@ export class HomeComponent implements OnInit {
         },
       });
   }
+
+  trasferenciasRoute() {
+  this.router.navigate(['/transaccion']);
+  }
+  contactoRoute() {
+    this.router.navigate(['/contacto']);
+    }
+  historialRoute() {
+    this.router.navigate(['/historial']);
+    }
+
 }
