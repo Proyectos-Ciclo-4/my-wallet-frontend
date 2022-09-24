@@ -7,12 +7,14 @@ import { RegistroComponent } from './registro/registro.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
+import { ContactoComponent } from './contacto/contacto.component';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
   {path:"registro",component:RegistroComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"transaccion",component:TransaccionComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"historial",component:HistorialComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
+  {path:"contacto",component:ContactoComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"home",component:HomeComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
 
 ];

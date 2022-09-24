@@ -51,6 +51,10 @@ export class UserService {
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
   enviarTransaccion(body: any) {
-    return this.http.post(`${this.URL_HTTP}/new/wallet`, { ...body });
+    return this.http.post(`${this.URL_HTTP}/new/transfer`, { ...body });
+  }
+  
+  peticion_crear_contacto(body: any) {
+    return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
   }
 }
