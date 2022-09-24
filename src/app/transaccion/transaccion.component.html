@@ -11,24 +11,24 @@
   <form>
 
       <div class="form-outline mb-4 ">
-        <input type="text" id="Nombre" class="form-control" />
-        <label class="form-label" for="form5Example1">Telefono</label>
+        <input type="text" id="Nombre" [(ngModel)]="telefono" class="form-control" />
+        <label class="form-label" for="form5Example1 " >Telefono</label>
       </div>
 
       <div class="form-outline mb-4">
-        <input type="email" id="form5Example2" class="form-control" />
-        <label class="form-label" for="form5Example2">Email</label>
+        <input type="email" id="form5Example2" [(ngModel)]="email" class="form-control" />
+        <label class="form-label" for="form5Example2" >Email</label>
       </div>
       <div class="form-outline mb-4">
-          <input type="text" id="form5Example3" class="form-control" />
-          <label class="form-label" for="form5Example2">Valor a enviar $ USD</label>
+          <input type="text" id="form5Example3" [(ngModel)]="dinero" class="form-control" />
+          <label class="form-label" for="form5Example2" >Valor a enviar $ USD</label>
         </div>
         <div class="form-outline mb-4">
           <input type="text" id="form5Example4" class="form-control" />
-          <label class="form-label" for="form5Example2">Motivo de transferencia</label>
+          <label class="form-label" for="form5Example2" [(ngModel)]="motivo">Motivo de transferencia</label>
         </div>
 
-      <button type="submit" class="btn btn-primary btn-block mb-4">Transferir</button>
+      <button type="submit" class="btn btn-primary btn-block mb-4"  >Transferir</button>
     </form>
 
 
