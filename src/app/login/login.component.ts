@@ -25,13 +25,14 @@ export class LoginComponent implements OnInit {
 
   onClick() {
     this.auth.loginWithGoogle().then((response) => {
-      console.log(response.user.displayName);
+      console.log(response);
 
       this.nuevo_arreglo = {
         nombre: response.user.displayName,
         email: response.user.email,
         telefono: response.user.phoneNumber,
         id: response.user.uid,
+        
       };
       console.log(this.nuevo_arreglo);
       this.verificacion(this.nuevo_arreglo);

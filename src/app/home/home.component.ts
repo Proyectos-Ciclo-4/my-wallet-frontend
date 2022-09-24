@@ -14,7 +14,9 @@ import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer } from '@fortawes
 export class HomeComponent implements OnInit {
   private userId!: string;
   public userName!: string;
+  public foto!: any;
   saldo: number = 0;
+  
   transferenciaIcon=faMoneyBillTransfer
   contactosIcon= faAddressBook
   historialIcon=faClockRotateLeft
@@ -28,12 +30,17 @@ export class HomeComponent implements OnInit {
   ) {
     this.userId = this.auth.getMyUser()?.uid!;
     this.userName = this.auth.getMyUser()?.displayName!;
+    this.foto= this.auth.user?.photoURL
+    console.log(this.foto)
   }
 
   ngOnInit() {
     this.user
       .getWallet(this.userId)
-      .subscribe((wallet) => (this.saldo = wallet.saldo));
+      .subscribe((wallet) => (this.saldo = wallet.saldo
+        
+        
+        ));
 
     this.activatedRoute.params
       .pipe(

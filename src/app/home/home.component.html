@@ -1,23 +1,27 @@
+<nav class="sidebar-navigation" >
+  <ul>
+    <li class="" (click)="trasferenciasRoute()">
+      <span src="" class="tooltip"  >Transacciones</span>
+    </li>
+    <li (click)="contactoRoute()">
+
+      <span class="tooltip">Contactos</span>
+    </li>
+    <li (click)="historialRoute()">
+
+      <span class="tooltip">Historial</span>
+    </li>
+  </ul>
+</nav>
+
 <div class="content">
 
-  <nav class="sidebar-navigation" >
-    <ul>
-      <li class="" (click)="trasferenciasRoute()">
-        <span src="" class="tooltip"  >Transacciones</span>
-      </li>
-      <li (click)="contactoRoute()">
-
-        <span class="tooltip">Contactos</span>
-      </li>
-      <li (click)="historialRoute()">
-
-        <span class="tooltip">Historial</span>
-      </li>
-    </ul>
-  </nav>
-
+  
   <div class="mensaje">
     <h1>Hola {{ userName }}!</h1>
+    <img src="{{foto}}" alt="" srcset=""> 
+    <!-- <img src="foto" alt="" sizes="" srcset=""> -->
+    
     <h3>Tu saldo actual es: {{ saldo }}</h3>
   </div>
   <div>
