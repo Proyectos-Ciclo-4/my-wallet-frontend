@@ -7,22 +7,28 @@ import { WsService } from '../services/ws.service';
 @Component({
   selector: 'app-transaccion',
   templateUrl: './transaccion.component.html',
-  styleUrls: ['./transaccion.component.scss']
+  styleUrls: ['./transaccion.component.scss'],
 })
 export class TransaccionComponent implements OnInit {
-
   constructor(
     private auth: AuthService,
     private router: Router,
     private user: UserService,
     private webSocket: WsService
-  ) { }
-  telefono: string = ''
-  email: string = ''
-  motivo: string = ''
-  dinero: string = ''
+  ) {}
+  telefono: string = '';
+  email: string = '';
+  motivo: string = '';
+  dinero: string = '';
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  
+  enviar_transaccion() {
+    this.user.enviarTransaccion({
+      telefono: this.telefono,
+      email: this.email,
+      motivo: this.motivo,
+      dinero: this.dinero,
+    });
   }
-
 }

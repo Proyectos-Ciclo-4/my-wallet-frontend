@@ -50,4 +50,7 @@ export class UserService {
   getWallet(userId: string) {
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
+  enviarTransaccion(body: any) {
+    return this.http.post(`${this.URL_HTTP}/new/wallet`, { ...body });
+  }
 }
