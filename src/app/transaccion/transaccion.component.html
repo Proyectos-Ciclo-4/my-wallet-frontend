@@ -68,7 +68,21 @@
 
     <button
       type="submit"
-      class="btn btn-primary btn-block mb-4"
+      class="btnalert btn-primary btn-block mb-4"
+      (click)="alertaError()"
+    >
+      alertaError
+    </button>
+      <button
+      type="submit"
+      class="btninfo btn-primary btn-block mb-4"
+      (click)="alertaVerif()"
+    >
+      alertaverif
+    </button>
+      <button
+      type="submit"
+      class="btnTransfer btn-primary btn-block mb-4"
       (click)="enviar_transaccion()"
     >
       Transferir

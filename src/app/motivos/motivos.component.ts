@@ -29,14 +29,6 @@ export class MotivosComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  enviar_transaccion() {
-    this.user.enviarTransaccion({
-      telefono: this.telefono,
-      email: this.email,
-      motivo: this.motivo,
-      dinero: this.dinero,
-    });
-  }
 
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);

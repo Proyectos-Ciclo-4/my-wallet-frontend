@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
@@ -51,4 +52,19 @@ export class TransaccionComponent implements OnInit {
     motivosRoute() {
       this.router.navigate(['/motivos']);
       }
+
+    alertaError(){
+      Swal.fire(
+        'error',
+        'No se pudo realizar la transferencia, por favor revise los datos ingresados e intente nuevamente',
+        'warning'
+      )
+    }
+    alertaVerif(){
+      Swal.fire(
+        'Verifica tu transferencia',
+        'Valor a enviar USD: 50 Destinatario: josefer1472@gmail.com Motivo de transferencia: Diversion',
+        'info'
+        )
+    }
 }
