@@ -59,6 +59,6 @@ export class UserService {
   }
 
   obtener_contacto(telefono: string) {
-    return this.http.get(`${this.URL_HTTP}/wallet/${telefono}`);
+    return this.http.get(`${this.URL_HTTP}/walletByTelefono/${telefono}`);
   }
 }
