@@ -7,7 +7,11 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { NgForm } from '@angular/forms';
 import { WsService } from '../services/ws.service';
-import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAddressBook,
+  faClockRotateLeft,
+  faMoneyBillTransfer,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-registro',
@@ -22,9 +26,9 @@ export class RegistroComponent implements OnInit {
   nuevo_arreglo: any;
   telefono!: string | null;
   Telefono: string = '';
-  transferenciaIcon=faMoneyBillTransfer
-  contactosIcon= faAddressBook
-  historialIcon=faClockRotateLeft
+  transferenciaIcon = faMoneyBillTransfer;
+  contactosIcon = faAddressBook;
+  historialIcon = faClockRotateLeft;
 
   constructor(
     private auth: AuthService,
@@ -35,6 +39,7 @@ export class RegistroComponent implements OnInit {
   //this.nombre = this.auth.getMyUser()?.displayName!;this.email=this.auth.getMyUser()?.email!
 
   ngOnInit(): void {
+    this.checkWallet();
     this.autoComplete();
     this.resp = this.auth.usuarioLogueado();
 
@@ -45,6 +50,14 @@ export class RegistroComponent implements OnInit {
       telefono: this.Telefono,
       usuarioID: this.resp.uid,
     };
+  }
+
+  checkWallet() {
+    this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((wallet) => {
+      if (wallet) {
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
   connectToWs(id: string) {

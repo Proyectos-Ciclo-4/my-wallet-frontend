@@ -53,8 +53,12 @@ export class UserService {
   enviarTransaccion(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/transfer`, { ...body });
   }
-  
+
   peticion_crear_contacto(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
+  }
+
+  obtener_contacto(telefono: string) {
+    return this.http.get(`${this.URL_HTTP}/wallet/${telefono}`);
   }
 }

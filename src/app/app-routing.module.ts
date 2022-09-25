@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import {
+  canActivate,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/auth-guard';
 import { RegistroComponent } from './registro/registro.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
@@ -11,19 +15,45 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { MotivosComponent } from './motivos/motivos.component';
 
 const routes: Routes = [
-  {path:"",component:LoginComponent},
-  {path:"registro",component:RegistroComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"home",component:HomeComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"transaccion",component:TransaccionComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"motivos",component:MotivosComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"historial",component:HistorialComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-  {path:"contacto",component:ContactoComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
-
-
+  {
+    path: '',
+    component: LoginComponent,
+    ...canActivate(() => redirectLoggedInTo(['home'])),
+  },
+  {
+    path: 'registro',
+    component: RegistroComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: 'transaccion',
+    component: TransaccionComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: 'motivos',
+    component: MotivosComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: 'historial',
+    component: HistorialComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: 'contacto',
+    component: ContactoComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
 ];
 //{path:"nav",component:NavbarComponent},
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

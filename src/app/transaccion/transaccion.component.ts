@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAddressBook,
+  faClockRotateLeft,
+  faMoneyBillTransfer,
+  faMoneyCheck,
+} from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -12,11 +17,10 @@ import { WsService } from '../services/ws.service';
   styleUrls: ['./transaccion.component.scss'],
 })
 export class TransaccionComponent implements OnInit {
-
-  transferenciaIcon=faMoneyBillTransfer
-  contactosIcon= faAddressBook
-  historialIcon=faClockRotateLeft
-  motivosIcon=faMoneyCheck
+  transferenciaIcon = faMoneyBillTransfer;
+  contactosIcon = faAddressBook;
+  historialIcon = faClockRotateLeft;
+  motivosIcon = faMoneyCheck;
 
   constructor(
     private auth: AuthService,
@@ -32,6 +36,18 @@ export class TransaccionComponent implements OnInit {
   ngOnInit(): void {}
 
   enviar_transaccion() {
+    this.user.obtener_contacto(this.telefono).subscribe((data) => {
+      console.log(data);
+      if (data) {
+        this.alertaVerif();
+        // this.verificarDestinatario();
+      } else {
+        this.alertaError();
+      }
+    });
+  }
+
+  verificarDestinatario() {
     this.user.enviarTransaccion({
       telefono: this.telefono,
       email: this.email,
@@ -40,31 +56,38 @@ export class TransaccionComponent implements OnInit {
     });
   }
 
+  //   {
+  //   "walletOrigen": "1",
+  //   "walletDestino": "2",
+  //   "valor": 17.0,
+  //   "motivo": "Pago de servicios"
+  // }
+
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);
-    }
-    contactoRoute() {
-      this.router.navigate(['/contacto']);
-      }
-    historialRoute() {
-      this.router.navigate(['/historial']);
-      }
-    motivosRoute() {
-      this.router.navigate(['/motivos']);
-      }
+  }
+  contactoRoute() {
+    this.router.navigate(['/contacto']);
+  }
+  historialRoute() {
+    this.router.navigate(['/historial']);
+  }
+  motivosRoute() {
+    this.router.navigate(['/motivos']);
+  }
 
-    alertaError(){
-      Swal.fire(
-        'error',
-        'No se pudo realizar la transferencia, por favor revise los datos ingresados e intente nuevamente',
-        'warning'
-      )
-    }
-    alertaVerif(){
-      Swal.fire(
-        'Verifica tu transferencia',
-        'Valor a enviar USD: 50 Destinatario: josefer1472@gmail.com Motivo de transferencia: Diversion',
-        'info'
-        )
-    }
+  alertaError() {
+    Swal.fire(
+      'error',
+      'No se pudo realizar la transferencia, por favor revise los datos ingresados e intente nuevamente',
+      'warning'
+    );
+  }
+  alertaVerif() {
+    Swal.fire(
+      'Verifica tu transferencia',
+      'Valor a enviar USD: 50 Destinatario: josefer1472@gmail.com Motivo de transferencia: Diversion',
+      'info'
+    );
+  }
 }
