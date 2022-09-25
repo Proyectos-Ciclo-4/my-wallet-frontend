@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Usuario } from '../models/Usuario.model';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
+// import 'sweetalert2/*/sweetalert2.scss'
 
 @Component({
   selector: 'app-Login',
@@ -24,6 +26,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   onClick() {
+    Swal.fire(
+      'Good job!',
+      'You clicked the button!',
+      'success'
+    )
     this.auth.loginWithGoogle().then((response) => {
       console.log(response);
 
