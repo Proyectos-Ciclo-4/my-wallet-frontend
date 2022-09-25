@@ -30,62 +30,61 @@
     </p>
   </div>
 
+  <div class="form-outline mb-4">
+    <input
+      type="text"
+      id="Nombre"
+      [(ngModel)]="telefono"
+      class="form-control"
+    />
+    <label class="form-label" for="form5Example1 ">Telefono</label>
+  </div>
 
-    <div class="form-outline mb-4">
-      <input
-        type="text"
-        id="Nombre"
-        [(ngModel)]="telefono"
-        class="form-control"
-      />
-      <label class="form-label" for="form5Example1 ">Telefono</label>
-    </div>
-
-    <div class="form-outline mb-4">
-      <input
-        type="email"
-        id="form5Example2"
-        [(ngModel)]="email"
-        class="form-control"
-      />
-      <label class="form-label" for="form5Example2">Email</label>
-    </div>
-    <div class="form-outline mb-4">
-      <input
-        type="text"
-        id="form5Example3"
-        [(ngModel)]="dinero"
-        class="form-control"
-      />
-      <label class="form-label" for="form5Example2">Valor a enviar $ USD</label>
-    </div>
-    <div class="form-outline mb-4">
-      <input type="text" id="form5Example4" class="form-control" />
-      <label class="form-label" for="form5Example2" [(ngModel)]="motivo"
-        >Motivo de transferencia</label
-      >
-    </div>
-
-    <button
-      type="submit"
-      class="btnalert btn-primary btn-block mb-4"
-      (click)="alertaError()"
+  <div class="form-outline mb-4">
+    <input
+      type="email"
+      id="form5Example2"
+      [(ngModel)]="email"
+      class="form-control"
+    />
+    <label class="form-label" for="form5Example2">Email</label>
+  </div>
+  <div class="form-outline mb-4">
+    <input
+      type="number"
+      step="any"
+      id="form5Example3"
+      [(ngModel)]="dinero"
+      class="form-control"
+    />
+    <label class="form-label" for="form5Example2">Valor a enviar $ USD</label>
+  </div>
+  <div class="form-outline mb-4">
+    <input type="text" id="form5Example4" class="form-control" />
+    <label class="form-label" for="form5Example2" [(ngModel)]="motivo"
+      >Motivo de transferencia</label
     >
-      alertaError
-    </button>
-      <button
-      type="submit"
-      class="btninfo btn-primary btn-block mb-4"
-      (click)="alertaVerif()"
-    >
-      alertaverif
-    </button>
-      <button
-      type="submit"
-      class="btnTransfer btn-primary btn-block mb-4"
-      (click)="enviar_transaccion()"
-    >
-      Transferir
-    </button>
+  </div>
 
+  <button
+    type="submit"
+    class="btnalert btn-primary btn-block mb-4"
+    (click)="alertaError()"
+  >
+    alertaError
+  </button>
+  <button
+    type="submit"
+    class="btninfo btn-primary btn-block mb-4"
+    (click)="alertaVerif()"
+  >
+    alertaverif
+  </button>
+  <button
+    type="submit"
+    class="btnTransfer btn-primary btn-block mb-4"
+    (click)="enviar_transaccion()"
+  >
+    Transferir
+  </button>
 </div>

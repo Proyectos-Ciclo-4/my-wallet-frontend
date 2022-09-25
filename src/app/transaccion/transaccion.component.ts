@@ -7,6 +7,8 @@ import {
   faMoneyCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { Usuario } from '../models/usuario-backend.model';
+import { AlertsService } from '../services/alerts.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
@@ -26,36 +28,51 @@ export class TransaccionComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private user: UserService,
-    private webSocket: WsService
+    private webSocket: WsService,
+    private alertsService: AlertsService
   ) {}
+
   telefono: string = '';
   email: string = '';
   motivo: string = '';
-  dinero: string = '';
+  dinero: number = 0;
 
   ngOnInit(): void {}
 
   enviar_transaccion() {
     this.user.obtener_contacto(this.telefono).subscribe((data) => {
-      console.log(data);
       if (data) {
-        this.alertaVerif();
-        // this.verificarDestinatario();
+        this.alertsService.confirm({
+          title: '¿Desea realizar la transferencia?',
+          text: `Valor a enviar USD: ${this.dinero} Destinatario: ${data.email} Motivo de transferencia: ${this.motivo}`,
+          bodyDeConfirmacion: 'Transferencia realizada con exito',
+          tituloDeConfirmacion: 'Transferencia realizada',
+          bodyDelCancel: 'No se pudo realizar la transferencia',
+          tituloDelCancel: 'Error',
+          callback: () => {
+            this.enviarTransferencia(data).subscribe(console.log);
+          },
+        });
       } else {
         this.alertaError();
       }
     });
   }
 
-  verificarDestinatario() {
-    this.user.enviarTransaccion({
-      telefono: this.telefono,
-      email: this.email,
+  enviarTransferencia(data: Usuario) {
+    const { usuarioId } = data;
+    return this.user.enviarTransaccion({
+      walletDestino: usuarioId,
+      walletOrigen: this.auth.usuarioLogueado().uid,
       motivo: this.motivo,
-      dinero: this.dinero,
+      valor: this.dinero,
     });
   }
 
+  // telefono: this.telefono,
+  // email: this.email,
+  // motivo: this.motivo,
+  // dinero: this.dinero,
   //   {
   //   "walletOrigen": "1",
   //   "walletDestino": "2",

@@ -9,8 +9,10 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/Usuario.model';
+import { Usuario as UsuarioBack } from '../models/usuario-backend.model';
 import { HttpClient } from '@angular/common/http';
 import { Wallet } from '../models/wallet.model';
+import { Transferencia } from '../models/transferencia.model';
 
 @Injectable({
   providedIn: 'root',
@@ -50,8 +52,8 @@ export class UserService {
   getWallet(userId: string) {
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
-  enviarTransaccion(body: any) {
-    return this.http.post(`${this.URL_HTTP}/new/transfer`, { ...body });
+  enviarTransaccion(body: Transferencia) {
+    return this.http.post(`${this.URL_HTTP}/new/transaction/`, { ...body });
   }
 
   peticion_crear_contacto(body: any) {
@@ -59,6 +61,8 @@ export class UserService {
   }
 
   obtener_contacto(telefono: string) {
-    return this.http.get(`${this.URL_HTTP}/walletByTelefono/${telefono}`);
+    return this.http.get<UsuarioBack>(
+      `${this.URL_HTTP}/walletByTelefono/${telefono}`
+    );
   }
 }
