@@ -17,6 +17,7 @@ import { HistorialComponent } from './historial/historial.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ContactoComponent } from './contacto/contacto.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MotivosComponent } from './motivos/motivos.component';
 
 
 
@@ -31,7 +32,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NavbarComponent,
     TransaccionComponent,
     HistorialComponent,
-    ContactoComponent
+    ContactoComponent,
+    MotivosComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule,

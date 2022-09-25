@@ -8,12 +8,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
 import { ContactoComponent } from './contacto/contacto.component';
+import { MotivosComponent } from './motivos/motivos.component';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
   {path:"registro",component:RegistroComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"home",component:HomeComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"transaccion",component:TransaccionComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
+  {path:"motivos",component:MotivosComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"historial",component:HistorialComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
   {path:"contacto",component:ContactoComponent, ...canActivate(()=> redirectUnauthorizedTo(['']))},
 
