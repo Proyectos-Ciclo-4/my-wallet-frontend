@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faMoneyBillTransfer, faAddressBook, faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyBillTransfer, faAddressBook, faClockRotateLeft, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -13,6 +13,7 @@ export class HistorialComponent implements OnInit {
   transferenciaIcon=faMoneyBillTransfer
   contactosIcon= faAddressBook
   historialIcon=faClockRotateLeft
+  motivosIcon=faMoneyCheck
 
   constructor(private router:Router) { }
 
@@ -27,6 +28,9 @@ export class HistorialComponent implements OnInit {
       }
     historialRoute() {
       this.router.navigate(['/historial']);
+      }
+    motivosRoute() {
+      this.router.navigate(['/motivos']);
       }
 
 }

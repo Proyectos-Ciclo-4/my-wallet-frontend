@@ -4,7 +4,7 @@ import { switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { WsService } from '../services/ws.service';
 import { UserService } from '../services/user.service';
-import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +16,11 @@ export class HomeComponent implements OnInit {
   public userName!: string;
   public foto!: any;
   saldo: number = 0;
-  
+
   transferenciaIcon=faMoneyBillTransfer
   contactosIcon= faAddressBook
   historialIcon=faClockRotateLeft
+  motivosIcon=faMoneyCheck
 
   constructor(
     private auth: AuthService,
@@ -38,8 +39,8 @@ export class HomeComponent implements OnInit {
     this.user
       .getWallet(this.userId)
       .subscribe((wallet) => (this.saldo = wallet.saldo
-        
-        
+
+
         ));
 
     this.activatedRoute.params
@@ -76,5 +77,8 @@ export class HomeComponent implements OnInit {
   historialRoute() {
     this.router.navigate(['/historial']);
     }
+    motivosRoute() {
+      this.router.navigate(['/motivos']);
+      }
 
 }

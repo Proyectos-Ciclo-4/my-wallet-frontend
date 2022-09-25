@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
@@ -15,6 +15,7 @@ export class ContactoComponent implements OnInit {
   transferenciaIcon=faMoneyBillTransfer
   contactosIcon= faAddressBook
   historialIcon=faClockRotateLeft
+  motivosIcon=faMoneyCheck
 
   constructor(
     private auth: AuthService,
@@ -42,6 +43,9 @@ export class ContactoComponent implements OnInit {
       }
     historialRoute() {
       this.router.navigate(['/historial']);
+      }
+    motivosRoute() {
+      this.router.navigate(['/motivos']);
       }
 }
 
