@@ -32,6 +32,30 @@ export class MotivosComponent implements OnInit {
   motivo: string = '';
   dinero: string = '';
   motivo_color: string = '';
+  motivosLista : any = [
+    {motivo: "diversion",
+    motivo_color: "#FBD871"
+  },
+  {motivo: "prueba",
+    motivo_color: "#A0D1CA"
+  },
+  {motivo: "prueba",
+    motivo_color: "#A0D1CA"
+  },
+  {motivo: "prueba",
+    motivo_color: "#A0D1CA"
+  },
+  {motivo: "prueba",
+    motivo_color: "#A0D1CA"
+  },
+  {motivo: "prueba",
+    motivo_color: "#A0D1CA"
+  },
+  {motivo: "prueba",
+    motivo_color: "#A0D1CA"
+  },
+  ]
+   
 
   OnClick() {
     if (this.motivo == '') {
