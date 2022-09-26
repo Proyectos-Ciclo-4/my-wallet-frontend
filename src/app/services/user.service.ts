@@ -86,4 +86,7 @@ export class UserService {
       `${this.URL_HTTP}/walletByTelefono/${telefono}`
     );
   }
+  peticion_crear_motivo(body: any) {
+    return this.http.post(`${this.URL_HTTP}/new/motivo`, { ...body });
+  }
 }
