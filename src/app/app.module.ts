@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ContactoComponent } from './contacto/contacto.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MotivosComponent } from './motivos/motivos.component';
+import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
 
 
 
@@ -33,7 +34,8 @@ import { MotivosComponent } from './motivos/motivos.component';
     TransaccionComponent,
     HistorialComponent,
     ContactoComponent,
-    MotivosComponent
+    MotivosComponent,
+    MisGastosComponent
   ],
   imports: [
     BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule,
