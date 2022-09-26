@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -10,6 +10,7 @@ import {
   faMoneyBillTransfer,
   faMoneyCheck,
 } from '@fortawesome/free-solid-svg-icons';
+import { Wallet } from '../models/wallet.model';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,14 @@ export class HomeComponent implements OnInit {
   private userId!: string;
   public userName!: string;
   public foto!: any;
-  saldo: number = 0;
+  wallet!: Wallet;
+  historial: any = [
+    {
+      valor: 0,
+      fecha: { date: '2022/08/12' },
+      hora: '12:00',
+    },
+  ];
 
   transferenciaIcon = faMoneyBillTransfer;
   contactosIcon = faAddressBook;
@@ -37,13 +45,12 @@ export class HomeComponent implements OnInit {
     this.userId = this.auth.getMyUser()?.uid!;
     this.userName = this.auth.getMyUser()?.displayName!;
     this.foto = this.auth.user?.photoURL;
-    console.log(this.foto);
   }
 
   ngOnInit() {
     this.user
       .getWallet(this.userId)
-      .subscribe((wallet) => (this.saldo = wallet.saldo));
+      .subscribe((wallet) => (this.wallet = wallet));
 
     this.activatedRoute.params
       .pipe(
@@ -68,22 +75,6 @@ export class HomeComponent implements OnInit {
           }
         },
       });
-  }
-
-  trasferenciasRoute() {
-    this.router.navigate(['/transaccion']);
-  }
-
-  contactoRoute() {
-    this.router.navigate(['/contacto']);
-  }
-
-  historialRoute() {
-    this.router.navigate(['/historial']);
-  }
-
-  motivosRoute() {
-    this.router.navigate(['/motivos']);
   }
 
   logout() {

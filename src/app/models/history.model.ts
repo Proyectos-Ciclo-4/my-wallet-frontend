@@ -13,7 +13,7 @@ export interface Transaction {
 }
 
 export interface Fecha {
-  $date: DateClass;
+  date: string;
 }
 
 export interface Motivo {

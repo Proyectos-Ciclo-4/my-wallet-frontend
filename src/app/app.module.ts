@@ -22,6 +22,8 @@ import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
 import { CalendarModule } from 'primeng/calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartModule } from 'primeng/chart';
+import { HomeComponent } from './home/home.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { ChartModule } from 'primeng/chart';
     RegistroComponent,
     FooterComponent,
     HeaderComponent,
+    HomeComponent,
     NavbarComponent,
     TransaccionComponent,
     HistorialComponent,
@@ -51,6 +54,7 @@ import { ChartModule } from 'primeng/chart';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     CalendarModule,
+    TableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
