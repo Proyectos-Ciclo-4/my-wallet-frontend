@@ -194,3 +194,96 @@ button{
 }
 
 
+
+.impresion-motivos-hijo p {
+	padding: 10px;
+	
+}
+.contenedor_padre{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+
+}
+.contenedor_hijo{display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+	margin:10px;
+}
+.impresion-motivos-hijo{
+	display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+}
+.boton-contenedor{
+	display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@media (max-width: 768px) {
+	.sidebar-navigation{
+		min-height: 120vh;;
+	}
+	.impresion-motivos-hijo p {
+		padding: 10px;
+		
+	}
+	h1{
+		 
+			
+			padding-left: 30px;
+	}
+	
+	.contenedor_padre{
+	display: flex;
+    flex-wrap: wrap;
+    
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+	}	
+	h2{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		align-content: space-between;
+		justify-content: space-evenly;
+		align-items: baseline;
+		margin: 10px;
+
+	}
+	
+	.contenedor_hijo{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		
+		align-items: center;
+		padding: auto;
+		margin: 10px;
+	}
+	
+	.impresion-motivos-hijo{
+		padding: 1px;
+		margin: auto;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-content: space-between;
+		justify-content: center;
+	
+	}
+	.boton-contenedor{
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
+
+};
