@@ -1,15 +1,33 @@
 <div class="d-flex flex-column justify-content-between p-2 container">
   <h1 class="mb-3">Mis gastos</h1>
-  <div class="gastos-body align-self-start">
+  <div class="gastos-body mb-2 align-self-start">
     Con esta funcionalidad queremos que tengas informacion clara y disponible
     para que hagas una mejor distribucion de tu dinero. Seleciona el rango de
     fecha para el cual quieres visualizar tus gastos por motivo de
     transferencia.
   </div>
 
-  <form class="fechas align-self-end">
-    <div>
-      Desde :<span>21039/12039/123</span> hasta: <span>12-039/12313/123</span>
+  <form
+    [formGroup]="form"
+    class="fechas justify-self-center mt-1 mb-1 align-self-center"
+  >
+    <div class="mb-2 fromDateContainer">
+      <label for="fromDatePicker">Desde</label>
+      <p-calendar
+        id="fromDatePicker"
+        formControlName="from"
+        [(ngModel)]="from"
+      ></p-calendar>
+    </div>
+
+    <div class="untilDateContainer">
+      <label for="untilDatePicker">Hasta</label>
+      <p-calendar
+        id="untilDatePicker"
+        [inline]="false"
+        formControlName="until"
+        [(ngModel)]="until"
+      ></p-calendar>
     </div>
   </form>
 
