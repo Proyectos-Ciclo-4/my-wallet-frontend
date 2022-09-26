@@ -26,11 +26,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   onClick() {
-    Swal.fire(
-      'Good job!',
-      'You clicked the button!',
-      'success'
-    )
     this.auth.loginWithGoogle().then((response) => {
       console.log(response);
 
@@ -39,11 +34,12 @@ export class LoginComponent implements OnInit {
         email: response.user.email,
         telefono: response.user.phoneNumber,
         id: response.user.uid,
-        
+
       };
       console.log(this.nuevo_arreglo);
       this.verificacion(this.nuevo_arreglo);
       this.dataResponse = response;
+      this.router.navigate(['home']);
     });
   }
 
