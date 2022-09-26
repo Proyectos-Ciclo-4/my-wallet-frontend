@@ -55,13 +55,13 @@
       <h4>Tendencia actual</h4>
       <div class="sube">
         <i class="pi pi-angle-double-up"></i>
-        <i style="color: #1eb4e1" class="pi pi-circle-fill"></i>
-        <span class="ms-1">Sube</span>
+        <i [style]="mostExpensive" class="pi pi-circle-fill"></i>
+        <span class="ms-1">{{ mostExpensive.description }}</span>
       </div>
       <div class="baja">
         <i class="pi pi-angle-double-down"></i>
-        <i style="color: #6de58d" class="pi pi-circle-fill"></i>
-        <span class="ms-1">Baja</span>
+        <i [style]="cheapest" class="pi pi-circle-fill"></i>
+        <span class="ms-1">{{ cheapest.description }}</span>
       </div>
     </div>
   </div>

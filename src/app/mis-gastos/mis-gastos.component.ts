@@ -20,6 +20,8 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   from: Date = new Date();
   until: Date = new Date();
   form!: FormGroup;
+  mostExpensive = { color: '#f45g56', description: 'Test' };
+  cheapest = { color: '#fff192', description: 'Test' };
 
   constructor(
     private configService: ChartConfigService,
@@ -77,9 +79,21 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   sendForm() {
-    // this.userService.getHistory(this.form.value).subscribe((data) => {});
-    // console.log(this.form.value);
     const result = this.userService.getHistory(this.form.value);
+    const sortedResult = result.sort((a, b) => b.valor - a.valor);
+    const expensive = sortedResult[0];
+    const cheapest = sortedResult[sortedResult.length - 1];
+
+    this.mostExpensive = {
+      color: `${expensive.motivo.color}`,
+      description: expensive.motivo.descripcion,
+    };
+
+    this.cheapest = {
+      color: `${cheapest.motivo.color}`,
+      description: cheapest.motivo.descripcion,
+    };
+
     const mappedTransactions = this.transformHistoryInDataSets(result);
     this.data = this.getData(mappedTransactions);
   }
