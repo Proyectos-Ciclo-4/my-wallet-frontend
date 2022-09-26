@@ -6,6 +6,8 @@ import { ChartConfigService } from '../services/chart-config.service';
 import { Gastos } from '../models/gastos.model';
 import { UserService } from '../services/user.service';
 import { Transaction } from '../models/history.model';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mis-gastos',
@@ -25,7 +27,9 @@ export class MisGastosComponent implements OnInit, OnDestroy {
 
   constructor(
     private configService: ChartConfigService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private auth: AuthService
   ) {
     this.setAvailableDates();
     this.buildForm();
@@ -133,5 +137,10 @@ export class MisGastosComponent implements OnInit, OnDestroy {
         },
       },
     };
+  }
+
+  logout() {
+    this.router.navigate(['']);
+    this.auth.logout();
   }
 }

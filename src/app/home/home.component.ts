@@ -4,7 +4,12 @@ import { switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { WsService } from '../services/ws.service';
 import { UserService } from '../services/user.service';
-import { faAddressBook, faClockRotateLeft, faMoneyBillTransfer, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAddressBook,
+  faClockRotateLeft,
+  faMoneyBillTransfer,
+  faMoneyCheck,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +22,10 @@ export class HomeComponent implements OnInit {
   public foto!: any;
   saldo: number = 0;
 
-  transferenciaIcon=faMoneyBillTransfer
-  contactosIcon= faAddressBook
-  historialIcon=faClockRotateLeft
-  motivosIcon=faMoneyCheck
+  transferenciaIcon = faMoneyBillTransfer;
+  contactosIcon = faAddressBook;
+  historialIcon = faClockRotateLeft;
+  motivosIcon = faMoneyCheck;
 
   constructor(
     private auth: AuthService,
@@ -31,17 +36,14 @@ export class HomeComponent implements OnInit {
   ) {
     this.userId = this.auth.getMyUser()?.uid!;
     this.userName = this.auth.getMyUser()?.displayName!;
-    this.foto= this.auth.user?.photoURL
-    console.log(this.foto)
+    this.foto = this.auth.user?.photoURL;
+    console.log(this.foto);
   }
 
   ngOnInit() {
     this.user
       .getWallet(this.userId)
-      .subscribe((wallet) => (this.saldo = wallet.saldo
-
-
-        ));
+      .subscribe((wallet) => (this.saldo = wallet.saldo));
 
     this.activatedRoute.params
       .pipe(
@@ -69,20 +71,23 @@ export class HomeComponent implements OnInit {
   }
 
   trasferenciasRoute() {
-  this.router.navigate(['/transaccion']);
+    this.router.navigate(['/transaccion']);
   }
+
   contactoRoute() {
     this.router.navigate(['/contacto']);
-    }
+  }
+
   historialRoute() {
     this.router.navigate(['/historial']);
-    }
-    motivosRoute() {
-      this.router.navigate(['/motivos']);
-      }
-      logout(){
-        this.router.navigate(['']);
-        this.auth.logout()
-      }
+  }
 
+  motivosRoute() {
+    this.router.navigate(['/motivos']);
+  }
+
+  logout() {
+    this.router.navigate(['']);
+    this.auth.logout();
+  }
 }
