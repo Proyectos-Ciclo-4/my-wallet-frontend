@@ -11,7 +11,6 @@ import { RegistroComponent } from './registro/registro.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,7 +31,6 @@ import { TableModule } from 'primeng/table';
     FooterComponent,
     HeaderComponent,
     HomeComponent,
-    NavbarComponent,
     TransaccionComponent,
     HistorialComponent,
     ContactoComponent,
