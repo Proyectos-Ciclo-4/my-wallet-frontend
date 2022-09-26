@@ -21,11 +21,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.route.navigate(['']);
-<<<<<<< HEAD
-    this.auth.logout()
-=======
     this.auth.logout();
->>>>>>> e5c8fb682fbd9fff41e8a4e4e2135916c3dbadeb
   }
 
   home() {
