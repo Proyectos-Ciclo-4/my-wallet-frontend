@@ -28,6 +28,7 @@ export class MotivosComponent implements OnInit {
     private user: UserService,
     private webSocket: WsService
   ) {}
+  motivosListaResponse: any ;
   
   motivo: string = '';
   dinero: string = '';
@@ -48,12 +49,7 @@ export class MotivosComponent implements OnInit {
   {motivo: "prueba",
     motivo_color: "#A0D1CA"
   },
-  {motivo: "prueba",
-    motivo_color: "#A0D1CA"
-  },
-  {motivo: "prueba",
-    motivo_color: "#A0D1CA"
-  },
+  
   ]
    
 
@@ -86,7 +82,10 @@ export class MotivosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.motivosListaResponse = this.user.get_motivos(this.auth.usuarioLogueado().uid).subscribe()
+    
+  }
 
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);

@@ -68,4 +68,9 @@ export class UserService {
   peticion_crear_motivo(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/motivo`, { ...body });
   }
+  get_motivos(userId: string) {
+    return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
+  }
+  
+
 }
