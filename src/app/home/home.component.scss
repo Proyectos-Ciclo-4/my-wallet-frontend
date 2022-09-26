@@ -5,6 +5,11 @@
   display: flex;
 }
 
+.content{
+  display: flex;
+  align-content: center;
+}
+
 .mensaje {
   width: 100%;
   padding: 50px;
