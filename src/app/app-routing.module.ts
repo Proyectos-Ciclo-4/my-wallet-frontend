@@ -8,7 +8,6 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 import { RegistroComponent } from './registro/registro.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
 import { ContactoComponent } from './contacto/contacto.component';
