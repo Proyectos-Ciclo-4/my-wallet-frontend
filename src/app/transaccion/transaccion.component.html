@@ -72,14 +72,16 @@
 
       <h3>Datos de destinatario</h3>
 
-      <p>
+      <p class="p-subtitulo">
         Puedes seleccionar un contacto, si no lo tienes en tu lista,diligencia el
         número de celular de destinatario o el correo electronico
       </p>
     </div>
+    <div class="contenedor-padre">
 
-    <div class="form-outline mb-4">
+    <div class="form-outline mb-4 contenedor-hijos-inputs">
       <input
+      placeholder="Telefono a ingresar"
         type="text"
         id="Nombre"
         [(ngModel)]="telefono"
@@ -88,52 +90,47 @@
       <label class="form-label" for="form5Example1 ">Telefono</label>
     </div>
 
-    <div class="form-outline mb-4">
+    <div class="form-outline mb-4 contenedor-hijos-inputs">
       <input
         type="email"
         id="form5Example2"
         [(ngModel)]="email"
         class="form-control"
+        placeholder="Email a ingresar"
       />
       <label class="form-label" for="form5Example2">Email</label>
     </div>
-    <div class="form-outline mb-4">
+    <div class="form-outline mb-4 contenedor-hijos-inputs">
       <input
         type="number"
         step="any"
         id="form5Example3"
         [(ngModel)]="dinero"
         class="form-control"
+        placeholder="Dinero a ingresar"
       />
       <label class="form-label" for="form5Example2">Valor a enviar $ USD</label>
     </div>
-    <div class="form-outline mb-4">
-      <input type="text" id="form5Example4" class="form-control" />
+    <div class="form-outline mb-4 contenedor-hijos-inputs">
+      <input type="text" id="form5Example4" class="form-control" placeholder="Email a ingresar" />
       <label class="form-label" for="form5Example2" [(ngModel)]="motivo"
-        >Motivo de transferencia</label
-      >
+        >Motivo de transferencia</label>
     </div>
 
+    
+    
+    
+  </div>
+  <div class="boton-submit-contenedor">
     <button
+    
       type="submit"
-      class="btnalert btn-primary btn-block mb-4"
-      (click)="alertaError()"
-    >
-      alertaError
-    </button>
-    <button
-      type="submit"
-      class="btninfo btn-primary btn-block mb-4"
-      (click)="alertaVerif()"
-    >
-      alertaverif
-    </button>
-    <button
-      type="submit"
-      class="btnTransfer btn-primary btn-block mb-4"
+      class="btnTransfer btn-primary btn-block mb-4 contenedor-hijos-inputs"
       (click)="enviar_transaccion()"
     >
       Transferir
     </button>
+  </div>
+  
   </div>
   </div>
