@@ -26,10 +26,12 @@
         ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo.
         El motivo "desconocido" es inmodificable y se asignara por defecto al momentode realizar una transferencia.
       </p>
+      <div class="inputs-forms">
       
       <label class="form-label" for="form5Example2" 
           >Seleccione su color :</label> <br>
       <input type="color" class="" [(ngModel)]="motivo_color">
+      <br>
       <!-- <input type="color"  value="#ff0000" [(ngModel)]="motivo_color"> -->
 
 
@@ -40,13 +42,15 @@
           >Motivo de transferencia</label
         >
       </div>
+      <button class="btn5" (click)="OnClick()" >Crear Motivo </button>
+      </div>
       
        
      
       <!-- <h3>color :{{motivo_color}}</h3>
       <h4>motivo de transferencia : {{motivo}}</h4> -->
 
-      <button class="btn5" (click)="OnClick()" >Crear Motivo </button>
+      
       
       <!-- <p>
         Tus motivos:
