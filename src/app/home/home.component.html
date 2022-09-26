@@ -20,7 +20,7 @@
         </a>
       </li>
       <li class="has-subnav">
-        <a href="motivos">
+        <a [routerLink]="['/motivos']">
           <i class="fa fa-folder-open fa-2x"></i>
           <span class="nav-text"> Motivos </span>
         </a>
@@ -51,14 +51,30 @@
 
   <div class="content">
     <div class="mensaje">
-      <h1>Hola {{ userName }}!</h1>
+      <h1>¡Hola {{ userName }}!</h1>
       <img src="{{ foto }}" alt="" srcset="" />
-      <!-- <img src="foto" alt="" sizes="" srcset=""> -->
-
-      <h3>Tu saldo actual es: {{ saldo }}</h3>
+      <h3>
+        Tu saldo actual es: <b>USD {{ wallet ? wallet.saldo : 0 }} $</b>
+      </h3>
     </div>
     <div>
       <h3 class="transacciones">Ultimas Transacciones</h3>
+      <p-table [value]="historial" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Valor</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-historial>
+          <tr>
+            <td>{{ historial.fecha.date }}</td>
+            <td>{{ historial.hora }}</td>
+            <td>{{ historial.valor }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </div>
