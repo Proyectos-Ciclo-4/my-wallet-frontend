@@ -12,6 +12,7 @@ export class MisGastosComponent implements OnInit {
   form!: FormGroup;
 
   constructor() {
+    this.setAvailableDates();
     this.buildForm();
   }
 
@@ -22,5 +23,15 @@ export class MisGastosComponent implements OnInit {
       from: new FormControl(this.from),
       until: new FormControl(this.until),
     });
+  }
+
+  sendForm() {
+    console.log(this.form.value);
+  }
+
+  private setAvailableDates() {
+    const today = new Date();
+    this.from = new Date(today.getFullYear(), today.getMonth(), 1);
+    this.until = new Date(today.getFullYear(), today.getMonth() + 1, 0);
   }
 }

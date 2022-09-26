@@ -1,6 +1,6 @@
-<div class="d-flex flex-column justify-content-between p-2 container">
-  <h1 class="mb-3">Mis gastos</h1>
-  <div class="gastos-body mb-2 align-self-start">
+<div class="d-flex flex-column justify-content-between pt-1 container">
+  <h1>Mis gastos</h1>
+  <div class="gastos-body align-self-start">
     Con esta funcionalidad queremos que tengas informacion clara y disponible
     para que hagas una mejor distribucion de tu dinero. Seleciona el rango de
     fecha para el cual quieres visualizar tus gastos por motivo de
@@ -8,26 +8,35 @@
   </div>
 
   <form
+    (submit)="sendForm()"
     [formGroup]="form"
-    class="fechas justify-self-center mt-1 mb-1 align-self-center"
+    class="fechas justify-self-center mt-1 mb-1 align-self-center d-flex flex-column justify-content-center align-content-center"
   >
-    <div class="mb-2 fromDateContainer">
-      <label for="fromDatePicker">Desde</label>
+    <div class="mb-3 fromDateContainer">
+      <label for="fromDatePicker">Desde:</label>
       <p-calendar
         id="fromDatePicker"
+        [touchUI]="true"
         formControlName="from"
+        [showIcon]="true"
         [(ngModel)]="from"
       ></p-calendar>
     </div>
 
-    <div class="untilDateContainer">
-      <label for="untilDatePicker">Hasta</label>
+    <div class="mb-3 untilDateContainer">
+      <label for="untilDatePicker" class="me-1">Hasta:</label>
       <p-calendar
         id="untilDatePicker"
         [inline]="false"
+        [touchUI]="true"
+        [showIcon]="true"
         formControlName="until"
         [(ngModel)]="until"
       ></p-calendar>
+    </div>
+
+    <div class="buttonContainer d-flex justify-content-center mt-1">
+      <button type="submit" pButton label="Ver mis gastos"></button>
     </div>
   </form>
 
