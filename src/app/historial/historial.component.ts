@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { provideAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { faMoneyBillTransfer, faAddressBook, faClockRotateLeft, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class HistorialComponent implements OnInit {
   historialIcon=faClockRotateLeft
   motivosIcon=faMoneyCheck
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,private auth:AuthService) { }
 
   ngOnInit(): void {
   }
@@ -31,6 +33,10 @@ export class HistorialComponent implements OnInit {
       }
     motivosRoute() {
       this.router.navigate(['/motivos']);
+      }
+      logout(){
+        this.router.navigate(['']);
+        this.auth.logout()
       }
 
 }

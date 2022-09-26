@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  faAddressBook,
-  faClockRotateLeft,
-  faMoneyBillTransfer,
-  faMoneyCheck,
-} from '@fortawesome/free-solid-svg-icons';
+
 import Swal from 'sweetalert2';
 import { Usuario } from '../models/usuario-backend.model';
 import { AlertsService } from '../services/alerts.service';
@@ -19,10 +14,7 @@ import { WsService } from '../services/ws.service';
   styleUrls: ['./transaccion.component.scss'],
 })
 export class TransaccionComponent implements OnInit {
-  transferenciaIcon = faMoneyBillTransfer;
-  contactosIcon = faAddressBook;
-  historialIcon = faClockRotateLeft;
-  motivosIcon = faMoneyCheck;
+
 
   constructor(
     private auth: AuthService,
@@ -91,6 +83,10 @@ export class TransaccionComponent implements OnInit {
   }
   motivosRoute() {
     this.router.navigate(['/motivos']);
+  }
+  logout(){
+    this.router.navigate(['']);
+    this.auth.logout()
   }
 
   alertaError() {

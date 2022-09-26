@@ -28,7 +28,7 @@ export class MotivosComponent implements OnInit {
     private user: UserService,
     private webSocket: WsService
   ) {}
-  
+
   motivo: string = '';
   dinero: string = '';
   motivo_color: string = '';
@@ -63,7 +63,7 @@ export class MotivosComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'El campo de motivo no puede quedar vacio!',
-        
+
       });
     } else {
       if (this.motivo_color == '') {
@@ -99,5 +99,9 @@ export class MotivosComponent implements OnInit {
   }
   motivosRoute() {
     this.router.navigate(['/motivos']);
+  }
+  logout(){
+    this.router.navigate(['']);
+    this.auth.logout()
   }
 }
