@@ -194,9 +194,7 @@ button{
 }
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 * {
 	margin: 0;
 	padding: 0;
@@ -286,12 +284,11 @@ $tooltip-background-color: $sidebar-background-color;
 	}
 }
 
-=======
->>>>>>> 57b02aae34d01881f52190ad6d842e62f5e08f08
+
 
 .impresion-motivos-hijo p {
 	padding: 10px;
-	
+
 }
 .contenedor_padre{
 	display: flex;
@@ -325,23 +322,23 @@ $tooltip-background-color: $sidebar-background-color;
 	}
 	.impresion-motivos-hijo p {
 		padding: 10px;
-		
+
 	}
 	h1{
-		 
-			
+
+
 			padding-left: 30px;
 	}
-	
+
 	.contenedor_padre{
 	display: flex;
     flex-wrap: wrap;
-    
+
     flex-direction: column;
     align-content: center;
     justify-content: center;
     align-items: center;
-	}	
+	}
 	h2{
 		display: flex;
 		flex-direction: column;
@@ -352,17 +349,17 @@ $tooltip-background-color: $sidebar-background-color;
 		margin: 10px;
 
 	}
-	
+
 	.contenedor_hijo{
 		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
-		
+
 		align-items: center;
 		padding: auto;
 		margin: 10px;
 	}
-	
+
 	.impresion-motivos-hijo{
 		padding: 1px;
 		margin: auto;
@@ -371,7 +368,7 @@ $tooltip-background-color: $sidebar-background-color;
 		flex-wrap: wrap;
 		align-content: space-between;
 		justify-content: center;
-	
+
 	}
 	.boton-contenedor{
 		display: flex;
@@ -380,9 +377,4 @@ $tooltip-background-color: $sidebar-background-color;
 		flex-direction: row;
 	}
 
-<<<<<<< HEAD
-};
->>>>>>> a9bd561acd5ae9fcf4e4e4ac2fab43a931bd28c8
-=======
-};
->>>>>>> 57b02aae34d01881f52190ad6d842e62f5e08f08
+}

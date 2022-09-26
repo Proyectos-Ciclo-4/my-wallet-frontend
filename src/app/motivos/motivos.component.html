@@ -39,7 +39,7 @@
 
         </li>
         <li>
-            <a href="#">
+            <a href="mis-gastos">
                 <i class="fa fa-bar-chart-o fa-2x"></i>
                 <span class="nav-text">
                     Gastos
@@ -58,7 +58,7 @@
 
     <ul class="logout">
         <li>
-          <a href="historial">
+          <a href="historial" (click)="logout()">
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text">
                     Logout
@@ -67,8 +67,7 @@
         </li>
     </ul>
   </nav>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     <div>
       <div class="mensaje">
         <h1>Personaliza tu motivo  </h1>
@@ -96,10 +95,6 @@
         <button class="btn5" (click)="OnClick()" >Crear Motivo </button>
         </div>
 
-
-=======
-=======
->>>>>>> 57b02aae34d01881f52190ad6d842e62f5e08f08
   <div>
     <div class="mensaje">
       <h1>Personaliza tu motivo  </h1>
@@ -111,34 +106,33 @@
         ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo
       </p>
       <div class="contenedor_padre">
-      
-      
+
+
       <div class="contenedor_hijo">
         <label class="form-label" for="form5Example2">Seleccione su color :</label> <br>
       <input type="color" class="" [(ngModel)]="motivo_color">
-      <br>    
+      <br>
         <input type="text" id="form5Example4" class="form-control" [(ngModel)]="motivo" />
-        <label class="form-label" for="form5Example2" 
+        <label class="form-label" for="form5Example2"
           >Motivo de transferencia</label>
-        
+
       </div>
       <div class="impresion-motivos-hijo">
         <h2>Motivos Usados</h2>
         <br>
-        <div *ngFor='let motivos of motivosLista'>          
+        <div *ngFor='let motivos of motivosLista'>
           <p style="background-color: {{motivos.motivo_color}}">{{motivos.motivo}}</p>
         </div>
       </div>
-      
-      
-      
-      </div> 
-      <div class="boton-contenedor"><button class="btn5" (click)="OnClick()" >Crear Motivo </button></div>        
-      
-       
-     
-<<<<<<< HEAD
->>>>>>> a9bd561acd5ae9fcf4e4e4ac2fab43a931bd28c8
+
+
+
+      </div>
+      <div class="boton-contenedor"><button class="btn5" (click)="OnClick()" >Crear Motivo </button></div>
+
+
+
+
 
         <!-- <h3>color :{{motivo_color}}</h3>
         <h4>motivo de transferencia : {{motivo}}</h4> -->
@@ -157,8 +151,6 @@
         </div>
 
       </div> -->
-=======
 
->>>>>>> 57b02aae34d01881f52190ad6d842e62f5e08f08
   </div>
 
