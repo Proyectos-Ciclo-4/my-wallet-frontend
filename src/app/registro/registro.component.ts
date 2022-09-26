@@ -12,6 +12,7 @@ import {
   faClockRotateLeft,
   faMoneyBillTransfer,
 } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -55,6 +56,7 @@ export class RegistroComponent implements OnInit {
   checkWallet() {
     this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((wallet) => {
       if (wallet) {
+        this. alertaRegistrado()
         this.router.navigate(['/home']);
       }
     });
@@ -67,6 +69,7 @@ export class RegistroComponent implements OnInit {
   switchHandler(event: any) {
     switch (event.type) {
       case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
+        this.alertaCreado()
         this.router.navigate(['/home']);
         break;
       case 'com.sofka.domain.wallet.eventos.WalletCreada':
@@ -91,4 +94,20 @@ export class RegistroComponent implements OnInit {
       },
     });
   }
+
+  alertaRegistrado() {
+    Swal.fire(
+      'USUARIO EXISTENTE',
+      'Usted Ya se encuentra Registrado en my wallet',
+      'warning'
+    );}
+
+    alertaCreado() {
+      Swal.fire(
+        'USUARIO CREADO',
+        'Bienvenido a my Wallet  a partir de este momento usted puede disfrutar de las opciones que tenemospara ti!',
+        'warning'
+      );}
+
+
 }

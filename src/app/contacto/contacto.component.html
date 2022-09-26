@@ -1,25 +1,77 @@
-<nav class="sidebar-navigation" >
-  <ul>
-    <li class="" (click)="trasferenciasRoute()">
-      <fa-icon [icon]="transferenciaIcon"></fa-icon>
-      <span src="" class="tooltip"  >Transacciones</span>
-    </li>
-    <li (click)="contactoRoute()">
-      <fa-icon [icon]="contactosIcon"></fa-icon>
-      <span class="tooltip">Contactos</span>
-    </li>
-    <li (click)="historialRoute()">
-      <fa-icon [icon]="historialIcon"></fa-icon>
-      <span class="tooltip">Historial</span>
-    </li>
-    <li (click)="motivosRoute()">
-      <fa-icon [icon]="motivosIcon"></fa-icon>
-      <span class="tooltip">Motivos</span>
-    </li>
-  </ul>
-</nav>
+
 
 <div class="cont">
+
+  <nav class="main-menu">
+    <ul>
+        <li>
+            <a href="home">
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text" >
+                    Home
+                </span>
+            </a>
+
+        </li>
+        <li class="has-subnav">
+            <a href="transaccion">
+                <i class="fa fa-money fa-2x"></i>
+                <span class="nav-text">
+                    Transferencias
+                </span>
+            </a>
+
+        </li>
+        <li class="has-subnav">
+            <a href="contacto">
+              <i class="fa fa-list fa-2x"></i>
+                <span class="nav-text">
+                    Contactos
+                </span>
+            </a>
+
+        </li>
+        <li class="has-subnav">
+            <a href="motivos">
+              <i class="fa fa-folder-open fa-2x"></i>
+                <span class="nav-text">
+                    Motivos
+                </span>
+            </a>
+
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-bar-chart-o fa-2x"></i>
+                <span class="nav-text">
+                    Gastos
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="historial">
+                <i class="fa fa-clock-o fa-2x"></i>
+                <span class="nav-text">
+                  Historial
+                </span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="logout">
+        <li>
+          <a href="historial">
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                    Logout
+                </span>
+            </a>
+        </li>
+    </ul>
+  </nav>
+
+  <div class="content">
+
     <div class="mensaje">
       <h1>Realiza transferencias a tus Contactos</h1>
 
@@ -31,25 +83,42 @@
       </p>
     </div>
 
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form5Example2">Nombre</label>
+      <input
+        type="email"
+        id="form5Example2"
+        [(ngModel)]="email"
+        class="form-control"
+        placeholder="example: juan Da"
+      />
+
+    </div>
+
     <form>
+      <label class="form-label" for="form5Example1 ">Telefono</label>
       <div class="form-outline mb-4">
         <input
           type="text"
           id="Nombre"
           [(ngModel)]="telefono"
           class="form-control"
+          placeholder="example:+57 3178768736"
         />
-        <label class="form-label" for="form5Example1 ">Telefono</label>
+
       </div>
 
       <div class="form-outline mb-4">
+
+        <label class="form-label" for="form5Example2">Email</label>
         <input
           type="email"
           id="form5Example2"
           [(ngModel)]="email"
           class="form-control"
+          placeholder="mywallet@gmail.com"
         />
-        <label class="form-label" for="form5Example2">Email</label>
+
       </div>
 
 
