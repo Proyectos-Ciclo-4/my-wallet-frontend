@@ -112,10 +112,20 @@
       <label class="form-label" for="form5Example2">Valor a enviar $ USD</label>
     </div>
     <div class="form-outline mb-4 contenedor-hijos-inputs">
-      <input type="text" id="form5Example4" class="form-control" placeholder="Email a ingresar" />
+      <input type="text" id="form5Example4" class="form-control" placeholder="Motivo de transferencia " />
       <label class="form-label" for="form5Example2" [(ngModel)]="motivo"
-        >Motivo de transferencia</label>
+        >Seleccionr Motivo</label>
     </div>
+    <a href="motivos" style="text-decoration: none;"><button
+    
+      type="submit"
+      class="btnTransfer btn-primary btn-block mb-4 contenedor-hijos-inputs"
+      href="historial"
+    >
+    
+      Crear Motivo
+    </button>
+    </a>
 
     
     
@@ -125,7 +135,7 @@
     <button
     
       type="submit"
-      class="btnTransfer btn-primary btn-block mb-4 contenedor-hijos-inputs"
+      class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
       (click)="enviar_transaccion()"
     >
       Transferir
