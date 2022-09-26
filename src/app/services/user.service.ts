@@ -13,6 +13,8 @@ import { Usuario as UsuarioBack } from '../models/usuario-backend.model';
 import { HttpClient } from '@angular/common/http';
 import { Wallet } from '../models/wallet.model';
 import { Transferencia } from '../models/transferencia.model';
+import { HistoryGetter } from '../models/history-getter.model';
+import { Transaction } from '../models/history.model';
 
 @Injectable({
   providedIn: 'root',
@@ -52,12 +54,31 @@ export class UserService {
   getWallet(userId: string) {
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
+
   enviarTransaccion(body: Transferencia) {
     return this.http.post(`${this.URL_HTTP}/new/transaction/`, { ...body });
   }
 
   peticion_crear_contacto(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
+  }
+
+  getHistory(body: HistoryGetter): Transaction[] {
+    // return this.http.post(`${this.URL_HTTP}/history`, { ...body });
+    return [
+      {
+        motivo: { color: '#42A5F5', descripcion: 'indefinido' },
+        valor: 70,
+      } as Transaction,
+      {
+        motivo: { color: '#66BB6A', descripcion: 'diversion' },
+        valor: 90,
+      } as Transaction,
+      {
+        motivo: { color: '#FFA726', descripcion: 'servicios' },
+        valor: 50,
+      } as Transaction,
+    ];
   }
 
   obtener_contacto(telefono: string) {
