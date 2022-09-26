@@ -20,25 +20,46 @@
   </nav>
   <div>
     <div class="mensaje">
-      <h1>Personaliza tus motivos </h1>
+      <h1>Personaliza tu motivo  </h1>
       <p>
         Queremos ayudarte a controlar tus gastos mediante la generacion de estadisticas sobre tus principales motivos al transferir dinero a otros usuarios de My Wallet
-        ingresa un nombre por tajeta; una vez lo ingreses, no podras modificarlo.
+        ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo.
         El motivo "desconocido" es inmodificable y se asignara por defecto al momentode realizar una transferencia.
       </p>
+      
+      <label class="form-label" for="form5Example2" 
+          >Seleccione su color :</label> <br>
+      <input type="color" class="" [(ngModel)]="motivo_color">
+      <!-- <input type="color"  value="#ff0000" [(ngModel)]="motivo_color"> -->
 
-      <p>
+
+
+      <div class="form-outline mb-4">
+        <input type="text" id="form5Example4" class="form-control" [(ngModel)]="motivo" />
+        <label class="form-label" for="form5Example2" 
+          >Motivo de transferencia</label
+        >
+      </div>
+      
+       
+     
+      <!-- <h3>color :{{motivo_color}}</h3>
+      <h4>motivo de transferencia : {{motivo}}</h4> -->
+
+      <button class="btn5" (click)="OnClick()" >Crear Motivo </button>
+      
+      <!-- <p>
         Tus motivos:
       </p>
       <div class="listaMotivos">
-        <button class="btn1">Descoconido</button>
+        <button class="btn1" type="color" value="#000000" [(ngModel)]="motivo_color">Descoconido</button>
         <button class="btn2">leasing</button>
         <button class="btn3">diversion</button>
         <button class="btn4">salud</button>
         <button class="btn5">hogar</button>
       </div>
 
-    </div>
+    </div> -->
 
   </div>
 
