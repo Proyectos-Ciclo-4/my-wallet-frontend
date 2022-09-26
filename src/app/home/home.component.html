@@ -1,5 +1,5 @@
-<div class="cont">
-  <nav class="main-menu">
+<div class="cont d-flex">
+  <nav class="main-menu align-self-start justify-content-start">
     <ul>
       <li>
         <a href="home">
@@ -49,14 +49,15 @@
     </ul>
   </nav>
 
-  <div class="content">
-    <div class="mensaje">
-      <h1>¡Hola {{ userName }}!</h1>
-      <img src="{{ foto }}" alt="" srcset="" />
-      <h3>
+  <div class="content w-100 d-flex flex-column">
+    <div class="mensaje text-center">
+      <h1 class="mb-5">¡Hola {{ userName }}!</h1>
+
+      <h3 class="mb-2">
         Tu saldo actual es: <b>USD {{ wallet ? wallet.saldo : 0 }} $</b>
       </h3>
     </div>
+
     <div>
       <h3 class="transacciones">Ultimas Transacciones</h3>
       <p-table [value]="historial" responsiveLayout="scroll">
