@@ -25,12 +25,14 @@ export class ContactoComponent implements OnInit {
   ) {}
   telefono: string = '';
   email: string = '';
+  nombre:string='';
 
 
   ngOnInit(): void {}
 
   crear_contacto() {
     this.user.peticion_crear_contacto({
+      nombre:this.nombre,
       telefono: this.telefono,
       email: this.email,
     });
