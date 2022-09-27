@@ -261,3 +261,26 @@ h1{
     align-content: stretch;
     flex-wrap: wrap
   }
+  // Logica para vista exitosa
+  .ocultar{
+    display: none;
+  }
+  .contenedor_vista_exitosa{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  .contenedor_p{
+    display: flex;
+    flex-direction:column;
+    padding: 10px;
+  }
+  .contenedor_p p{
+    
+    padding: 5px;
+    margin: 5px;
+    font-weight: 500;
+    
+
+  }
+  
