@@ -67,34 +67,6 @@
         </li>
     </ul>
   </nav>
-
-    <div>
-      <div class="mensaje">
-        <h1>Personaliza tu motivo  </h1>
-        <p>
-          Queremos ayudarte a controlar tus gastos mediante la generacion de estadisticas sobre tus principales motivos al transferir dinero a otros usuarios de My Wallet
-          ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo.
-          El motivo "desconocido" es inmodificable y se asignara por defecto al momentode realizar una transferencia.
-        </p>
-        <div class="inputs-forms">
-
-        <label class="form-label" for="form5Example2"
-            >Seleccione su color :</label> <br>
-        <input type="color" class="" [(ngModel)]="motivo_color">
-        <br>
-        <!-- <input type="color"  value="#ff0000" [(ngModel)]="motivo_color"> -->
-
-
-
-        <div class="form-outline mb-4">
-          <input type="text" id="form5Example4" class="form-control" [(ngModel)]="motivo" />
-          <label class="form-label" for="form5Example2"
-            >Motivo de transferencia</label
-          >
-        </div>
-        <button class="btn5" (click)="OnClick()" >Crear Motivo </button>
-        </div>
-
   <div>
     <div class="mensaje">
       <h1>Personaliza tu motivo  </h1>
@@ -106,51 +78,34 @@
         ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo
       </p>
       <div class="contenedor_padre">
-
-
+      
+      
       <div class="contenedor_hijo">
         <label class="form-label" for="form5Example2">Seleccione su color :</label> <br>
       <input type="color" class="" [(ngModel)]="motivo_color">
-      <br>
+      <br>    
         <input type="text" id="form5Example4" class="form-control" [(ngModel)]="motivo" />
-        <label class="form-label" for="form5Example2"
+        <label class="form-label" for="form5Example2" 
           >Motivo de transferencia</label>
-
+        
       </div>
       <div class="impresion-motivos-hijo">
         <h2>Motivos Usados</h2>
         <br>
-        <div *ngFor='let motivos of motivosLista'>
-          <p style="background-color: {{motivos.motivo_color}}">{{motivos.motivo}}</p>
+        <div style="width:150px; height:120px; overflow: scroll ;overflow-x: hidden;">
+        <div *ngFor='let motivos of motivosLista'>          
+          <p  style="background-color: {{motivos.motivo_color}}">{{motivos.motivo}}</p>
         </div>
       </div>
-
-
-
       </div>
-      <div class="boton-contenedor"><button class="btn5" (click)="OnClick()" >Crear Motivo </button></div>
-
-
-
-
-
-        <!-- <h3>color :{{motivo_color}}</h3>
-        <h4>motivo de transferencia : {{motivo}}</h4> -->
-
-
-
-        <!-- <p>
-          Tus motivos:
-        </p>
-        <div class="listaMotivos">
-          <button class="btn1" type="color" value="#000000" [(ngModel)]="motivo_color">Descoconido</button>
-          <button class="btn2">leasing</button>
-          <button class="btn3">diversion</button>
-          <button class="btn4">salud</button>
-          <button class="btn5">hogar</button>
-        </div>
-
-      </div> -->
+      
+      
+      
+      </div> 
+      <div class="boton-contenedor"><button class="btn5" (click)="OnClick()" >Crear Motivo </button></div>        
+      
+       
+     
 
   </div>
 

@@ -6,13 +6,14 @@
 
 }
 
+
 .fa-2x {
   font-size: 2em;
   }
   .fa {
   position: relative;
   display: table-cell;
-  width: 60px;
+  min-width: 60px;
   height: 36px;
   text-align: center;
   vertical-align: middle;
@@ -31,9 +32,10 @@
   top:0;
   bottom:0;
   height:100%;
-  min-height: 87vh;
+  min-height: 130vh;
   left:0;
-  width:60px;
+  width:80px;
+  min-width: 50px;
   overflow:hidden;
   -webkit-transition:width .05s linear;
   transition:width .05s linear;
@@ -188,7 +190,7 @@ button{
 
 .mensaje{
   width: 100%;
-  padding: 15px;
+  
   font-size: large;
   font-family: Verdana;
 }
@@ -288,7 +290,8 @@ $tooltip-background-color: $sidebar-background-color;
 
 .impresion-motivos-hijo p {
 	padding: 10px;
-
+	
+	
 }
 .contenedor_padre{
 	display: flex;
@@ -376,5 +379,18 @@ $tooltip-background-color: $sidebar-background-color;
 		flex-wrap: wrap;
 		flex-direction: row;
 	}
+
+};
+@media (max-width: 400px) {
+	.main-menu{
+		min-height: 150vh;;
+	}
+	.mensaje{
+		width: 100%;
+		
+		font-size: medium;
+		font-family: Verdana;
+	  }
+	  
 
 }

@@ -110,6 +110,6 @@ export class UserService {
   get_motivos(userId: string) {
     return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
   }
-  
+
 
 }

@@ -1,153 +1,173 @@
 <div class="cont">
   <nav class="main-menu">
     <ul>
-        <li>
-            <a href="home">
-                <i class="fa fa-home fa-2x"></i>
-                <span class="nav-text" >
-                    Home
-                </span>
-            </a>
-
-        </li>
-        <li class="has-subnav">
-            <a href="transaccion">
-                <i class="fa fa-money fa-2x"></i>
-                <span class="nav-text">
-                    Transferencias
-                </span>
-            </a>
-
-        </li>
-        <li class="has-subnav">
-            <a href="contacto">
-              <i class="fa fa-list fa-2x"></i>
-                <span class="nav-text">
-                    Contactos
-                </span>
-            </a>
-
-        </li>
-        <li class="has-subnav">
-            <a href="motivos">
-              <i class="fa fa-folder-open fa-2x"></i>
-                <span class="nav-text">
-                    Motivos
-                </span>
-            </a>
-
-        </li>
-        <li>
-            <a href="#">
-                <i class="fa fa-bar-chart-o fa-2x"></i>
-                <span class="nav-text">
-                    Gastos
-                </span>
-            </a>
-        </li>
-        <li>
-            <a href="historial">
-                <i class="fa fa-clock-o fa-2x"></i>
-                <span class="nav-text">
-                  Historial
-                </span>
-            </a>
-        </li>
+      <li>
+        <a href="home">
+          <i class="fa fa-home fa-2x"></i>
+          <span class="nav-text"> Home </span>
+        </a>
+      </li>
+      <li class="has-subnav">
+        <a href="transaccion">
+          <i class="fa fa-money fa-2x"></i>
+          <span class="nav-text"> Transferencias </span>
+        </a>
+      </li>
+      <li class="has-subnav">
+        <a href="contacto">
+          <i class="fa fa-list fa-2x"></i>
+          <span class="nav-text"> Contactos </span>
+        </a>
+      </li>
+      <li class="has-subnav">
+        <a href="motivos">
+          <i class="fa fa-folder-open fa-2x"></i>
+          <span class="nav-text"> Motivos </span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fa fa-bar-chart-o fa-2x"></i>
+          <span class="nav-text"> Gastos </span>
+        </a>
+      </li>
+      <li>
+        <a href="historial">
+          <i class="fa fa-clock-o fa-2x"></i>
+          <span class="nav-text"> Historial </span>
+        </a>
+      </li>
     </ul>
 
     <ul class="logout">
-        <li>
-          <a href="historial">
-                <i class="fa fa-power-off fa-2x"></i>
-                <span class="nav-text">
-                    Logout
-                </span>
-            </a>
-        </li>
+      <li>
+        <a href="historial">
+          <i class="fa fa-power-off fa-2x"></i>
+          <span class="nav-text"> Logout </span>
+        </a>
+      </li>
     </ul>
   </nav>
-      <div>
-  <div class="mensaje">
-    <h1>Realiza una transferencia</h1>
+  <div>
+    <div class="oculto">
+      <div class="contenedor_vista_exitosa">
+        <h1>Transferencia exitosa</h1>
 
-    <h3>Datos de destinatario</h3>
+        <h3>Resumen de la transferencia</h3>
 
-    <p class="p-subtitulo">
-      Puedes seleccionar un contacto, si no lo tienes en tu lista,diligencia el
-      número de celular de destinatario o el correo electronico
-    </p>
-  </div>
-  <div class="contenedor-padre">
+        <p class="p-subtitulo"></p>
+        <div class="contenedor_p">
+          <p class="p_oculto">Fecha:{{fecha}}</p>
+          <p>Hora:{{hora}}</p>
+          <p>Id transaccion:{{IdTransaccion}}</p>
+          <p>Monto:{{Monto}}</p>
+          <p>Destinatario:{{Destinatario}}</p>
+          <p>Motivo de la transaccion:{{MotivoExitosotransaccion}}</p>
+    
+        </div>
 
-  <div class="form-outline mb-4 contenedor-hijos-inputs">
-    <input
-    placeholder="Telefono a ingresar"
-    maxlength="13"
-      type="text"
-      id="Nombre"
-      [(ngModel)]="telefono"
-      [disabled]="email.length > 0"
-      
-      class="form-control"
-    />
-    <label class="form-label" for="form5Example1 ">Telefono</label>
-  </div>
+        <div class="boton-submit-contenedor">
+          <button
+            type="submit"
+            class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
+            
+          >
+            <a href="transaccion" style="text-decoration: none;">
+              <span class="nav-text"> Nueva transferencia </span>
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="contenedor-visor" id="contenedor_general">
+      <div class="mensaje">
+        <h1>Realiza una transferencia</h1>
 
-  <div class="form-outline mb-4 contenedor-hijos-inputs">
-    <input
-      type="email"
-      id="form5Example2"
-      [(ngModel)]="email"
-      [disabled]="telefono.length >0"
-      class="form-control"
-      placeholder="Email a ingresar"
-    />
-    <label class="form-label" for="form5Example2">Email</label>
-  </div>
-  <div class="form-outline mb-4 contenedor-hijos-inputs">
-    <input
-      type="number"
-      step="any"
-      min=1
-      id="form5Example3"
-      [(ngModel)]="dinero"
-      class="form-control"
-      placeholder="Dinero a ingresar"
-    />
-    <label class="form-label" for="form5Example2">Valor a enviar $ USD</label>
-  </div>
-  <div class="form-outline mb-4 contenedor-hijos-inputs">
-    <input type="text" id="form5Example4" [(ngModel)]="motivo" class="form-control" placeholder="Desconocido" />
-    <label class="form-label" for="form5Example2" >
-      >Seleccionr Motivo</label>
-  </div>
-  <a href="motivos" style="text-decoration: none;"><button
-  
-    type="submit"
-    class="btnTransfer btn-primary btn-block mb-4 contenedor-hijos-inputs"
-    href="historial"
-  >
-  
-    Crear Motivo
-  </button>
-  </a>
+        <h3>Datos de destinatario</h3>
 
-  
-  
-  
-</div>
-<div class="boton-submit-contenedor">
+        <p class="p-subtitulo">
+          Puedes seleccionar un contacto, si no lo tienes en tu lista,diligencia
+          el número de celular de destinatario o el correo electronico
+        </p>
+      </div>
+      <div class="contenedor-padre">
+        <div class="form-outline mb-4 contenedor-hijos-inputs">
+          <input
+            placeholder="Telefono a ingresar"
+            maxlength="13"
+            type="text"
+            id="Nombre"
+            [(ngModel)]="telefono"
+            [disabled]="email.length > 0"
+            class="form-control"
+          />
+          <label class="form-label" for="form5Example1 ">Telefono</label>
+        </div>
+
+        <div class="form-outline mb-4 contenedor-hijos-inputs">
+          <input
+            type="email"
+            id="form5Example2"
+            [(ngModel)]="email"
+            [disabled]="telefono.length > 0"
+            class="form-control"
+            placeholder="Email a ingresar"
+          />
+          <label class="form-label" for="form5Example2">Email</label>
+        </div>
+        <div class="form-outline mb-4 contenedor-hijos-inputs">
+          <input
+            type="number"
+            step="any"
+            min="1"
+            id="form5Example3"
+            [(ngModel)]="dinero"
+            class="form-control"
+            placeholder="Dinero a ingresar"
+          />
+          <label class="form-label" for="form5Example2"
+            >Valor a enviar $ USD</label
+          >
+        </div>
+        <div class="form-outline mb-4 contenedor-hijos-inputs">
+          <input
+            type="text"
+            id="form5Example4"
+            [(ngModel)]="motivo"
+            class="form-control"
+            placeholder="Desconocido"
+          />
+          <label class="form-label" for="form5Example2">
+            Seleccionar Motivo</label
+          >
+        </div>
+        <a href="motivos" style="text-decoration: none"
+          ><button
+            type="submit"
+            class="btnTransfer btn-primary btn-block mb-4 contenedor-hijos-inputs"
+            href="historial"
+          >
+            Crear Motivo
+          </button>
+        </a>
+      </div>
+      <div class="boton-submit-contenedor">
+        <button
+          type="submit"
+          class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
+          (click)="validar_dinero()"
+        >
+          Transferir
+        </button>
+      </div>
+    </div>
+  </div>
   <button
-  
     type="submit"
     class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
-    (click)="validar_dinero()"
-    
+    (click)="vista_exitosa()"
   >
     Transferir
   </button>
+  <!-- [disabled]="habilitarBoton==false" -->
 </div>
-
-</div>
-</div>
-<!-- [disabled]="habilitarBoton==false" -->

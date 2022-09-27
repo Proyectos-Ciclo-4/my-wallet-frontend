@@ -96,37 +96,37 @@ export class RegistroComponent implements OnInit {
     }else{
       this.validacionTelefonoExistente()
     }
+
   }
 
   alertaRegistrado() {
     Swal.fire(
       'USUARIO EXISTENTE',
-      'Usted Ya se encuentra Registrado en my wallet',
+      'hola!'+ this.nuevo_arreglo.nombre + ' Ya tienes una cuenta Registrada en my wallet',
       'warning'
     );}
 
     alertaCreado() {
       Swal.fire(
-        'Usuario creado!',
-        'Bienvenido a My Wallet  a partir de este momento usted puede disfrutar de las opciones que tenemos para ti!',
-        'success'
+        'USUARIO CREADO',
+        'Bienvenido '+ this.nuevo_arreglo.nombre + ' a my Wallet  a partir de este momento podras disfrutar de las opciones que tenemos para ti!!!',
+        'warning'
       );}
-
-  validacionTelefonoExistente(){
-    this.user.validar_alguno(this.nuevo_arreglo.telefono,this.nuevo_arreglo.email).subscribe(
-      {next: (res) => {
-        if(res == true){
-          Swal.fire(
-            'Numero de Telefono Invalido',
-            'El numero de telefono ya esta asignado a un usuario',
-            'warning')
-        } else {
-          this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
-            next: (res) => {
-              console.log(res);
-            },
-          });
-        }
-      }})
-  }
+      validacionTelefonoExistente(){
+        this.user.validar_alguno(this.nuevo_arreglo.telefono,this.nuevo_arreglo.email).subscribe(
+          {next: (res) => {
+            if(res == true){
+              Swal.fire(
+                'Numero de Telefono Invalido',
+                'El numero de telefono ya esta asignado a un usuario',
+                'warning')
+            } else {
+              this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
+                next: (res) => {
+                  console.log(res);
+                },
+              });
+            }
+          }})
+      }
 }
