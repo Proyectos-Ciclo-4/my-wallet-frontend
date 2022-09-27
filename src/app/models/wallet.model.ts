@@ -3,10 +3,10 @@ export interface Wallet {
   motivos:   string[];
   usuario:   string;
   saldo:     number;
-  historial: Transacion[];
+  historial: TransaccionDeHistorial[];
 }
 
-interface Transacion{
+export interface TransaccionDeHistorial{
   walletId:         string;
   fecha:            string;
   estado:           string;

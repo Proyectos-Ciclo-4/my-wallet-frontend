@@ -7,10 +7,13 @@ import { UserService } from '../services/user.service';
 import {
   faAddressBook,
   faClockRotateLeft,
+  faEarthAsia,
   faMoneyBillTransfer,
   faMoneyCheck,
 } from '@fortawesome/free-solid-svg-icons';
-import { Wallet } from '../models/wallet.model';
+import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
+import { HistoryHome } from '../models/historyHome.model';
+import { Fecha } from '../models/history.model';
 
 @Component({
   selector: 'app-home',
@@ -22,13 +25,8 @@ export class HomeComponent implements OnInit {
   public userName!: string;
   public foto!: any;
   wallet!: Wallet;
-  historial: any = [
-    {
-      valor: 0,
-      fecha: { date: '2022/08/12' },
-      hora: '12:00',
-    },
-  ];
+  historial: any;
+  saldo!:number;
 
   transferenciaIcon = faMoneyBillTransfer;
   contactosIcon = faAddressBook;
@@ -48,10 +46,20 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.user
+    .getWallet(this.userId)
+    .subscribe((wallet) => {
+      this.wallet = wallet;
+      this.saldo = wallet.saldo;
+      this.historial = buildHomeHistorial(wallet.historial);
+      
+    });
+  
     this.user
       .getWallet(this.userId)
       .subscribe((wallet) => (this.wallet = wallet));
-
+    
     this.activatedRoute.params
       .pipe(
         switchMap(({ id }) => {
@@ -82,3 +90,19 @@ export class HomeComponent implements OnInit {
     this.auth.logout();
   }
 }
+
+function buildHomeHistorial(historial:Array<TransaccionDeHistorial>): Array<HistoryHome> {
+  let historialDeHome : Array<HistoryHome> = new Array<HistoryHome>();
+  historial.forEach(transaccion => {
+
+    let entrada:HistoryHome = {
+      fecha : transaccion.fecha.split("T")[0],
+      hora : transaccion.fecha.split("T")[1].split(".")[0],
+      valor : (transaccion.destino == transaccion.walletId) ? ("+" + transaccion.valor) : ("" + transaccion.valor)
+    }
+
+    historialDeHome.push(entrada)
+  })
+  return historialDeHome
+}
+
