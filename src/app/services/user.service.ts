@@ -86,6 +86,12 @@ export class UserService {
       `${this.URL_HTTP}/walletByTelefono/${telefono}`
     );
   }
+  validar_alguno(telefono: string, email:string) {
+    return this.http.get<Boolean>(
+      `${this.URL_HTTP}/validateBoth/${telefono}/email/${email}`
+    );
+  }
+
   peticion_crear_motivo(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/motivo`, { ...body });
   }

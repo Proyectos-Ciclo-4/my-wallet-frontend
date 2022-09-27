@@ -94,12 +94,9 @@ export class RegistroComponent implements OnInit {
         'ingrese un numero de telefono valido',
         'warning')
     }else{
-      this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-      });
+      this.validacionTelefonoExistente()
     }
+
   }
 
   alertaRegistrado() {
@@ -115,4 +112,21 @@ export class RegistroComponent implements OnInit {
         'Bienvenido a my Wallet  a partir de este momento usted puede disfrutar de las opciones que tenemospara ti!',
         'warning'
       );}
+      validacionTelefonoExistente(){
+        this.user.validar_alguno(this.nuevo_arreglo.telefono,this.nuevo_arreglo.email).subscribe(
+          {next: (res) => {
+            if(res == true){
+              Swal.fire(
+                'Numero de Telefono Invalido',
+                'El numero de telefono ya esta asignado a un usuario',
+                'warning')
+            } else {
+              this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
+                next: (res) => {
+                  console.log(res);
+                },
+              });
+            }
+          }})
+      }
 }
