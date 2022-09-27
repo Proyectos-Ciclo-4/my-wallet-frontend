@@ -70,7 +70,11 @@ export class RegistroComponent implements OnInit {
     switch (event.type) {
       case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
         this.alertaCreado()
-        this.router.navigate(['/home']);
+        
+        setTimeout(() => {
+          this.router.navigate(['/home'])
+        },2000)
+
         break;
       case 'com.sofka.domain.wallet.eventos.WalletCreada':
         this.router.navigate(['/home']);

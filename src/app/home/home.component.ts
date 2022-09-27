@@ -94,10 +94,12 @@ export class HomeComponent implements OnInit {
 function buildHomeHistorial(historial:Array<TransaccionDeHistorial>): Array<HistoryHome> {
   let historialDeHome : Array<HistoryHome> = new Array<HistoryHome>();
   historial.forEach(transaccion => {
+    
+    let fechaSplit = transaccion.fecha.split(" ") 
 
     let entrada:HistoryHome = {
-      fecha : transaccion.fecha.split("T")[0],
-      hora : transaccion.fecha.split("T")[1].split(".")[0],
+      fecha : `${fechaSplit[0]} ${fechaSplit[1]} ${fechaSplit[2]} ${fechaSplit[5]}`,
+      hora : fechaSplit[3],
       valor : (transaccion.destino == transaccion.walletId) ? ("+" + transaccion.valor) : ("" + transaccion.valor)
     }
 
