@@ -23,14 +23,6 @@ export class TransaccionComponent implements OnInit {
     private alertsService: AlertsService
   ) {}
 
-  // miFormulario = new FormGroup({
-  // telefono: new FormControl("",[Validators.required,Validators.minLength(9),Validators.maxLength(14)] ),
-  // email: new FormControl("",[Validators.required, Validators.email]),
-  // motivo: new FormControl("",Validators.required),
-  // dinero: new FormControl(0,[Validators.required,Validators.min(1),Validators.max(40)])
-
-  // })
-
   telefono: string = '';
   email: string = '';
   motivo: string = '';
@@ -39,8 +31,10 @@ export class TransaccionComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // Primero valido el dinero  Y llamo VALIDACION_CONTACTO_EXISTENTE
+
   validar_dinero() {
-    // this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((data) => {
+    //1. this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((data) => {
 
     if (this.dinero < 1) {
       // this.dinero > data.saldo || this.dinero < 1)
@@ -49,7 +43,12 @@ export class TransaccionComponent implements OnInit {
       this.validacion_contacto_existente();
     }
   }
-  
+  //2.0 :Segundo valido usuario -revisa q no este nulo y valida que existe un usuario
+  //2.2 :si se valido llama a enviar transaccion
+
+  //3.Enviar transaccion llama a la funcion obtener contacto HTTP {telefono,mail} para obtener su usuario y recibe data
+  //4.Esto llama a enviarTransferencia q le estoy pasando la respeusta de obtener contacto 3 (data)
+  //5. enviarTransferencia adentro seteo el motivo a desconocido y ya llamo la peticion http post
 
   validacion_contacto_existente() {
     if (this.email == '' && this.telefono == '') {
@@ -61,22 +60,22 @@ export class TransaccionComponent implements OnInit {
     } else {
       this.user.validar_alguno(this.telefono, this.email).subscribe({
         next: (res) => {
-          if (res == true) {            
+          if (res == true) {
             Swal.fire(
               'Usuario Encontrado ',
               'Este usuario dispone de billetera',
               'info'
             );
-            this.enviar_transaccion()
+            this.enviar_transaccion();
           } else {
-            Swal.fire('error', 'Este usuario no dispone de wallet', 'warning');
+            Swal.fire('error', 'Este usuario no dispone de wallet,revise tener correctamente los datos del destinatario', 'warning');
           }
         },
       });
     }
   }
   enviar_transaccion() {
-    this.user.obtener_contacto(this.email,this.telefono).subscribe((data) => {
+    this.user.obtener_contacto(this.email, this.telefono).subscribe((data) => {
       if (data) {
         this.alertsService.confirm({
           title: '¿Desea realizar la transferencia?',
@@ -95,13 +94,11 @@ export class TransaccionComponent implements OnInit {
     });
   }
 
- 
-  
-
   enviarTransferencia(data: Usuario) {
     const { usuarioId } = data;
     if (this.motivo == '') {
       this.motivo = 'Desconocido';
+      // aca compruebo si esta sin llenar el input de motivo y lo seteo a desconocido
     }
     return this.user.enviarTransaccion({
       walletDestino: usuarioId,
@@ -110,7 +107,6 @@ export class TransaccionComponent implements OnInit {
       valor: this.dinero,
     });
   }
-
 
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);
