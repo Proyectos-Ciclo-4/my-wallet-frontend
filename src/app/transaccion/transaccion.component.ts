@@ -41,38 +41,65 @@ export class TransaccionComponent implements OnInit {
   validar_dinero() {
     // this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((data) => {
 
-      if (this.dinero < 1) {
-        // this.dinero > data.saldo || this.dinero < 1)
-        Swal.fire('error', 'Valor de la transaccion no valido', 'warning');
-      } else {
-        this.enviar_transaccion();
-      
-    };
+    if (this.dinero < 1) {
+      // this.dinero > data.saldo || this.dinero < 1)
+      Swal.fire('error', 'Valor de la transaccion no valido', 'warning');
+    } else {
+      this.enviar_transaccion();
+    }
   }
 
   enviar_transaccion() {
-    this.user.obtener_contacto(this.telefono).subscribe((data) => {
-
-      if (data) {
-        this.alertsService.confirm({
-          title: '¿Desea realizar la transferencia?',
-          text: `Valor a enviar USD: ${this.dinero} Destinatario: ${data.email} Motivo de transferencia: ${this.motivo}`,
-          bodyDeConfirmacion: 'Transferencia realizada con exito',
-          tituloDeConfirmacion: 'Transferencia realizada',
-          bodyDelCancel: 'No se pudo realizar la transferencia',
-          tituloDelCancel: 'Error',
-          callback: () => {
-            this.enviarTransferencia(data).subscribe(console.log);
-          },
-        });
-      } else {
-        this.alertaError();
-      }
-    });
+  //valido que el usuario ingrese mail o usuario 
+    if (this.email == '' && this.telefono == '') {
+      Swal.fire(
+        'error',
+        'Debe ingresar un numero de telefono O email',
+        'warning'
+      );
+    } else {
+      this.user.obtener_contacto(this.email, this.telefono).subscribe((data) => {
+        if (data) {
+          console.log(data);
+          // if(){
+          //   si el usuario existe proseguir
+          //   Swal.fire(
+          //     'Usuario ',
+          //     'Se existe este usuario ',
+          //     'info'
+          //   );
+          // } ---------esto ponerlo abajo
+          // else{
+          //   Swal.fire(
+          //     'Usuario no encontrado',
+          //     'Verificar que los datos esten bien diligenciados en usuario',
+          //     'info'
+          //   );
+          // }
+          this.alertsService.confirm({
+            title: '¿Desea realizar la transferencia?',
+            text: `Valor a enviar USD: ${this.dinero} Destinatario: ${data.email} Motivo de transferencia: ${this.motivo}`,
+            bodyDeConfirmacion: 'Transferencia realizada con exito',
+            tituloDeConfirmacion: 'Transferencia realizada',
+            bodyDelCancel: 'No se pudo realizar la transferencia',
+            tituloDelCancel: 'Error',
+            callback: () => {
+              this.enviarTransferencia(data).subscribe(console.log);
+            },
+          });
+        } else {
+          this.alertaError();
+        }
+      });
+    }
+    
   }
 
   enviarTransferencia(data: Usuario) {
     const { usuarioId } = data;
+    if (this.motivo == '') {
+      this.motivo = 'Desconocido';
+    }
     return this.user.enviarTransaccion({
       walletDestino: usuarioId,
       walletOrigen: this.auth.usuarioLogueado().uid,

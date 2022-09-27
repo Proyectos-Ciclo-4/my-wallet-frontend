@@ -53,6 +53,7 @@ export class UserService {
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
   enviarTransaccion(body: Transferencia) {
+    console.log(body)
     return this.http.post(`${this.URL_HTTP}/new/transaction/`, { ...body });
   }
 
@@ -60,9 +61,18 @@ export class UserService {
     return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
   }
 
-  obtener_contacto(telefono: string) {
+  obtener_contacto(email: string,telefono :string) {
+    console.log(email,telefono)
+    
     return this.http.get<UsuarioBack>(
-      `${this.URL_HTTP}/walletByTelefono/${telefono}`
+      `${this.URL_HTTP}/walletByTelefono/${telefono}/${email}`
+    );
+  }
+  validar_alguno_contacto(email: string,telefono :string) {
+    console.log(email,telefono)
+    
+    return this.http.get<UsuarioBack>(
+      `${this.URL_HTTP}/walletByTelefono/${telefono}/${email}`
     );
   }
   peticion_crear_motivo(body: any) {
