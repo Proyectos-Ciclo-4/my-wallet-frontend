@@ -23,6 +23,7 @@ import { MotivosComponent } from './motivos/motivos.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { MotivosComponent } from './motivos/motivos.component';
     MotivosComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule,
     HttpClientModule,
     BrowserModule,

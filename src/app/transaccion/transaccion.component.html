@@ -82,9 +82,12 @@
     <div class="form-outline mb-4 contenedor-hijos-inputs">
       <input
       placeholder="Telefono a ingresar"
+      maxlength="13"
         type="text"
         id="Nombre"
         [(ngModel)]="telefono"
+        [disabled]="email.length > 0"
+        
         class="form-control"
       />
       <label class="form-label" for="form5Example1 ">Telefono</label>
@@ -95,6 +98,7 @@
         type="email"
         id="form5Example2"
         [(ngModel)]="email"
+        [disabled]="telefono.length >0"
         class="form-control"
         placeholder="Email a ingresar"
       />

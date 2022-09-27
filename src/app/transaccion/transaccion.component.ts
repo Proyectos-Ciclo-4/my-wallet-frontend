@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
@@ -14,8 +15,6 @@ import { WsService } from '../services/ws.service';
   styleUrls: ['./transaccion.component.scss'],
 })
 export class TransaccionComponent implements OnInit {
-
-
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -24,12 +23,30 @@ export class TransaccionComponent implements OnInit {
     private alertsService: AlertsService
   ) {}
 
+  // miFormulario = new FormGroup({
+  // telefono: new FormControl("",[Validators.required,Validators.minLength(9),Validators.maxLength(14)] ),
+  // email: new FormControl("",[Validators.required, Validators.email]),
+  // motivo: new FormControl("",Validators.required),
+  // dinero: new FormControl(0,[Validators.required,Validators.min(1),Validators.max(40)])
+
+  // })
+
   telefono: string = '';
   email: string = '';
   motivo: string = '';
   dinero: number = 0;
 
   ngOnInit(): void {}
+
+  validar_dinero() {
+    this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((data) => {
+      if (this.dinero > data.saldo || this.dinero < 1) {
+        Swal.fire('error', 'Valor de la transaccion no valido', 'warning');
+      } else {
+        this.enviar_transaccion();
+      }
+    });
+  }
 
   enviar_transaccion() {
     this.user.obtener_contacto(this.telefono).subscribe((data) => {
