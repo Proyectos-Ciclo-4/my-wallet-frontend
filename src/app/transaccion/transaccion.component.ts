@@ -35,6 +35,7 @@ export class TransaccionComponent implements OnInit {
   email: string = '';
   motivo: string = '';
   dinero: number = 0;
+  // habilitarBoton = false;
 
   ngOnInit(): void {}
 
@@ -45,12 +46,12 @@ export class TransaccionComponent implements OnInit {
       // this.dinero > data.saldo || this.dinero < 1)
       Swal.fire('error', 'Valor de la transaccion no valido', 'warning');
     } else {
-      this.enviar_transaccion();
+      this.validacion_contacto_existente();
     }
   }
+  
 
-  enviar_transaccion() {
-  //valido que el usuario ingrese mail o usuario 
+  validacion_contacto_existente() {
     if (this.email == '' && this.telefono == '') {
       Swal.fire(
         'error',
@@ -58,42 +59,44 @@ export class TransaccionComponent implements OnInit {
         'warning'
       );
     } else {
-      this.user.obtener_contacto(this.email, this.telefono).subscribe((data) => {
-        if (data) {
-          console.log(data);
-          // if(){
-          //   si el usuario existe proseguir
-          //   Swal.fire(
-          //     'Usuario ',
-          //     'Se existe este usuario ',
-          //     'info'
-          //   );
-          // } ---------esto ponerlo abajo
-          // else{
-          //   Swal.fire(
-          //     'Usuario no encontrado',
-          //     'Verificar que los datos esten bien diligenciados en usuario',
-          //     'info'
-          //   );
-          // }
-          this.alertsService.confirm({
-            title: '¿Desea realizar la transferencia?',
-            text: `Valor a enviar USD: ${this.dinero} Destinatario: ${data.email} Motivo de transferencia: ${this.motivo}`,
-            bodyDeConfirmacion: 'Transferencia realizada con exito',
-            tituloDeConfirmacion: 'Transferencia realizada',
-            bodyDelCancel: 'No se pudo realizar la transferencia',
-            tituloDelCancel: 'Error',
-            callback: () => {
-              this.enviarTransferencia(data).subscribe(console.log);
-            },
-          });
-        } else {
-          this.alertaError();
-        }
+      this.user.validar_alguno(this.telefono, this.email).subscribe({
+        next: (res) => {
+          if (res == true) {            
+            Swal.fire(
+              'Usuario Encontrado ',
+              'Este usuario dispone de billetera',
+              'info'
+            );
+            this.enviar_transaccion()
+          } else {
+            Swal.fire('error', 'Este usuario no dispone de wallet', 'warning');
+          }
+        },
       });
     }
-    
   }
+  enviar_transaccion() {
+    this.user.obtener_contacto(this.email,this.telefono).subscribe((data) => {
+      if (data) {
+        this.alertsService.confirm({
+          title: '¿Desea realizar la transferencia?',
+          text: `Valor a enviar USD: ${this.dinero} Destinatario: ${data.email} Motivo de transferencia: ${this.motivo}`,
+          bodyDeConfirmacion: 'Transferencia realizada con exito',
+          tituloDeConfirmacion: 'Transferencia realizada',
+          bodyDelCancel: 'No se pudo realizar la transferencia',
+          tituloDelCancel: 'Error',
+          callback: () => {
+            this.enviarTransferencia(data).subscribe(console.log);
+          },
+        });
+      } else {
+        this.alertaError();
+      }
+    });
+  }
+
+ 
+  
 
   enviarTransferencia(data: Usuario) {
     const { usuarioId } = data;
@@ -108,16 +111,6 @@ export class TransaccionComponent implements OnInit {
     });
   }
 
-  // telefono: this.telefono,
-  // email: this.email,
-  // motivo: this.motivo,
-  // dinero: this.dinero,
-  //   {
-  //   "walletOrigen": "1",
-  //   "walletDestino": "2",
-  //   "valor": 17.0,
-  //   "motivo": "Pago de servicios"
-  // }
 
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);

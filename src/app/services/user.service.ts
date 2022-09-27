@@ -68,11 +68,9 @@ export class UserService {
       `${this.URL_HTTP}/walletByTelefono/${telefono}/${email}`
     );
   }
-  validar_alguno_contacto(email: string,telefono :string) {
-    console.log(email,telefono)
-    
-    return this.http.get<UsuarioBack>(
-      `${this.URL_HTTP}/walletByTelefono/${telefono}/${email}`
+  validar_alguno(telefono: string, email:string) {
+    return this.http.get<Boolean>(
+      `${this.URL_HTTP}/validateBoth/${telefono}/email/${email}`
     );
   }
   peticion_crear_motivo(body: any) {
