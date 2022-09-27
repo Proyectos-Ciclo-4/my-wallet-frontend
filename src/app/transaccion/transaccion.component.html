@@ -49,7 +49,7 @@
     </ul>
   </nav>
   <div>
-    <div class="oculto">
+    <div id="contenedor_oculto_exitoso" class="ocultar">
       <div class="contenedor_vista_exitosa">
         <h1>Transferencia exitosa</h1>
 
@@ -57,12 +57,12 @@
 
         <p class="p-subtitulo"></p>
         <div class="contenedor_p">
-          <p class="p_oculto">Fecha:{{fecha}}</p>
-          <p>Hora:{{hora}}</p>
-          <p>Id transaccion:{{IdTransaccion}}</p>
-          <p>Monto:{{Monto}}</p>
-          <p>Destinatario:{{Destinatario}}</p>
-          <p>Motivo de la transaccion:{{MotivoExitosotransaccion}}</p>
+          <p class="p_oculto">Fecha:  <span style="font-weight:100">{{fecha}} </span></p>
+          <p>Hora:  <span style="font-weight:100">{{hora}}</span></p>
+          <p>Id transaccion:  <span style="font-weight:100">{{IdTransaccion}}</span></p>
+          <p>Monto:  <span style="font-weight:100">{{Monto}}</span></p>
+          <p>Destinatario:  <span style="font-weight:100">{{Destinatario}}</span></p>
+          <p>Motivo de la transaccion:  <span style="font-weight:100">{{MotivoExitosotransaccion}}</span></p>
     
         </div>
 
@@ -167,7 +167,7 @@
     class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
     (click)="vista_exitosa()"
   >
-    Transferir
+    Vista de exito 
   </button>
   <!-- [disabled]="habilitarBoton==false" -->
 </div>

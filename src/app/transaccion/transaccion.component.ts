@@ -154,6 +154,8 @@ export class TransaccionComponent implements OnInit {
   vista_exitosa() {
     let seleccionar = document.getElementById('contenedor_general');
     seleccionar?.classList.add('ocultar');
+    let seleccionarExitoso = document.getElementById('contenedor_oculto_exitoso');
+    seleccionarExitoso?.classList.remove('ocultar');
   }
   alertaError() {
     Swal.fire(
