@@ -88,11 +88,18 @@ export class RegistroComponent implements OnInit {
   crear() {
     this.nuevo_arreglo.telefono = this.Telefono;
     console.log(this.nuevo_arreglo);
-    this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-    });
+    if (this.nuevo_arreglo.telefono.length <13 || this.nuevo_arreglo.telefono==""){
+      Swal.fire(
+        'Numero de Telefono Invalido',
+        'ingrese un numero de telefono valido',
+        'warning')
+    }else{
+      this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+      });
+    }
   }
 
   alertaRegistrado() {
@@ -108,6 +115,4 @@ export class RegistroComponent implements OnInit {
         'Bienvenido a my Wallet  a partir de este momento usted puede disfrutar de las opciones que tenemospara ti!',
         'warning'
       );}
-
-
 }
