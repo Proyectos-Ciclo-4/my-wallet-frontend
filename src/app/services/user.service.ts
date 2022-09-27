@@ -81,11 +81,18 @@ export class UserService {
     ];
   }
 
-  obtener_contacto(telefono: string) {
+  obtener_contacto_porTelefono(telefono: string) {
     return this.http.get<UsuarioBack>(
       `${this.URL_HTTP}/walletByTelefono/${telefono}`
     );
   }
+
+  obtener_contacto_porEmail(email: string) {
+    return this.http.get<UsuarioBack>(
+      `${this.URL_HTTP}/walletByEmail/${email}`
+    );
+  }
+
   validar_alguno(telefono: string, email:string) {
     return this.http.get<Boolean>(
       `${this.URL_HTTP}/validateBoth/${telefono}/email/${email}`
@@ -95,4 +102,9 @@ export class UserService {
   peticion_crear_motivo(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/motivo`, { ...body });
   }
+  get_motivos(userId: string) {
+    return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
+  }
+
+
 }
