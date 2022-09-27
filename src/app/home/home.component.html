@@ -76,9 +76,25 @@
       </h3>
     </div>
 
-    <!--    tabla-->
+
     <div>
       <h3 class="transacciones">Ultimas Transacciones</h3>
+      <p-table [value]="historial" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Valor</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-historial>
+          <tr>
+            <td>{{ historial.fecha.date }}</td>
+            <td>{{ historial.hora }}</td>
+            <td>{{ historial.valor }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </div>

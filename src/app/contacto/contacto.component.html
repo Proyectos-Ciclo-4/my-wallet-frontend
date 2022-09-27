@@ -5,7 +5,7 @@
   <nav class="main-menu">
     <ul>
         <li>
-            <a href="home">
+            <a [routerLink]="['/home']">
                 <i class="fa fa-home fa-2x"></i>
                 <span class="nav-text" >
                     Home
@@ -14,7 +14,7 @@
 
         </li>
         <li class="has-subnav">
-            <a href="transaccion">
+            <a [routerLink]="['/transaccion']">
                 <i class="fa fa-money fa-2x"></i>
                 <span class="nav-text">
                     Transferencias
@@ -23,7 +23,7 @@
 
         </li>
         <li class="has-subnav">
-            <a href="contacto">
+            <a [routerLink]="['/contacto']">
               <i class="fa fa-list fa-2x"></i>
                 <span class="nav-text">
                     Contactos
@@ -32,7 +32,7 @@
 
         </li>
         <li class="has-subnav">
-            <a href="motivos">
+            <a [routerLink]="['/motivos']">
               <i class="fa fa-folder-open fa-2x"></i>
                 <span class="nav-text">
                     Motivos
@@ -41,7 +41,7 @@
 
         </li>
         <li>
-            <a href="mis-gastos">
+            <a [routerLink]="['/mis-gastos']">
                 <i class="fa fa-bar-chart-o fa-2x"></i>
                 <span class="nav-text">
                     Gastos
@@ -49,7 +49,7 @@
             </a>
         </li>
         <li>
-            <a href="historial">
+            <a [routerLink]="['/historial']">
                 <i class="fa fa-clock-o fa-2x"></i>
                 <span class="nav-text">
                   Historial
@@ -60,7 +60,7 @@
 
     <ul class="logout">
         <li>
-          <a href="historial" (click)="logout()">
+          <a [routerLink]="['']" (click)="logout()">
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text">
                     Logout
