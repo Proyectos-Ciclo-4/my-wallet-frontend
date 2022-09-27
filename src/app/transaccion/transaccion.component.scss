@@ -157,10 +157,18 @@ h1{
 
 .mensaje{
   width: 100%;
-  padding: 15px;
-  font-size: large;
-  font-family: Verdana;
+    padding: 15px;
+    font-size: large;
+    display: flex;
+    font-family: Verdana;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    
 
+}
+.p-subtitulo{
+  display: flex;
 }
 
 .btnalert{
@@ -171,16 +179,85 @@ h1{
 }
 
 .btninfo{
-  width: 100px;
+  width: 160px;
   height: 50px;
   border-radius: 10px;
   background-color: rgb(84, 127, 243);
 }
 .btnTransfer{
-  width: 100px;
+  width: 160px;
   height: 50px;
   border-radius: 10px;
   background-color: rgb(243, 190, 17);
 }
 
+// @media (min-width: 768px) {
+// .contenedor-padre{
+  
+//   display: flex;
+//     flex-direction: row;
+//     align-content: stretch;
+//     justify-content: space-evenly;
+//     align-items: center;
+//     flex-wrap: wrap;
+//     padding: auto;
+//     margin: auto;
+// }
+// }
+@media (min-width: 850px) {
+  .contenedor-padre{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: auto;
+    margin: auto;
+    max-width: 700px;
+    align-content: stretch;
+    flex-wrap: wrap
+  }
+  .contenedor-hijos-inputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
 
+  }
+  }
+.boton-submit-contenedor{
+  display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+@media (max-width: 600px) {
+.main-menu {
+  background:#212121;
+  border-right:1px solid #e5e5e5;
+  top:0;
+  bottom:0;
+  height:100%;
+  min-height: 140vh;
+  left:0;
+  width:60px;
+  overflow:hidden;
+  -webkit-transition:width .05s linear;
+  transition:width .05s linear;
+  -webkit-transform:translateZ(0) scale(1,1);
+  z-index:1000;
+  }}
+  .contenedor-padre{
+    
+    
+    
+    
+    padding-left: 10px;
+    margin: auto;
+    max-width: 700px;
+    align-content: stretch;
+    flex-wrap: wrap
+  }
