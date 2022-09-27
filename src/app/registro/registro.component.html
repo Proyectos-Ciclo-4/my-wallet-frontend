@@ -8,47 +8,91 @@
     </h5>
   </div>
 
-  <!-- Name input -->
-  <div class="form-outline mb-4">
-    <input
-      type="text"
-      class="form-control Nombre"
-      value="{{ nombre }}"
-      readonly
-    />
-    <label class="form-label bold" for="form5Example1">Nombre Completo</label>
-  </div>
+  <form  >
+    <div class="form-outline mb-4">
+      <input
+        type="text"
+        class="form-control Nombre"
+        value="{{ nombre }}"
+        required minlength="4"
+        readonly
+      />
+      <label class="form-label bold" for="form5Example1">Nombre Completo</label>
+    </div>
 
-  <div class="form-outline mb-4">
-    <input
-      required
-      minlength="13"
-      type="text"
-      name="telefono"
-      [(ngModel)]="Telefono"
-      class="form-control telefono"
-      placeholder="example:+57 3178768736"
-    />
-    <label class="form-label" for="form5Example1">Telefono</label>
-  </div>
+    <div class="form-outline mb-4">
+      <input
+        required
+        maxlength="13"
+        type="text"
+        name="telefono"
+        [(ngModel)]="Telefono"
+        class="form-control telefono"
+        placeholder="example: +57 3178768736"
+      />
+      <label class="form-label" for="form5Example1">Telefono (Incluya indicativo por país)</label>
+    </div>
 
-  <!-- Email input -->
-  <div class="form-outline mb-4">
-    <input
-      type="email"
-      id="form5Example2"
-      class="form-control email"
-      value="{{ email }}"
-    />
-    <label class="form-label" for="form5Example2">Email</label>
-  </div>
 
-  <!-- Submit button -->
-  <button
-    type="submit"
-    class="btn btn-primary btn-block mb-4"
-    (click)="crear()"
-  >
-    Crear
-  </button>
+    <div class="form-outline mb-4">
+      <input
+        type="email"
+        id="form5Example2"
+        class="form-control email"
+        value="{{ email }}"
+        readonly
+      />
+      <label class="form-label" for="form5Example2">Email</label>
+    </div>
+
+
+    <button
+      type="submit"
+      class="btn btn-primary btn-block mb-4"
+      (click)="crear()"
+    >
+      Crear
+    </button>
+  </form>
 </div>
+
+
+
+
+
+
+<!-- Name input -->
+<!-- <div class="form-outline mb-4">
+  <input
+    type="text"
+    class="form-control Nombre"
+
+    readonly
+  />
+  <label class="form-label bold" for="form5Example1">Nombre Completo</label>
+</div>
+
+
+
+<div class="form-outline mb-4">
+  <input
+    type="email"
+    id="form5Example2"
+    class="form-control email"
+
+  />
+  <label class="form-label" for="form5Example2">Email</label>
+</div> --> -->
+<!--
+<div class="form-outline mb-4">
+  <input
+    required
+
+    type="text"
+    name="telefono"
+    [(ngModel)]="Telefono"
+
+    placeholder="example:+57 3178768736"
+  />
+  <label class="form-label" for="form5Example1">Telefono</label>
+</div> -->

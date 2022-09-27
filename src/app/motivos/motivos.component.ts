@@ -99,4 +99,8 @@ export class MotivosComponent implements OnInit {
   motivosRoute() {
     this.router.navigate(['/motivos']);
   }
+  logout(){
+    this.router.navigate(['']);
+    this.auth.logout()
+  }
 }
