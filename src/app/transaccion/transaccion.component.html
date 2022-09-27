@@ -108,6 +108,7 @@
       <input
         type="number"
         step="any"
+        min=1
         id="form5Example3"
         [(ngModel)]="dinero"
         class="form-control"
@@ -116,8 +117,8 @@
       <label class="form-label" for="form5Example2">Valor a enviar $ USD</label>
     </div>
     <div class="form-outline mb-4 contenedor-hijos-inputs">
-      <input type="text" id="form5Example4" class="form-control" placeholder="Motivo de transferencia " />
-      <label class="form-label" for="form5Example2" [(ngModel)]="motivo"
+      <input type="text" id="form5Example4" [(ngModel)]="motivo" class="form-control" placeholder="Motivo de transferencia " />
+      <label class="form-label" for="form5Example2" >
         >Seleccionr Motivo</label>
     </div>
     <a href="motivos" style="text-decoration: none;"><button
