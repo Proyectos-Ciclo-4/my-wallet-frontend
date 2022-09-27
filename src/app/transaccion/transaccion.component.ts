@@ -39,17 +39,20 @@ export class TransaccionComponent implements OnInit {
   ngOnInit(): void {}
 
   validar_dinero() {
-    this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((data) => {
-      if (this.dinero > data.saldo || this.dinero < 1) {
+    // this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((data) => {
+
+      if (this.dinero < 1) {
+        // this.dinero > data.saldo || this.dinero < 1)
         Swal.fire('error', 'Valor de la transaccion no valido', 'warning');
       } else {
         this.enviar_transaccion();
-      }
-    });
+      
+    };
   }
 
   enviar_transaccion() {
     this.user.obtener_contacto(this.telefono).subscribe((data) => {
+
       if (data) {
         this.alertsService.confirm({
           title: '¿Desea realizar la transferencia?',
