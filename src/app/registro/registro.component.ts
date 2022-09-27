@@ -102,14 +102,14 @@ export class RegistroComponent implements OnInit {
   alertaRegistrado() {
     Swal.fire(
       'USUARIO EXISTENTE',
-      'Usted Ya se encuentra Registrado en my wallet',
+      'hola!'+ this.nuevo_arreglo.nombre + ' Ya tienes una cuenta Registrada en my wallet',
       'warning'
     );}
 
     alertaCreado() {
       Swal.fire(
         'USUARIO CREADO',
-        'Bienvenido a my Wallet  a partir de este momento usted puede disfrutar de las opciones que tenemospara ti!',
+        'Bienvenido '+ this.nuevo_arreglo.nombre + ' a my Wallet  a partir de este momento podras disfrutar de las opciones que tenemos para ti!!!',
         'warning'
       );}
       validacionTelefonoExistente(){
