@@ -3,14 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { WsService } from '../services/ws.service';
 import { UserService } from '../services/user.service';
-import {
-  faAddressBook,
-  faClockRotateLeft,
-  faMoneyBillTransfer,
-  faMoneyCheck,
-} from '@fortawesome/free-solid-svg-icons';
 import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 import { HistoryHome } from '../models/historyHome.model';
+import Swal from 'sweetalert2';
+import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
 
 @Component({
   selector: 'app-home',
@@ -24,11 +20,7 @@ export class HomeComponent implements OnInit {
   wallet!: Wallet;
   historial: any;
   saldo!: number;
-
-  transferenciaIcon = faMoneyBillTransfer;
-  contactosIcon = faAddressBook;
-  historialIcon = faClockRotateLeft;
-  motivosIcon = faMoneyCheck;
+  idDestino!: string;
 
   constructor(
     private auth: AuthService,
@@ -62,13 +54,23 @@ export class HomeComponent implements OnInit {
     console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
+        const transaccionExitosa = { ...evento } as TransaccionExitosa;
         this.actualizarSaldo(evento);
+        this.alertaRecibo();
         break;
     }
   }
 
   private actualizarSaldo(evento: any) {
     this.wallet.saldo += evento.valor.monto;
+  }
+
+  private alertaRecibo() {
+    Swal.fire(
+      'Te Han transferido!!',
+      'Has recibido un Deposito de dinero a tu Cuenta',
+      'success'
+    );
   }
 }
 

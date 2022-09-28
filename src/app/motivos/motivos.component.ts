@@ -60,6 +60,7 @@ export class MotivosComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'El campo de motivo no puede quedar vacio!',
+        
       });
     } else {
       if (this.motivo_color_input == '') {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
@@ -56,6 +57,13 @@ export class ContactoComponent implements OnInit {
 
   switchHandler(evento: any) {
     switch (evento.type) {
+      case'com.sofka.domain.wallet.eventos.ContactoCreado':
+        Swal.fire(
+          'Contacto Creado',
+          'El contacto ha sido Creado exitosamente',
+          'success'
+      );
+        break;
       case 'crear_contacto':
         this.crear_contacto();
         break;

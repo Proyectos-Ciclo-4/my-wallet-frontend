@@ -70,12 +70,15 @@ export class TransaccionComponent implements OnInit {
 
       if (this.dinero < 1 || this.dinero > this.saldo) {
         // this.dinero > data.saldo || this.dinero < 1)
-        Swal.fire('Error', 'Valor de la transaccion no valido, por favor revise que cuente con saldo suficiente para realizar la transacción', 'warning');
+        Swal.fire(
+          'Error',
+          'Valor de la transaccion no valido, por favor revise que cuente con saldo suficiente para realizar la transacción',
+          'warning'
+        );
       } else {
         this.validacion_contacto_existente();
       }
-
-    })
+    });
   }
   //2.0 :Segundo valido usuario -revisa q no este nulo y valida que existe un usuario
   //2.2 :si se valido llama a enviar transaccion
@@ -92,7 +95,7 @@ export class TransaccionComponent implements OnInit {
         'warning'
       );
     } else {
-      this.verifUserDestino(this.telefono,this.email)
+      this.verifUserDestino(this.telefono, this.email);
     }
   }
 
@@ -105,7 +108,7 @@ export class TransaccionComponent implements OnInit {
     return this.user.enviarTransaccion({
       walletDestino: usuarioId,
       walletOrigen: this.auth.usuarioLogueado().uid,
-      motivo: this.motivo,
+      motivo: { description: 'Diversion', color: '#FF0000' },
       valor: this.dinero,
     });
   }
@@ -138,13 +141,12 @@ export class TransaccionComponent implements OnInit {
     );
   }
 
-  verifUserDestino(telefono:string,email:string){ 
-    
-    if (telefono == ""){
-      telefono = "QUERYBYEMAIL"
+  verifUserDestino(telefono: string, email: string) {
+    if (telefono == '') {
+      telefono = 'QUERYBYEMAIL';
     }
-    if (email == ""){
-      email = "QUERYBYTELEFONO"
+    if (email == '') {
+      email = 'QUERYBYTELEFONO';
     }
 
     this.user.validar_alguno(telefono, email).subscribe({
@@ -159,26 +161,30 @@ export class TransaccionComponent implements OnInit {
   });}
 
   enviar_transaccion() {
-    if(this.email==""){
-    this.user.obtener_contacto_porTelefono(this.telefono).subscribe((data) => {
-      if (data) {
-        this.alertaConfirmar(data)
-      } else {
-        this.alertaError();
-      }
-    })} else {
+    if (this.email == '') {
+      this.user
+        .obtener_contacto_porTelefono(this.telefono)
+        .subscribe((data) => {
+          if (data) {
+            this.alertaConfirmar(data);
+          } else {
+            // this.alertaError();
+          }
+        });
+    } else {
+      console.log('Entro al else');
       this.user.obtener_contacto_porEmail(this.email).subscribe((data) => {
         if (data) {
-          console.log(data)
-          this.alertaConfirmar(data)
+          console.log(data);
+          this.alertaConfirmar(data);
         } else {
           this.alertaError();
-        }})
-}
-
+        }
+      });
+    }
   }
 
-  alertaConfirmar(data:Usuario){
+  alertaConfirmar(data: Usuario) {
     this.alertsService.confirm({
       title: '¿Desea realizar la transferencia?',
       text: `Valor a enviar USD: ${this.dinero}\n Destinatario: ${data.email}\n Motivo de transferencia: ${this.motivo}`,
@@ -206,8 +212,9 @@ export class TransaccionComponent implements OnInit {
   vista_exitosa() {
     let seleccionar = document.getElementById('contenedor_general');
     seleccionar?.classList.add('ocultar');
-    let seleccionarExitoso = document.getElementById('contenedor_oculto_exitoso');
+    let seleccionarExitoso = document.getElementById(
+      'contenedor_oculto_exitoso'
+    );
     seleccionarExitoso?.classList.remove('ocultar');
   }
-
 }
