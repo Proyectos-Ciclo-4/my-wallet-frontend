@@ -10,7 +10,9 @@ export class WsService {
   readonly webSocket!: WebSocketSubject<unknown>;
 
   constructor(private auth: AuthService) {
-    this.webSocket = webSocket(`${this.URL_WS}/1`);
+    this.webSocket = webSocket(
+      `${this.URL_WS}/${this.auth.usuarioLogueado().uid}`
+    );
     // `${this.URL_WS}/${this.auth.usuarioLogueado().uid}`
   }
 
