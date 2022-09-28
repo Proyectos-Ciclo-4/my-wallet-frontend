@@ -64,9 +64,7 @@ export class UserService {
     return this.http.post(`${this.URL_HTTP}/new/transaction/`, { ...body });
   }
 
-  peticion_crear_contacto(body: any) {
-    return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
-  }
+ 
 
   getHistory(startDate:string,endDate:string,walletId:string) {
     return this.http.get<TransaccionDeHistorial[]>(`${this.URL_HTTP}/history/${startDate}/to/${endDate}/of/${walletId}`);

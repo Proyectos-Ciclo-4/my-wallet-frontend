@@ -10,7 +10,7 @@ import {
 import { RegistroComponent } from './registro/registro.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
-import { ContactoComponent } from './contacto/contacto.component';
+
 import { MotivosComponent } from './motivos/motivos.component';
 import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
 
@@ -45,11 +45,7 @@ const routes: Routes = [
     component: HistorialComponent,
     ...canActivate(() => redirectUnauthorizedTo([''])),
   },
-  {
-    path: 'contacto',
-    component: ContactoComponent,
-    ...canActivate(() => redirectUnauthorizedTo([''])),
-  },
+  
   {
     path: 'mis-gastos',
     component: MisGastosComponent,
