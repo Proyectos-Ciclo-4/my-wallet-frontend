@@ -13,7 +13,7 @@ export interface TransaccionDeHistorial{
   walletId:         string;
   fecha:            string;
   estado:           string;
-  motivo:           string;
+  motivo:           Motivo;
   valor:            number;
   destino:          string;
   transferencia_id: string;

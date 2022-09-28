@@ -23,7 +23,9 @@ export class LoginComponent implements OnInit {
 
   nuevo_arreglo: any;
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(new Date().toISOString())
+  }
 
   onClick() {
     this.auth.loginWithGoogle().then((response) => {

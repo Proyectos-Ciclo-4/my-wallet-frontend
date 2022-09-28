@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 import { Transaction } from '../models/history.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { TransaccionDeHistorial } from '../models/wallet.model';
 
 @Component({
   selector: 'app-mis-gastos',
@@ -22,8 +23,10 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   from: Date = new Date();
   until: Date = new Date();
   form!: FormGroup;
+  historyQuery: Array<Transaction> = [];
   mostExpensive = { color: '#f45g56', description: 'Test' };
   cheapest = { color: '#fff192', description: 'Test' };
+  walletId!: string;
 
   constructor(
     private configService: ChartConfigService,
@@ -34,6 +37,11 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     this.setAvailableDates();
     this.buildForm();
   }
+
+  //actualizar grafico con base a porcentajes
+  //100% total de gastos en el perido de tiempo seleccionado
+  //consulto gastos en ese tiempo
+  //actualizar el modelo
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -48,6 +56,7 @@ export class MisGastosComponent implements OnInit, OnDestroy {
       this.config = config;
       this.updateChartOptions();
     });
+    this.walletId = this.auth.getMyUser()?.uid!;
   }
 
   private transformHistoryInDataSets(history: Transaction[]): Gastos {
@@ -83,23 +92,51 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   sendForm() {
-    const result = this.userService.getHistory(this.form.value);
-    const sortedResult = result.sort((a, b) => b.valor - a.valor);
-    const expensive = sortedResult[0];
-    const cheapest = sortedResult[sortedResult.length - 1];
+    let fromURL = this.formatTime(this.from);
+    let untilURL = this.formatTime(this.until);
 
-    this.mostExpensive = {
-      color: `${expensive.motivo.color}`,
-      description: expensive.motivo.descripcion,
-    };
+    this.userService
+      .getHistory(fromURL, untilURL, this.walletId)
+      .subscribe((response) => {
+        console.log(response);
+        this.historyQuery = this.transHistReformatter(response);
+        console.log(this.historyQuery);
+      });
 
-    this.cheapest = {
-      color: `${cheapest.motivo.color}`,
-      description: cheapest.motivo.descripcion,
-    };
+    // const sortedResult = this.historyQuery.sort((a, b) => b.valor - a.valor);
+    // const expensive = sortedResult[0];
+    // const cheapest = sortedResult[sortedResult.length - 1];
 
-    const mappedTransactions = this.transformHistoryInDataSets(result);
+    // this.mostExpensive = {
+    //   color: `${expensive.motivo.color}`,
+    //   description: expensive.motivo.descripcion,
+    // };
+
+    // this.cheapest = {
+    //   color: `${cheapest.motivo.color}`,
+    //   description: cheapest.motivo.descripcion,
+    // };
+
+    const mappedTransactions = this.transformHistoryInDataSets(
+      this.historyQuery
+    );
     this.data = this.getData(mappedTransactions);
+  }
+
+  private formatTime(date: Date) {
+    return date.toISOString().split('T')[0];
+  }
+
+  private transHistReformatter(
+    transHistorial: Array<TransaccionDeHistorial>
+  ): Transaction[] {
+    return transHistorial.map(
+      (unformatted) =>
+        ({
+          motivo: unformatted.motivo,
+          valor: Math.abs(unformatted.valor),
+        } as Transaction)
+    );
   }
 
   private setAvailableDates() {
