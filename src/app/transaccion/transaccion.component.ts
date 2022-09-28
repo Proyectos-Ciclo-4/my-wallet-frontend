@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { faRupiahSign } from '@fortawesome/free-solid-svg-icons';
 
 import Swal from 'sweetalert2';
+import { Motivo } from '../models/motivo.model';
 import { Usuario } from '../models/usuario-backend.model';
+import { Wallet } from '../models/wallet.model';
 import { AlertsService } from '../services/alerts.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -24,23 +26,31 @@ export class TransaccionComponent implements OnInit {
     private alertsService: AlertsService
   ) {}
 
+  //Form
   telefono: string = '';
   email: string = '';
+  motivosLista: Motivo[] = [];
   motivo: string = '';
   dinero: number = 0;
   saldo: number = 0;
-  
+  wallet!:Wallet;
+
+  //Vista de Transaccion exitosa
   fecha: string = '';
-  hora: string = '03.25';
-  IdTransaccion: string = '56454';
-  Monto: string = '$25';
-  Destinatario: string = 'Sofka@gmail';
-  MotivoExitosotransaccion: string = 'diversion';
+  hora: string = '';
+  IdTransaccion: string = '';
+  Monto: string = '';
+  Destinatario: string = '';
+  MotivoExitosotransaccion: string = '';
   
-  // habilitarBoton = false;
 
   ngOnInit(): void {
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
+    let userId = this.auth.getMyUser()?.uid!;
+    this.user.getWallet(userId).subscribe((wallet) => { 
+      this.wallet = wallet
+      this.motivosLista = wallet.motivos
+      })
   }
   
   switchHandler(evento: any) {
@@ -50,18 +60,6 @@ export class TransaccionComponent implements OnInit {
         this.updateTransConfirmation(evento);
         break;
     }
-  }
-
-
-  updateTransConfirmation(evento: any) {
-    let unixtime = new Date(evento.when.seconds*1000).toISOString().split("T")
-    this.fecha = unixtime[0]
-    this.hora = (unixtime[1].split("Z")[0] + " Universal Time")
-    this.IdTransaccion = evento.transferenciaID.uuid
-    this.Destinatario = this.email == "" ? this.telefono : this.email
-    this.Monto = evento.valor.monto
-    this.MotivoExitosotransaccion = evento.motivo.descripcion
-    this.vista_exitosa()
   }
 
   // Primero valido el dinero  Y llamo VALIDACION_CONTACTO_EXISTENTE
@@ -166,15 +164,13 @@ export class TransaccionComponent implements OnInit {
       if (data) {
         this.alertaConfirmar(data)
       } else {
-       // this.alertaError();
+        this.alertaError();
       }
     })} else {
-      console.log("Entro al else")
       this.user.obtener_contacto_porEmail(this.email).subscribe((data) => {
         if (data) {
           console.log(data)
           this.alertaConfirmar(data)
-          
         } else {
           this.alertaError();
         }})
@@ -194,6 +190,17 @@ export class TransaccionComponent implements OnInit {
         this.enviarTransferencia(data).subscribe(console.log);
       },
     });
+  }
+
+  updateTransConfirmation(evento: any) {
+    let unixtime = new Date(evento.when.seconds*1000).toISOString().split("T")
+    this.fecha = unixtime[0]
+    this.hora = (unixtime[1].split("Z")[0] + " Universal Time")
+    this.IdTransaccion = evento.transferenciaID.uuid
+    this.Destinatario = this.email == "" ? this.telefono : this.email
+    this.Monto = evento.valor.monto
+    this.MotivoExitosotransaccion = evento.motivo.descripcion
+    this.vista_exitosa()
   }
 
   vista_exitosa() {

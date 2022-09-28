@@ -36,12 +36,15 @@ export class MotivosComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private user: UserService,
-    private webSocket: WsService
+    private ws: WsService
   ) {}
   motivosListaResponse: any;
 
 
   ngOnInit(): void {
+
+    this.ws.getWs().subscribe(this.switchHandler.bind(this))
+
     let userId = this.auth.getMyUser()?.uid!;
     this.user.getWallet(userId).subscribe((wallet) => { 
     this.wallet = wallet
@@ -82,7 +85,7 @@ export class MotivosComponent implements OnInit {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.enviar_motivo().subscribe(console.log);
-          Swal.fire('Guardado!', '', 'success');
+          Swal.fire('Creando su motivo', 'espere por favor...', 'success');
         } else if (result.isDenied) {
           Swal.fire('Los cambios no seran guardados', '', 'info');
         }
@@ -94,7 +97,12 @@ export class MotivosComponent implements OnInit {
     return this.user.nuevoMotivo(newMotivo,this.wallet.walletId);
   }
 
-
+  switchHandler(evento : any){
+    switch(evento.type){
+      case("com.sofka.domain.wallet.eventos.MotivoCreado"):
+        Swal.fire('Motivo Creado','','success')
+    }
+  }
 
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);
