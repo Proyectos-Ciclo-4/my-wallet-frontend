@@ -285,11 +285,15 @@ h1{
 
   }
   .boton-crearmotivo{
-    background-color: #5fa1db71;
+    background-color: rgb(95 161 219 / 20%);
+    width: 120px;
   }
   @media (min-width: 1400px){
     .contenedor-visor{
       min-width: 90vw;
     }
 
+  }
+  .boton-tamaño{
+    max-width: 150px;
   }
