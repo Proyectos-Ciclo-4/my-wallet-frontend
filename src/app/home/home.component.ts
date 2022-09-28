@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 import { HistoryHome } from '../models/historyHome.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -24,11 +25,8 @@ export class HomeComponent implements OnInit {
   wallet!: Wallet;
   historial: any;
   saldo!: number;
+  idDestino!:string;
 
-  transferenciaIcon = faMoneyBillTransfer;
-  contactosIcon = faAddressBook;
-  historialIcon = faClockRotateLeft;
-  motivosIcon = faMoneyCheck;
 
   constructor(
     private auth: AuthService,
@@ -62,6 +60,7 @@ export class HomeComponent implements OnInit {
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         this.actualizarSaldo(evento);
+        this.alertaRecibo(this.userId);
         break;
     }
   }
@@ -69,6 +68,15 @@ export class HomeComponent implements OnInit {
   private actualizarSaldo(evento: any) {
     this.wallet.saldo += evento.valor.monto;
   }
+}
+
+function alertaRecibo(userId:any, id:string){
+  if(userId==id)
+  Swal.fire(
+    'Te Han transferido!!',
+    'Has recibido un Deposito de dinero a tu Cuenta',
+    'success'
+  );
 }
 
 function buildHomeHistorial(
@@ -94,4 +102,6 @@ function buildHomeHistorial(
       historialDeHome.push(entrada);
     });
   return historialDeHome;
+
 }
+
