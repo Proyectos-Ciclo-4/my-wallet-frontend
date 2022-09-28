@@ -7,6 +7,7 @@ import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 import { HistoryHome } from '../models/historyHome.model';
 import Swal from 'sweetalert2';
 import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
+import { AlertsService } from '../services/alerts.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private user: UserService,
-    private ws: WsService
+    private ws: WsService,
+    private alertsService: AlertsService
   ) {
     this.userId = this.auth.getMyUser()?.uid!;
     this.userName = this.auth.getMyUser()?.displayName!;
@@ -84,7 +86,27 @@ export class HomeComponent implements OnInit {
       'info'
     );
   }
+  alertaConfirmar() {
+    this.alertsService.confirm({
+      title: '¿Desea eliminar su wallet?',
+      text: `"Lamentamos que quieras abandonarnos tan pronto y que no puedas seguir disfrutando de la simplicidad, seguridad y trazabilidad de MyWallet. Si quieres continuar con el proceso de cierre, da clic en SI, de lo contrario da click en cancelar`,
+      bodyDeConfirmacion: 'Tu cuenta ha sido programada para eliminacion, en los próximos 5 días uno de nuestros agentes se contactará contigo para proceder con el cierre definitivo de tu cuenta. Para proceder, debes transferir todo tu saldo a alguno de tus contactos en estos 5 dias habiles',
+      tituloDeConfirmacion: 'Wallet en proceso de eliminacion',
+      bodyDelCancel: 'Que gusto que desees continuar con Nosotros',
+      tituloDelCancel: '  ',
+      callback: () => {
+        this.eliminarWallet(this.userId).subscribe(console.log);
+      },
+    });
+  }
+  eliminarWallet(data: any) {
+    return this.user.EliminarWallet(data);
+  }
+
 }
+
+
+//
 
 function buildHomeHistorial(
   historial: Array<TransaccionDeHistorial>
