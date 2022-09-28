@@ -93,7 +93,8 @@ export class HomeComponent implements OnInit {
 
 function buildHomeHistorial(historial:Array<TransaccionDeHistorial>): Array<HistoryHome> {
   let historialDeHome : Array<HistoryHome> = new Array<HistoryHome>();
-  historial.forEach(transaccion => {
+
+  historial.reverse().slice(0,3).forEach(transaccion => {
     
     let fechaSplit = transaccion.fecha.split(" ") 
 

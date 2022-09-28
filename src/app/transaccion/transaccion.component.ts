@@ -155,8 +155,9 @@ export class TransaccionComponent implements OnInit {
         if (data) {
           console.log(data)
           this.alertaConfirmar(data)
+          
         } else {
-         // this.alertaError();
+          this.alertaError();
         }})
 }
 
