@@ -48,9 +48,9 @@ export class MotivosComponent implements OnInit {
     let userId = this.auth.getMyUser()?.uid!;
     this.user.getWallet(userId).subscribe((wallet) => { 
     this.wallet = wallet
-    //this.motivosLista = wallet.motivos
+    this.motivosLista = wallet.motivos
     })
-    this.falsearMotivos()
+    //this.falsearMotivos()
     console.log(this.motivosLista)
   }
 
@@ -77,7 +77,7 @@ export class MotivosComponent implements OnInit {
         this.auth.usuarioLogueado().uid
       );
       Swal.fire({
-        title: 'Luego no podras modificar tus motivos,',
+        title: 'Luego no podrás modificar tus motivos',
         showDenyButton: true,
        
         confirmButtonText: 'Confirmar',
@@ -95,6 +95,7 @@ export class MotivosComponent implements OnInit {
   }
   enviar_motivo() {
     let newMotivo : Motivo = {descripcion:this.motivo_descripcion_input , color:this.motivo_color_input}
+    console.log(this.wallet.walletId)
     return this.user.nuevoMotivo(newMotivo,this.wallet.walletId);
   }
 
@@ -102,6 +103,8 @@ export class MotivosComponent implements OnInit {
     switch(evento.type){
       case("com.sofka.domain.wallet.eventos.MotivoCreado"):
         Swal.fire('Motivo Creado','','success')
+        let motivoAgregar:Motivo = {descripcion: evento.motivo.descripcion , color:evento.motivo.color}
+        this.motivosLista.push(motivoAgregar)
     }
   }
 

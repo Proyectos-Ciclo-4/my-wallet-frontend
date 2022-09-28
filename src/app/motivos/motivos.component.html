@@ -75,7 +75,7 @@
         ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo.
         El motivo "desconocido" es inmodificable y se asignara por defecto al momentode realizar una transferencia. -->
         Queremos ayudarte a controlar tus gastos mediante la generacion de estadisticas sobre tus principales motivos al transferir dinero a otros usuarios de My Wallet
-        ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo
+        ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo; solo podras tener un máximo de 10 motivos
       </p>
       <div class="contenedor_padre">
       
@@ -84,7 +84,7 @@
         <label class="form-label" for="form5Example2">Seleccione su color :</label> <br>
       <input type="color" class="" [(ngModel)]="motivo_color_input">
       <br>    
-        <input type="text" id="form5Example4" maxlength="13" class="form-control" [(ngModel)]="motivo_descripcion_input" />
+        <input type="text" id="form5Example4" maxlength="11" class="form-control" [(ngModel)]="motivo_descripcion_input" />
         <label class="form-label" for="form5Example2" 
           >Motivo de transferencia</label>
         
@@ -102,7 +102,7 @@
       
       
       </div> 
-      <div class="boton-contenedor"><button class="btn5" (click)="OnClick()" >Crear Motivo </button></div>        
+      <div class="boton-contenedor"><button class="btn5" (click)="OnClick()" [disabled] ="motivosLista.length >= 10" >Crear Motivo </button></div>        
       
        
      

@@ -1,3 +1,4 @@
+import { HistorialComponent } from "../historial/historial.component";
 import { Motivo } from "./motivo.model";
 
 export interface Wallet {

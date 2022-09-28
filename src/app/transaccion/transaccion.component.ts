@@ -30,9 +30,10 @@ export class TransaccionComponent implements OnInit {
   telefono: string = '';
   email: string = '';
   motivosLista: Motivo[] = [];
-  motivo: string = '';
+  motivo!: Motivo;
   dinero: number = 0;
   saldo: number = 0;
+  selectedOption: Array<string> = [];
   wallet!:Wallet;
 
   //Vista de Transaccion exitosa
@@ -42,7 +43,6 @@ export class TransaccionComponent implements OnInit {
   Monto: string = '';
   Destinatario: string = '';
   MotivoExitosotransaccion: string = '';
-  
 
   ngOnInit(): void {
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
@@ -50,6 +50,8 @@ export class TransaccionComponent implements OnInit {
     this.user.getWallet(userId).subscribe((wallet) => { 
       this.wallet = wallet
       this.motivosLista = wallet.motivos
+      this.motivo = this.motivosLista[0]
+      this.selectedOption = [this.motivo.descripcion];
       })
   }
   
@@ -65,6 +67,7 @@ export class TransaccionComponent implements OnInit {
   // Primero valido el dinero  Y llamo VALIDACION_CONTACTO_EXISTENTE
 
   validar_dinero() {
+    console.log(this.selectedOption)
     this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((data) => {
       this.saldo = data.saldo;
 
@@ -101,14 +104,10 @@ export class TransaccionComponent implements OnInit {
 
   enviarTransferencia(data: Usuario) {
     const { usuarioId } = data;
-    if (this.motivo == '') {
-      this.motivo = 'Desconocido';
-      // aca compruebo si esta sin llenar el input de motivo y lo seteo a desconocido
-    }
     return this.user.enviarTransaccion({
       walletDestino: usuarioId,
       walletOrigen: this.auth.usuarioLogueado().uid,
-      motivo: { description: 'Diversion', color: '#FF0000' },
+      motivo: {description: this.selectedOption[0], color: this.selectedOption[1]},
       valor: this.dinero,
     });
   }
@@ -187,7 +186,7 @@ export class TransaccionComponent implements OnInit {
   alertaConfirmar(data: Usuario) {
     this.alertsService.confirm({
       title: '¿Desea realizar la transferencia?',
-      text: `Valor a enviar USD: ${this.dinero}\n Destinatario: ${data.email}\n Motivo de transferencia: ${this.motivo}`,
+      text: `Valor a enviar USD: ${this.dinero}\n Destinatario: ${data.email}\n Motivo de transferencia: ${this.selectedOption[0]}`,
       bodyDeConfirmacion: 'Espere por favor...',
       tituloDeConfirmacion: 'Transferencia en progreso',
       bodyDelCancel: 'No se pudo realizar la transferencia',
@@ -199,13 +198,15 @@ export class TransaccionComponent implements OnInit {
   }
 
   updateTransConfirmation(evento: any) {
+    console.log(evento)
+
     let unixtime = new Date(evento.when.seconds*1000).toISOString().split("T")
     this.fecha = unixtime[0]
     this.hora = (unixtime[1].split("Z")[0] + " Universal Time")
     this.IdTransaccion = evento.transferenciaID.uuid
     this.Destinatario = this.email == "" ? this.telefono : this.email
     this.Monto = evento.valor.monto
-    this.MotivoExitosotransaccion = evento.motivo.descripcion
+    this.MotivoExitosotransaccion = this.selectedOption[0]
     this.vista_exitosa()
   }
 

@@ -109,7 +109,7 @@ export class UserService {
     return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
   }*/
 
-  nuevoMotivo(motivo:Motivo, walletId:string){
-    return this.http.post(`${this.URL_HTTP}/new/motivo`, { walletId, motivo });
+  nuevoMotivo(motivo:Motivo, walletID:string){
+    return this.http.post(`${this.URL_HTTP}/new/motivo/`, { walletID, ...motivo });
   }
 }

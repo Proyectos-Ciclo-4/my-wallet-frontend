@@ -131,6 +131,12 @@
             >Valor a enviar $ USD</label
           >
         </div>
+
+        <select  id="select-menu" [(ngModel)]="selectedOption" class="bx--text-input" required name="actionSelection" >
+          <option style="background-color: {{motivo.color}}" *ngFor='let motivo of motivosLista' [ngValue]="[motivo.descripcion,motivo.color]">{{motivo.descripcion}}</option>
+        </select>
+
+        <!-- <--!
         <div class="form-outline mb-4 contenedor-hijos-inputs">
           <input
             type="text"
@@ -150,7 +156,7 @@
             Crear Motivo
           </button>
         </a>
-      </div>
+      </div> --> 
       <div class="boton-submit-contenedor">
         <button
           type="submit"
