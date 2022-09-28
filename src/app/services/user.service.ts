@@ -52,6 +52,11 @@ export class UserService {
   }
 
   getWallet(userId: string) {
+    //console.log("Retrieving wallet of " + userId)
+    //console.log("petition: " + `${this.URL_HTTP}/wallet/${userId}`)
+    //this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`).subscribe((wallet) =>{
+    //console.log(wallet.historial)
+    //})
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
 
@@ -93,7 +98,7 @@ export class UserService {
     );
   }
 
-  validar_alguno(telefono: string, email:string) {
+  validar_alguno(telefono: string, email: string) {
     return this.http.get<Boolean>(
       `${this.URL_HTTP}/validateBoth/${telefono}/email/${email}`
     );
@@ -106,5 +111,7 @@ export class UserService {
     return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
   }
 
-
+  /* nuevoMotivo(motivo:Motivo, walletId:string){
+    return this.http.post(`${this.URL_HTTP}/new/motivo`, { walletId, motivo });
+  }*/
 }
