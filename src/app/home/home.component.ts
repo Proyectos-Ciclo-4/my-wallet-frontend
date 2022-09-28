@@ -60,6 +60,9 @@ export class HomeComponent implements OnInit {
         this.alertaAnimada()
         this.alertaRecibo(transaccionExitosa);
         break;
+      case'com.sofka.domain.wallet.eventos.WalletDesactivada':
+      this.alertaEliminarConfirmada()
+      break
     }
   }
 
@@ -86,12 +89,12 @@ export class HomeComponent implements OnInit {
       'info'
     );
   }
-  alertaConfirmar() {
+  alertaEliminarwallet() {
     this.alertsService.confirm({
       title: '¿Desea eliminar su wallet?',
       text: `"Lamentamos que quieras abandonarnos tan pronto y que no puedas seguir disfrutando de la simplicidad, seguridad y trazabilidad de MyWallet. Si quieres continuar con el proceso de cierre, da clic en SI, de lo contrario da click en cancelar`,
-      bodyDeConfirmacion: 'Tu cuenta ha sido programada para eliminacion, en los próximos 5 días uno de nuestros agentes se contactará contigo para proceder con el cierre definitivo de tu cuenta. Para proceder, debes transferir todo tu saldo a alguno de tus contactos en estos 5 dias habiles',
-      tituloDeConfirmacion: 'Wallet en proceso de eliminacion',
+      bodyDeConfirmacion: 'Tu solicitud se encuentra en proceso',
+      tituloDeConfirmacion: 'EN PROCESO',
       bodyDelCancel: 'Que gusto que desees continuar con Nosotros',
       tituloDelCancel: '  ',
       callback: () => {
@@ -102,11 +105,16 @@ export class HomeComponent implements OnInit {
   eliminarWallet(data: any) {
     return this.user.EliminarWallet(data);
   }
+  alertaEliminarConfirmada() {
+    Swal.fire(
+      'Wallet en proceso de eliminacion',
+      'Tu cuenta ha sido programada para eliminacion, en los próximos 5 días uno de nuestros agentes se contactará contigo para proceder con el cierre definitivo de tu cuenta. Para proceder, debes transferir todo tu saldo a alguno de tus contactos en estos 5 dias habiles   Wallet en proceso de eliminacion',
+      'success'
+    );
+  }
 
 }
 
-
-//
 
 function buildHomeHistorial(
   historial: Array<TransaccionDeHistorial>
