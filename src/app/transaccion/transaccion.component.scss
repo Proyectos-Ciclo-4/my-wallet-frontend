@@ -4,6 +4,7 @@
 .cont{
   display:flex;
 
+
 }
 
 .fa-2x {
@@ -164,7 +165,7 @@ h1{
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    
+
 
 }
 .p-subtitulo{
@@ -193,7 +194,7 @@ h1{
 
 // @media (min-width: 768px) {
 // .contenedor-padre{
-  
+
 //   display: flex;
 //     flex-direction: row;
 //     align-content: stretch;
@@ -206,7 +207,7 @@ h1{
 // }
 @media (min-width: 850px) {
   .contenedor-padre{
-    
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -251,10 +252,10 @@ h1{
   z-index:1000;
   }}
   .contenedor-padre{
-    
-    
-    
-    
+
+
+
+
     padding-left: 10px;
     margin: auto;
     max-width: 700px;
@@ -277,12 +278,10 @@ h1{
     padding: 10px;
   }
   .contenedor_p p{
-    
+
     padding: 5px;
     margin: 5px;
     font-weight: 500;
-    
-
   }
   .boton-crearmotivo{
     background-color: rgb(95 161 219 / 20%);

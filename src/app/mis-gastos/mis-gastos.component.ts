@@ -98,24 +98,25 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     this.userService
       .getHistory(fromURL, untilURL, this.walletId)
       .subscribe((response) => {
-        console.log(response);
+        console.log(typeof response[0].motivo);
+        console.log(response[0].motivo);
         this.historyQuery = this.transHistReformatter(response);
         console.log(this.historyQuery);
       });
 
-    // const sortedResult = this.historyQuery.sort((a, b) => b.valor - a.valor);
-    // const expensive = sortedResult[0];
-    // const cheapest = sortedResult[sortedResult.length - 1];
+    const sortedResult = this.historyQuery.sort((a, b) => b.valor - a.valor);
+    const expensive = sortedResult[0];
+    const cheapest = sortedResult[sortedResult.length - 1];
 
-    // this.mostExpensive = {
-    //   color: `${expensive.motivo.color}`,
-    //   description: expensive.motivo.descripcion,
-    // };
+    this.mostExpensive = {
+      color: `${expensive.motivo.color}`,
+      description: expensive.motivo.descripcion,
+    };
 
-    // this.cheapest = {
-    //   color: `${cheapest.motivo.color}`,
-    //   description: cheapest.motivo.descripcion,
-    // };
+    this.cheapest = {
+      color: `${cheapest.motivo.color}`,
+      description: cheapest.motivo.descripcion,
+    };
 
     const mappedTransactions = this.transformHistoryInDataSets(
       this.historyQuery
@@ -133,7 +134,10 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     return transHistorial.map(
       (unformatted) =>
         ({
-          motivo: unformatted.motivo,
+          motivo: {
+            descripcion: unformatted.motivo.descripcion,
+            color: unformatted.motivo.color,
+          },
           valor: Math.abs(unformatted.valor),
         } as Transaction)
     );

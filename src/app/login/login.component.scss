@@ -1,5 +1,10 @@
+
+.cont{
+  min-height: 87vh;
+}
+
 .login-container-parent {
-    
+
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -102,14 +107,14 @@
   }
   @media (min-width: 768px) {
     .login-container-parent {
-     
+
       .header {
         flex-grow: 1;
-        
+
         background: linear-gradient(0deg, #f8f9f9 70%, #32609500 30%);
         .logo-wallet,
         .app-title-container {
-          
+
         }
       }
       .session-method {
@@ -132,7 +137,7 @@
   @media only screen and (min-width: 1200px) {
     .login-container-parent {
       .header {
-        
+
         background: linear-gradient(0deg, #f8f9f9 70%, #32609500 30%);
         .logo-wallet,
         .app-title-container {
@@ -163,4 +168,3 @@
       }
     }
   }
-  
