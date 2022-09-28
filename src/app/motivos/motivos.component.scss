@@ -202,7 +202,7 @@ button{
 	padding: 0;
 	list-style: none;
 	font-family: 'Lato', sans-serif;
-	line-height: 1;
+	
 }
 
 body {
@@ -392,5 +392,9 @@ $tooltip-background-color: $sidebar-background-color;
 		font-family: Verdana;
 	  }
 	  
+
+}
+.boton-color{
+  border-radius:30%
 
 }
