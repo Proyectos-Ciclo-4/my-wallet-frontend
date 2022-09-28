@@ -103,15 +103,15 @@ export class UserService {
       `${this.URL_HTTP}/validateBoth/${telefono}/email/${email}`
     );
   }
-
+  EliminarWallet(userId: any) {
+    return this.http.delete(`${this.URL_HTTP}/deletewallet/${userId}`);
+  }
   /*
   get_motivos(userId: string) {
     return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
   }
 
-  EliminarWallet(userId: any) {
-    return this.http.delete(`${this.URL_HTTP}/motivo/${userId}`);
-  }
+
 
   /* nuevoMotivo(motivo:Motivo, walletId:string){
     return this.http.post(`${this.URL_HTTP}/new/motivo`, { walletId, motivo });

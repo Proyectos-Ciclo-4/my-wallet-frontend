@@ -109,7 +109,7 @@ export class HomeComponent implements OnInit {
   alertaEliminarConfirmada() {
     Swal.fire(
       'Wallet en proceso de eliminacion',
-      'Tu cuenta ha sido programada para eliminacion, en los próximos 5 días uno de nuestros agentes se contactará contigo para proceder con el cierre definitivo de tu cuenta. Para proceder, debes transferir todo tu saldo a alguno de tus contactos en estos 5 dias habiles   Wallet en proceso de eliminacion',
+      'Tu cuenta ha sido programada para eliminacion, en los próximos 5 días uno de nuestros agentes se contactará contigo para proceder con el cierre definitivo de tu cuenta. Para proceder, debes transferir todo tu saldo a alguno de tus contactos en estos 5 dias habiles ',
       'success'
     );
   }
