@@ -6,6 +6,7 @@ import { UserService } from '../services/user.service';
 import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 import { HistoryHome } from '../models/historyHome.model';
 import Swal from 'sweetalert2';
+import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
 
 @Component({
   selector: 'app-home',
@@ -52,6 +53,7 @@ export class HomeComponent implements OnInit {
     console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
+        const transaccionExitosa = { ...evento } as TransaccionExitosa;
         this.actualizarSaldo(evento);
         this.alertaRecibo();
         break;
