@@ -1,6 +1,6 @@
 <div class="cont">
 
-  <nav class="main-menu">
+  <nav class="main-menu align-self-start justify-content-start">
     <ul>
         <li>
             <a [routerLink]="['/home']">
@@ -58,7 +58,7 @@
 
     <ul class="logout">
         <li>
-          <a [routerLink]="['/']" (click)="logout()">
+          <a href="historial" (click)="logout()">
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text">
                     Logout
