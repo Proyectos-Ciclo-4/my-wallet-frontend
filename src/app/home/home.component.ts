@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { WsService } from '../services/ws.service';
 import { UserService } from '../services/user.service';
 import {
   faAddressBook,
   faClockRotateLeft,
-  faEarthAsia,
   faMoneyBillTransfer,
   faMoneyCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 import { HistoryHome } from '../models/historyHome.model';
-import { Fecha } from '../models/history.model';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +23,7 @@ export class HomeComponent implements OnInit {
   public foto!: any;
   wallet!: Wallet;
   historial: any;
-  saldo!:number;
+  saldo!: number;
 
   transferenciaIcon = faMoneyBillTransfer;
   contactosIcon = faAddressBook;
@@ -46,66 +43,55 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ws.getWs().subscribe(this.switchHandler.bind(this));
 
-    this.user
-    .getWallet(this.userId)
-    .subscribe((wallet) => {
+    this.user.getWallet(this.userId).subscribe((wallet) => {
       this.wallet = wallet;
       this.saldo = wallet.saldo;
       this.historial = buildHomeHistorial(wallet.historial);
-      
     });
-  
-    this.user
-      .getWallet(this.userId)
-      .subscribe((wallet) => (this.wallet = wallet));
-    
-    this.activatedRoute.params
-      .pipe(
-        switchMap(({ id }) => {
-          return this.ws.start(id);
-        })
-      )
-      .subscribe({
-        next: (event: any) => {
-          console.log({ type: event.type, event });
-
-          switch (event.type) {
-            case 'UsuarioDenegado':
-              this.router.navigate(['registro']);
-
-              break;
-
-            case 'Usuarioasignado':
-              this.router.navigate(['home']);
-
-              break;
-          }
-        },
-      });
   }
 
   logout() {
     this.router.navigate(['']);
     this.auth.logout();
   }
-}
 
-function buildHomeHistorial(historial:Array<TransaccionDeHistorial>): Array<HistoryHome> {
-  let historialDeHome : Array<HistoryHome> = new Array<HistoryHome>();
-
-  historial.reverse().slice(0,3).forEach(transaccion => {
-    
-    let fechaSplit = transaccion.fecha.split(" ") 
-
-    let entrada:HistoryHome = {
-      fecha : `${fechaSplit[0]} ${fechaSplit[1]} ${fechaSplit[2]} ${fechaSplit[5]}`,
-      hora : fechaSplit[3],
-      valor : (transaccion.destino == transaccion.walletId) ? ("+" + transaccion.valor) : ("" + transaccion.valor)
+  switchHandler(evento: any) {
+    console.log(evento);
+    switch (evento.type) {
+      case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
+        this.actualizarSaldo(evento);
+        break;
     }
+  }
 
-    historialDeHome.push(entrada)
-  })
-  return historialDeHome
+  private actualizarSaldo(evento: any) {
+    this.wallet.saldo += evento.valor.monto;
+  }
 }
 
+function buildHomeHistorial(
+  historial: Array<TransaccionDeHistorial>
+): Array<HistoryHome> {
+  let historialDeHome: Array<HistoryHome> = new Array<HistoryHome>();
+
+  historial
+    .reverse()
+    .slice(0, 3)
+    .forEach((transaccion) => {
+      let fechaSplit = transaccion.fecha.split(' ');
+
+      let entrada: HistoryHome = {
+        fecha: `${fechaSplit[0]} ${fechaSplit[1]} ${fechaSplit[2]} ${fechaSplit[5]}`,
+        hora: fechaSplit[3],
+        valor:
+          transaccion.destino == transaccion.walletId
+            ? '+' + transaccion.valor
+            : '' + transaccion.valor,
+      };
+
+      historialDeHome.push(entrada);
+    });
+  return historialDeHome;
+}
