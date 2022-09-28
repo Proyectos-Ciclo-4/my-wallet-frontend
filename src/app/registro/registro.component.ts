@@ -74,7 +74,7 @@ export class RegistroComponent implements OnInit {
     switch (event.type) {
       case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
         console.log(event)
-        this.alertaCreado("nombre generico");
+        this.alertaCreado(" ");
         break;
       case 'com.sofka.domain.wallet.eventos.WalletCreada':
         console.log(event)
