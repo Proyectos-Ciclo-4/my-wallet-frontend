@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         this.actualizarSaldo(evento);
-        this.alertaRecibo(this.userId);
+
         break;
     }
   }

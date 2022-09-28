@@ -29,7 +29,7 @@ export class MotivosComponent implements OnInit {
     private webSocket: WsService
   ) {}
   motivosListaResponse: any ;
-  
+
   motivo: string = '';
   dinero: string = '';
   motivo_color: string = '';
@@ -49,17 +49,18 @@ export class MotivosComponent implements OnInit {
   {motivo: "prueba",
     motivo_color: "#A0D1CA"
   },
-  
+
   ]
-   
+
 
   OnClick() {
+    this.webSocket.getWs().subscribe(this.switchHandler.bind(this));
+
     if (this.motivo == '') {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'El campo de motivo no puede quedar vacio!',
-        
       });
     } else {
       if (this.motivo_color == '') {
@@ -84,7 +85,7 @@ export class MotivosComponent implements OnInit {
 
   ngOnInit(): void {
     this.motivosListaResponse = this.user.get_motivos(this.auth.usuarioLogueado().uid).subscribe()
-    
+
   }
 
   trasferenciasRoute() {
@@ -102,5 +103,18 @@ export class MotivosComponent implements OnInit {
   logout(){
     this.router.navigate(['']);
     this.auth.logout()
+  }
+
+  switchHandler(evento: any) {
+    console.log(evento);
+    switch (evento.type) {
+      case 'com.sofka.domain.wallet.eventos.MotivoCreado':
+        Swal.fire(
+            'Motivo Creado',
+            'Su nuevo Motivo ha sido Creado exitosamente',
+            'success'
+        )
+        break;
+    }
   }
 }
