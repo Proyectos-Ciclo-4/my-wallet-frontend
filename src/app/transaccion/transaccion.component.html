@@ -1,90 +1,164 @@
-<nav class="sidebar-navigation">
-  <ul>
-    <li (click)="trasferenciasRoute()">
-      <fa-icon [icon]="transferenciaIcon"></fa-icon>
-      <span src="" class="tooltip">Transacciones</span>
-    </li>
-    <li (click)="contactoRoute()">
-      <fa-icon [icon]="contactosIcon"></fa-icon>
-      <span class="tooltip">Contactos</span>
-    </li>
-    <li (click)="historialRoute()">
-      <fa-icon [icon]="historialIcon"></fa-icon>
-      <span class="tooltip">Historial</span>
-    </li>
-    <li (click)="motivosRoute()">
-      <fa-icon [icon]="motivosIcon"></fa-icon>
-      <span class="tooltip">Motivos</span>
-    </li>
-  </ul>
-</nav>
-<div>
-  <div class="mensaje">
-    <h1>Realiza una transferencia</h1>
+<div class="cont">
+  <nav class="main-menu">
+    <ul>
+      <li>
 
-    <h3>Datos de destinatario</h3>
+          <a [routerLink]="['/home']">
 
-    <p>
-      Puedes seleccionar un contacto, si no lo tienes en tu lista,diligencia el
-      número de celular de destinatario o el correo electronico
-    </p>
-  </div>
+          <i class="fa fa-home fa-2x"></i>
+          <span class="nav-text"> Home </span>
+        </a>
+      </li>
+      <li class="has-subnav">
+        <a [routerLink]="['/transaccion']">
+          <i class="fa fa-money fa-2x"></i>
+          <span class="nav-text"> Transferencias </span>
+        </a>
+      </li>
+      <li class="has-subnav">
+        <a [routerLink]="['/contacto']">
+          <i class="fa fa-list fa-2x"></i>
+          <span class="nav-text"> Contactos </span>
+        </a>
+      </li>
+      <li class="has-subnav">
+        <a [routerLink]="['/motivos']">
+          <i class="fa fa-folder-open fa-2x"></i>
+          <span class="nav-text"> Motivos </span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/gastos']">
+          <i class="fa fa-bar-chart-o fa-2x"></i>
+          <span class="nav-text"> Gastos </span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/historial']">
+          <i class="fa fa-clock-o fa-2x"></i>
+          <span class="nav-text"> Historial </span>
+        </a>
+      </li>
+    </ul>
 
-  <div class="form-outline mb-4">
-    <input
-      type="text"
-      id="Nombre"
-      [(ngModel)]="telefono"
-      class="form-control"
-    />
-    <label class="form-label" for="form5Example1 ">Telefono</label>
-  </div>
+    <ul class="logout">
+      <li>
+        <a [routerLink]="['/']">
+          <i class="fa fa-power-off fa-2x"></i>
+          <span class="nav-text"> Logout </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+    <div>
+      <div id="contenedor_oculto_exitoso" class="ocultar">
+        <div class="contenedor_vista_exitosa">
+          <h1>Transferencia exitosa</h1>
 
-  <div class="form-outline mb-4">
-    <input
-      type="email"
-      id="form5Example2"
-      [(ngModel)]="email"
-      class="form-control"
-    />
-    <label class="form-label" for="form5Example2">Email</label>
-  </div>
-  <div class="form-outline mb-4">
-    <input
-      type="number"
-      step="any"
-      id="form5Example3"
-      [(ngModel)]="dinero"
-      class="form-control"
-    />
-    <label class="form-label" for="form5Example2">Valor a enviar $ USD</label>
-  </div>
-  <div class="form-outline mb-4">
-    <input type="text" id="form5Example4" class="form-control" />
-    <label class="form-label" for="form5Example2" [(ngModel)]="motivo"
-      >Motivo de transferencia</label
-    >
-  </div>
+          <h3>Resumen de la transferencia</h3>
 
-  <button
-    type="submit"
-    class="btnalert btn-primary btn-block mb-4"
-    (click)="alertaError()"
-  >
-    alertaError
-  </button>
-  <button
-    type="submit"
-    class="btninfo btn-primary btn-block mb-4"
-    (click)="alertaVerif()"
-  >
-    alertaverif
-  </button>
-  <button
-    type="submit"
-    class="btnTransfer btn-primary btn-block mb-4"
-    (click)="enviar_transaccion()"
-  >
-    Transferir
-  </button>
+          <p class="p-subtitulo"></p>
+          <div class="contenedor_p">
+            <p class="p_oculto">Fecha:  <span style="font-weight:100">{{fecha}} </span></p>
+            <p>Hora:  <span style="font-weight:100">{{hora}}</span></p>
+            <p>Id transaccion:  <span style="font-weight:100">{{IdTransaccion}}</span></p>
+            <p>Monto:  <span style="font-weight:100">{{Monto}}</span></p>
+            <p>Destinatario:  <span style="font-weight:100">{{Destinatario}}</span></p>
+            <p>Motivo de la transaccion:  <span style="font-weight:100">{{MotivoExitosotransaccion}}</span></p>
+
+          </div>
+
+          <div class="boton-submit-contenedor">
+            <button
+              type="submit"
+              class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
+
+            >
+              <a href="transaccion" style="text-decoration: none;">
+                <span class="nav-text"> Nueva transferencia </span>
+              </a>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="contenedor-visor" id="contenedor_general">
+        <div class="mensaje">
+          <h1>Realiza una transferencia</h1>
+
+          <h3>Datos de destinatario</h3>
+
+          <p class="p-subtitulo">
+            Puedes seleccionar un contacto, si no lo tienes en tu lista,diligencia
+            el número de celular de destinatario o el correo electronico
+          </p>
+        </div>
+        <div class="contenedor-padre">
+          <div class="form-outline mb-4 contenedor-hijos-inputs">
+
+          <input
+              placeholder="Telefono a ingresar"
+              maxlength="13"
+              type="text"
+              id="Nombre"
+              [(ngModel)]="telefono"
+              [disabled]="email.length > 0"
+              class="form-control"
+            />
+
+          </div>
+
+        <div class="form-outline mb-4 contenedor-hijos-inputs">
+          <input
+            type="email"
+            id="form5Example2"
+            [(ngModel)]="email"
+            [disabled]="telefono.length > 0"
+            class="form-control"
+            placeholder="Email a ingresar"
+          />
+
+        </div>
+        <div class="form-outline mb-4 contenedor-hijos-inputs">
+          <input
+            type="number"
+            step="any"
+            min="1"
+            id="form5Example3"
+            [(ngModel)]="dinero"
+            class="form-control"
+            placeholder="Dinero a ingresar"
+          />
+
+        </div>
+        <label class="form-label" for="form5Example2">
+          Seleccionar Motivo:</label
+        ><div class="form-outline mb-4 contenedor-hijos-inputs">
+        <select  id="select-menu" [(ngModel)]="selectedOption" class="bx--text-input" required name="actionSelection" >
+          <option style="background-color: {{motivo.color}}" *ngFor='let motivo of motivosLista' [ngValue]="[motivo.descripcion,motivo.color]">{{motivo.descripcion}}
+          </option>
+        </select>
+
+
+
+        </div>
+        <a [routerLink]="['/motivos']" style="text-decoration: none"
+          ><button
+            type="submit"
+            class="btnTransfer btn-secondary contenedor-hijos-inputs boton-crearmotivo">
+            Crear Motivo
+          </button>
+        </a>
+      </div>
+      <div class="boton-submit-contenedor">
+        <button
+          type="submit"
+          class="btnTransfer btn-secondary btn-block mb-4 boton-tamaño contenedor-hijos-inputs"
+          (click)="validar_dinero()"
+        >
+          Transferir
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- [disabled]="habilitarBoton==false" -->
 </div>

@@ -8,11 +8,11 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 import { RegistroComponent } from './registro/registro.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { MotivosComponent } from './motivos/motivos.component';
+import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
 
 const routes: Routes = [
   {
@@ -50,7 +50,17 @@ const routes: Routes = [
     component: ContactoComponent,
     ...canActivate(() => redirectUnauthorizedTo([''])),
   },
+  {
+    path: 'mis-gastos',
+    component: MisGastosComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];
+
 //{path:"nav",component:NavbarComponent},
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -23,14 +23,11 @@ export class LoginComponent implements OnInit {
 
   nuevo_arreglo: any;
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(new Date().toISOString())
+  }
 
   onClick() {
-    Swal.fire(
-      'Good job!',
-      'You clicked the button!',
-      'success'
-    )
     this.auth.loginWithGoogle().then((response) => {
       console.log(response);
 
@@ -39,11 +36,12 @@ export class LoginComponent implements OnInit {
         email: response.user.email,
         telefono: response.user.phoneNumber,
         id: response.user.uid,
-        
+
       };
       console.log(this.nuevo_arreglo);
       this.verificacion(this.nuevo_arreglo);
       this.dataResponse = response;
+      this.router.navigate(['home']);
     });
   }
 
@@ -54,8 +52,28 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  verificacion(nuevo_arreglo: Usuario) {
+    console.log(nuevo_arreglo)
+    this.user.validar_alguno(" ",nuevo_arreglo.email).subscribe({
+      next: (res) => {
+        console.log(res)
+        if(res == true){
+          Swal.fire(
+            'Bienvenido de nuevo ' + nuevo_arreglo.nombre + ' a My Wallet!',
+            '',
+            'success')
+        } else {
+          Swal.fire(
+            'Error!',
+            'Usted no se encuentra registrado en MyWallet, por favor cree un usuario nuevo',
+            'warning')
+          this.router.navigate(['/registro'])
+        }
+      },
+    });
+  }
 
-
+  /*
   verificacion(nuevo_arreglo: Usuario) {
     console.log(nuevo_arreglo)
     this.user.verificarUsuarioPost(nuevo_arreglo).subscribe({
@@ -63,6 +81,7 @@ export class LoginComponent implements OnInit {
         console.log(res);
       },
     });
-  }
+  }*/
+
 }
 

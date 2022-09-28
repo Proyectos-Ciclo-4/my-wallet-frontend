@@ -1,30 +1,14 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
-.cont {
-  width: 100vw;
+.cont{
+  display:flex;
 
 }
 
-
-h3{
-}
-
-.table{
-  background: linear-gradient(0deg, rgba(0,0,0,0.7133053905155813) 0%, rgba(79,92,239,0.5620448863139005) 100%);
-}
-.content{
-  display: flex;
-  align-content: center;
-}
-
-.mensaje {
-  width: 100%;
-  padding: 50px;
-  font-size: large;
-  font-family: Verdana;
-  align-content: center;
-
+.container {
+  width: fit-content;
+  height: 78vh;
 }
 
 .fa-2x {
@@ -53,7 +37,7 @@ nav.main-menu.expanded {
   top: 0;
   bottom: 0;
   height: 100%;
-  min-height: 87vh;
+  min-height: 150vh;
   left: 0;
   width: 60px;
   overflow: hidden;

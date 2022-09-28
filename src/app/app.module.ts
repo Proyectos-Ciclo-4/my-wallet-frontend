@@ -3,25 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { RegistroComponent } from './registro/registro.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactoComponent } from './contacto/contacto.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MotivosComponent } from './motivos/motivos.component';
-
-
-
-
+import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
+import { CalendarModule } from 'primeng/calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartModule } from 'primeng/chart';
+import { HomeComponent } from './home/home.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -29,23 +30,31 @@ import { MotivosComponent } from './motivos/motivos.component';
     RegistroComponent,
     FooterComponent,
     HeaderComponent,
-    NavbarComponent,
+    HomeComponent,
     TransaccionComponent,
     HistorialComponent,
     ContactoComponent,
-    MotivosComponent
+    MotivosComponent,
+    MisGastosComponent,
   ],
   imports: [
-    BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ChartModule,
+    AppRoutingModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    CalendarModule,
+    TableModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

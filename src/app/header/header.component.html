@@ -1,8 +1,13 @@
-<nav class="navbar ">
-  <a class="navbar-brand" href="home">
-    <img src="../../assets/logoclarotransparente.png" alt="" width="60" height="60" class="d-inline-block align-top" alt="" >
+<nav class="navbar">
+  <a class="navbar-brand" [routerLink]="['/home']">
+    <img
+      src="../../assets/Recurso 26@3x.png"
+      alt=""
+      width="60"
+      height="60"
+      class="d-inline-block align-top"
+      alt=""
+    />
   </a>
-  <h1>user : {{ userName }}</h1>
   <button class="btn" (click)="logout()">Salida Segura</button>
 </nav>
-

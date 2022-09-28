@@ -32,8 +32,8 @@ export class AlertsService {
         text: text,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Si',
-        cancelButtonText: 'No!',
+        confirmButtonText: 'Confirmar cancelación',
+        cancelButtonText: 'Cancelar',
         reverseButtons: true,
       })
       .then((result) => {
