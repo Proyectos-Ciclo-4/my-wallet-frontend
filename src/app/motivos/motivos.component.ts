@@ -28,30 +28,18 @@ export class MotivosComponent implements OnInit {
     private user: UserService,
     private webSocket: WsService
   ) {}
-  motivosListaResponse: any ;
-  
+  motivosListaResponse: any;
+
   motivo: string = '';
   dinero: string = '';
   motivo_color: string = '';
-  motivosLista : any = [
-    {motivo: "diversion",
-    motivo_color: "#FBD871"
-  },
-  {motivo: "prueba",
-    motivo_color: "#A0D1CA"
-  },
-  {motivo: "prueba",
-    motivo_color: "#A0D1CA"
-  },
-  {motivo: "prueba",
-    motivo_color: "#A0D1CA"
-  },
-  {motivo: "prueba",
-    motivo_color: "#A0D1CA"
-  },
-  
-  ]
-   
+  motivosLista: any = [
+    { motivo: 'diversion', motivo_color: '#FBD871' },
+    { motivo: 'prueba', motivo_color: '#A0D1CA' },
+    { motivo: 'prueba', motivo_color: '#A0D1CA' },
+    { motivo: 'prueba', motivo_color: '#A0D1CA' },
+    { motivo: 'prueba', motivo_color: '#A0D1CA' },
+  ];
 
   OnClick() {
     if (this.motivo == '') {
@@ -59,32 +47,49 @@ export class MotivosComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'El campo de motivo no puede quedar vacio!',
-        
       });
     } else {
       if (this.motivo_color == '') {
         this.motivo_color = '#CBCBCB';
       }
-      Swal.fire(
-        'Tu Motivo Se Creo !',
-        'Dirigete a Transaccion y encontraras tu opcion de motivo lista para usar',
-        'success'
-      )
-      console.log(this.motivo,this.motivo_color,this.auth.usuarioLogueado().uid)
-      this.enviar_motivo().subscribe(console.log);
+      // Swal.fire(
+      //   'Tu Motivo Se Creo !',
+      //   'Dirigete a Transaccion y encontraras tu opcion de motivo lista para usar',
+      //   'success'
+      // )
+      console.log(
+        this.motivo,
+        this.motivo_color,
+        this.auth.usuarioLogueado().uid
+      );
+      Swal.fire({
+        title: 'Luego no podras modificar tus motivos,',
+        showDenyButton: true,
+       
+        confirmButtonText: 'Confirmar',
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.enviar_motivo().subscribe(console.log);
+          Swal.fire('Guardado!', '', 'success');
+        } else if (result.isDenied) {
+          Swal.fire('Los cambios no seran guardados', '', 'info');
+        }
+      });
     }
   }
   enviar_motivo() {
-    return this.user.peticion_crear_motivo({
-      walletOrigen: this.auth.usuarioLogueado().uid,
-      motivo: this.motivo,
-      motivo_color: this.motivo_color,
-    });
+    return this.user.peticion_crear_motivo(
+      { descripcion: this.motivo, color: this.motivo_color },
+      this.auth.usuarioLogueado().uid
+    );
   }
 
   ngOnInit(): void {
-    this.motivosListaResponse = this.user.get_motivos(this.auth.usuarioLogueado().uid).subscribe()
-    
+    this.motivosListaResponse = this.user
+      .get_motivos(this.auth.usuarioLogueado().uid)
+      .subscribe();
   }
 
   trasferenciasRoute() {
@@ -99,8 +104,8 @@ export class MotivosComponent implements OnInit {
   motivosRoute() {
     this.router.navigate(['/motivos']);
   }
-  logout(){
+  logout() {
     this.router.navigate(['']);
-    this.auth.logout()
+    this.auth.logout();
   }
 }

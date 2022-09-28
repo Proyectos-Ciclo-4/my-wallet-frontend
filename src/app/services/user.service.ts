@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { Wallet } from '../models/wallet.model';
 import { Transferencia } from '../models/transferencia.model';
 import { HistoryGetter } from '../models/history-getter.model';
-import { Transaction } from '../models/history.model';
+import { Motivo, Transaction } from '../models/history.model';
 
 @Injectable({
   providedIn: 'root',
@@ -104,8 +104,8 @@ export class UserService {
     );
   }
 
-  peticion_crear_motivo(body: any) {
-    return this.http.post(`${this.URL_HTTP}/new/motivo`, { ...body });
+  peticion_crear_motivo(motivo: Motivo , walletId : string) {
+    return this.http.post(`${this.URL_HTTP}/new/motivo`, { walletId,motivo });
   }
   get_motivos(userId: string) {
     return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
