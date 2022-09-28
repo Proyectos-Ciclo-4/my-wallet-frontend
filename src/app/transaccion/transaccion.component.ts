@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faRupiahSign } from '@fortawesome/free-solid-svg-icons';
 
 import Swal from 'sweetalert2';
 import { Usuario } from '../models/usuario-backend.model';
@@ -19,7 +20,7 @@ export class TransaccionComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private user: UserService,
-    private webSocket: WsService,
+    private ws: WsService,
     private alertsService: AlertsService
   ) {}
 
@@ -29,7 +30,7 @@ export class TransaccionComponent implements OnInit {
   dinero: number = 0;
   saldo: number = 0;
   
-  fecha: string = '22/03/05';
+  fecha: string = '';
   hora: string = '03.25';
   IdTransaccion: string = '56454';
   Monto: string = '$25';
@@ -38,7 +39,30 @@ export class TransaccionComponent implements OnInit {
   
   // habilitarBoton = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.ws.getWs().subscribe(this.switchHandler.bind(this));
+  }
+  
+  switchHandler(evento: any) {
+    console.log(evento);
+    switch (evento.type) {
+      case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
+        this.updateTransConfirmation(evento);
+        break;
+    }
+  }
+
+
+  updateTransConfirmation(evento: any) {
+    let unixtime = new Date(evento.when.seconds*1000).toISOString().split("T")
+    this.fecha = unixtime[0]
+    this.hora = (unixtime[1].split("Z")[0] + " Universal Time")
+    this.IdTransaccion = evento.transferenciaID.uuid
+    this.Destinatario = this.email == "" ? this.telefono : this.email
+    this.Monto = evento.valor.monto
+    this.MotivoExitosotransaccion = evento.motivo.descripcion
+    this.vista_exitosa()
+  }
 
   // Primero valido el dinero  Y llamo VALIDACION_CONTACTO_EXISTENTE
 
@@ -128,11 +152,6 @@ export class TransaccionComponent implements OnInit {
     this.user.validar_alguno(telefono, email).subscribe({
     next: (res) => {
       if (res == true) {
-        Swal.fire(
-          'Usuario Encontrado ',
-          'Este usuario dispone de billetera',
-          'info'
-        );
         this.enviar_transaccion();
         console.log("Transaccion enviada")
       } else {
@@ -166,9 +185,9 @@ export class TransaccionComponent implements OnInit {
   alertaConfirmar(data:Usuario){
     this.alertsService.confirm({
       title: '¿Desea realizar la transferencia?',
-      text: `Valor a enviar USD: ${this.dinero} Destinatario: ${data.email} Motivo de transferencia: ${this.motivo}`,
-      bodyDeConfirmacion: 'Transferencia realizada con exito',
-      tituloDeConfirmacion: 'Transferencia realizada',
+      text: `Valor a enviar USD: ${this.dinero}\n Destinatario: ${data.email}\n Motivo de transferencia: ${this.motivo}`,
+      bodyDeConfirmacion: 'Espere por favor...',
+      tituloDeConfirmacion: 'Transferencia en progreso',
       bodyDelCancel: 'No se pudo realizar la transferencia',
       tituloDelCancel: 'Error',
       callback: () => {
