@@ -28,14 +28,14 @@ export class TransaccionComponent implements OnInit {
   motivo: string = '';
   dinero: number = 0;
   saldo: number = 0;
-  
+
   fecha: string = '22/03/05';
   hora: string = '03.25';
   IdTransaccion: string = '56454';
   Monto: string = '$25';
   Destinatario: string = 'Sofka@gmail';
   MotivoExitosotransaccion: string = 'diversion';
-  
+
   // habilitarBoton = false;
 
   ngOnInit(): void {}
@@ -48,12 +48,15 @@ export class TransaccionComponent implements OnInit {
 
       if (this.dinero < 1 || this.dinero > this.saldo) {
         // this.dinero > data.saldo || this.dinero < 1)
-        Swal.fire('Error', 'Valor de la transaccion no valido, por favor revise que cuente con saldo suficiente para realizar la transacción', 'warning');
+        Swal.fire(
+          'Error',
+          'Valor de la transaccion no valido, por favor revise que cuente con saldo suficiente para realizar la transacción',
+          'warning'
+        );
       } else {
         this.validacion_contacto_existente();
       }
-
-    })
+    });
   }
   //2.0 :Segundo valido usuario -revisa q no este nulo y valida que existe un usuario
   //2.2 :si se valido llama a enviar transaccion
@@ -70,7 +73,7 @@ export class TransaccionComponent implements OnInit {
         'warning'
       );
     } else {
-      this.verifUserDestino(this.telefono,this.email)
+      this.verifUserDestino(this.telefono, this.email);
     }
   }
 
@@ -83,7 +86,7 @@ export class TransaccionComponent implements OnInit {
     return this.user.enviarTransaccion({
       walletDestino: usuarioId,
       walletOrigen: this.auth.usuarioLogueado().uid,
-      motivo: this.motivo,
+      motivo: { description: 'Diversion', color: '#FF0000' },
       valor: this.dinero,
     });
   }
@@ -116,54 +119,60 @@ export class TransaccionComponent implements OnInit {
     );
   }
 
-  verifUserDestino(telefono:string,email:string){ 
-    
-    if (telefono == ""){
-      telefono = "QUERYBYEMAIL"
+  verifUserDestino(telefono: string, email: string) {
+    if (telefono == '') {
+      telefono = 'QUERYBYEMAIL';
     }
-    if (email == ""){
-      email = "QUERYBYTELEFONO"
+    if (email == '') {
+      email = 'QUERYBYTELEFONO';
     }
 
     this.user.validar_alguno(telefono, email).subscribe({
-    next: (res) => {
-      if (res == true) {
-        Swal.fire(
-          'Usuario Encontrado ',
-          'Este usuario dispone de billetera',
-          'info'
-        );
-        this.enviar_transaccion();
-        console.log("Transaccion enviada")
-      } else {
-        Swal.fire('error', 'Este usuario no dispone de wallet, revise tener correctamente los datos del destinatario', 'warning');
-      }
-    },
-  });}
-
-  enviar_transaccion() {
-    if(this.email==""){
-    this.user.obtener_contacto_porTelefono(this.telefono).subscribe((data) => {
-      if (data) {
-        this.alertaConfirmar(data)
-      } else {
-       // this.alertaError();
-      }
-    })} else {
-      console.log("Entro al else")
-      this.user.obtener_contacto_porEmail(this.email).subscribe((data) => {
-        if (data) {
-          console.log(data)
-          this.alertaConfirmar(data)
-          
+      next: (res) => {
+        if (res == true) {
+          Swal.fire(
+            'Usuario Encontrado ',
+            'Este usuario dispone de billetera',
+            'info'
+          );
+          this.enviar_transaccion();
+          console.log('Transaccion enviada');
         } else {
-          this.alertaError();
-        }})
-}
-
+          Swal.fire(
+            'error',
+            'Este usuario no dispone de wallet, revise tener correctamente los datos del destinatario',
+            'warning'
+          );
+        }
+      },
+    });
   }
 
-  alertaConfirmar(data:Usuario){
+  enviar_transaccion() {
+    if (this.email == '') {
+      this.user
+        .obtener_contacto_porTelefono(this.telefono)
+        .subscribe((data) => {
+          if (data) {
+            this.alertaConfirmar(data);
+          } else {
+            // this.alertaError();
+          }
+        });
+    } else {
+      console.log('Entro al else');
+      this.user.obtener_contacto_porEmail(this.email).subscribe((data) => {
+        if (data) {
+          console.log(data);
+          this.alertaConfirmar(data);
+        } else {
+          this.alertaError();
+        }
+      });
+    }
+  }
+
+  alertaConfirmar(data: Usuario) {
     this.alertsService.confirm({
       title: '¿Desea realizar la transferencia?',
       text: `Valor a enviar USD: ${this.dinero} Destinatario: ${data.email} Motivo de transferencia: ${this.motivo}`,
@@ -180,8 +189,9 @@ export class TransaccionComponent implements OnInit {
   vista_exitosa() {
     let seleccionar = document.getElementById('contenedor_general');
     seleccionar?.classList.add('ocultar');
-    let seleccionarExitoso = document.getElementById('contenedor_oculto_exitoso');
+    let seleccionarExitoso = document.getElementById(
+      'contenedor_oculto_exitoso'
+    );
     seleccionarExitoso?.classList.remove('ocultar');
   }
-
 }
