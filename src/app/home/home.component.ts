@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    //---AQUI EMPIEZA EL WS--/
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
 
     this.user.getWallet(this.userId).subscribe((wallet) => {
@@ -126,6 +127,9 @@ function buildHomeHistorial(
     .slice(0, 3)
     .forEach((transaccion) => {
       let fechaSplit = transaccion.fecha.split(' ');
+
+      //REFACTORIZAR Y CASTEAR ESTAS FECHAS APROPIADAMENTE
+      //INVESTIGAR QUE PUEDE CASTEARME ESO PROPIAMENTE tipo: LOCALDATETIME en formato str() a DATE()
 
       let entrada: HistoryHome = {
         fecha: `${fechaSplit[0]} ${fechaSplit[1]} ${fechaSplit[2]} ${fechaSplit[5]}`,

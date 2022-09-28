@@ -13,6 +13,7 @@ import {
   faMoneyBillTransfer,
 } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { mapToStyles } from '@popperjs/core/lib/modifiers/computeStyles';
 
 @Component({
   selector: 'app-registro',
@@ -44,8 +45,9 @@ export class RegistroComponent implements OnInit {
     this.checkWallet();
     this.autoComplete();
     this.resp = this.auth.usuarioLogueado();
-
-    this.connectToWs(this.resp.uid);
+    
+    //this.resp.uid
+    this.connectToWs("1");
 
     this.nuevo_arreglo = {
       email: this.resp.email,
@@ -64,20 +66,18 @@ export class RegistroComponent implements OnInit {
   }
 
   connectToWs(id: string) {
+    console.log("Switch binding!")
     this.webSocket.getWs().subscribe(this.switchHandler.bind(this));
   }
 
   switchHandler(event: any) {
     switch (event.type) {
       case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
-        this.alertaCreado();
-
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 2000);
-
+        console.log(event)
+        this.alertaCreado(" ");
         break;
       case 'com.sofka.domain.wallet.eventos.WalletCreada':
+        console.log(event)
         this.router.navigate(['/home']);
         break;
     }
@@ -92,7 +92,6 @@ export class RegistroComponent implements OnInit {
 
   crear() {
     this.nuevo_arreglo.telefono = this.Telefono;
-    console.log(this.nuevo_arreglo);
     if (
       this.nuevo_arreglo.telefono.length < 13 ||
       this.nuevo_arreglo.telefono == ''
@@ -117,11 +116,11 @@ export class RegistroComponent implements OnInit {
     );
   }
 
-  alertaCreado() {
+  alertaCreado(nombre:string) {
     Swal.fire(
       'USUARIO CREADO',
       'Bienvenido ' +
-        this.nuevo_arreglo.nombre +
+        nombre +
         ' a my Wallet  a partir de este momento podras disfrutar de las opciones que tenemos para ti!!!',
       'warning'
     );
