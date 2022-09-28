@@ -1,6 +1,8 @@
+import { Motivo } from "./motivo.model";
+
 export interface Wallet {
   walletId:  string;
-  motivos:   string[];
+  motivos:   Motivo[];
   usuario:   string;
   saldo:     number;
   historial: TransaccionDeHistorial[];

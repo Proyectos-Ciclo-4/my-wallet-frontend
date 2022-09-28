@@ -82,9 +82,9 @@
       
       <div class="contenedor_hijo">
         <label class="form-label" for="form5Example2">Seleccione su color :</label> <br>
-      <input type="color" class="" [(ngModel)]="motivo_color">
+      <input type="color" class="" [(ngModel)]="motivo_color_input">
       <br>    
-        <input type="text" id="form5Example4" class="form-control" [(ngModel)]="motivo" />
+        <input type="text" id="form5Example4" maxlength="13" class="form-control" [(ngModel)]="motivo_descripcion_input" />
         <label class="form-label" for="form5Example2" 
           >Motivo de transferencia</label>
         
@@ -92,9 +92,9 @@
       <div class="impresion-motivos-hijo">
         <h2>Motivos Usados</h2>
         <br>
-        <div style="width:150px; height:120px; overflow: scroll ;overflow-x: hidden;">
-        <div *ngFor='let motivos of motivosLista'>          
-          <p  style="background-color: {{motivos.motivo_color}}">{{motivos.motivo}}</p>
+        <!-- <div style="width:150px; height:120px; overflow: scroll ;overflow-x: hidden;"> -->
+        <div *ngFor='let motivo of motivosLista'>          
+          <p  style="background-color: {{motivo.color}}">{{motivo.descripcion}}</p>
         </div>
       </div>
       </div>

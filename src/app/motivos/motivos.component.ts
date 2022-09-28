@@ -7,6 +7,8 @@ import {
   faMoneyCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { Motivo } from '../models/motivo.model';
+import { Wallet } from '../models/wallet.model';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
@@ -16,11 +18,19 @@ import { WsService } from '../services/ws.service';
   templateUrl: './motivos.component.html',
   styleUrls: ['./motivos.component.scss'],
 })
+
+
+
 export class MotivosComponent implements OnInit {
   transferenciaIcon = faMoneyBillTransfer;
   contactosIcon = faAddressBook;
   historialIcon = faClockRotateLeft;
   motivosIcon = faMoneyCheck;
+
+  wallet!: Wallet;
+  motivo_descripcion_input: string = '';
+  motivo_color_input: string = '';
+  motivosLista: Array<Motivo> = [];
 
   constructor(
     private auth: AuthService,
@@ -30,27 +40,27 @@ export class MotivosComponent implements OnInit {
   ) {}
   motivosListaResponse: any;
 
-  motivo: string = '';
-  dinero: string = '';
-  motivo_color: string = '';
-  motivosLista: any = [
-    { motivo: 'diversion', motivo_color: '#FBD871' },
-    { motivo: 'prueba', motivo_color: '#A0D1CA' },
-    { motivo: 'prueba', motivo_color: '#A0D1CA' },
-    { motivo: 'prueba', motivo_color: '#A0D1CA' },
-    { motivo: 'prueba', motivo_color: '#A0D1CA' },
-  ];
+
+  ngOnInit(): void {
+    let userId = this.auth.getMyUser()?.uid!;
+    this.user.getWallet(userId).subscribe((wallet) => { 
+    this.wallet = wallet
+    //this.motivosLista = wallet.motivos
+    })
+    this.falsearMotivos()
+    console.log(this.motivosLista)
+  }
 
   OnClick() {
-    if (this.motivo == '') {
+    if (this.motivo_descripcion_input == '') {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'El campo de motivo no puede quedar vacio!',
       });
     } else {
-      if (this.motivo_color == '') {
-        this.motivo_color = '#CBCBCB';
+      if (this.motivo_color_input == '') {
+        this.motivo_color_input = '#CBCBCB';
       }
       // Swal.fire(
       //   'Tu Motivo Se Creo !',
@@ -58,8 +68,8 @@ export class MotivosComponent implements OnInit {
       //   'success'
       // )
       console.log(
-        this.motivo,
-        this.motivo_color,
+        this.motivo_descripcion_input,
+        this.motivo_color_input,
         this.auth.usuarioLogueado().uid
       );
       Swal.fire({
@@ -80,17 +90,11 @@ export class MotivosComponent implements OnInit {
     }
   }
   enviar_motivo() {
-    return this.user.peticion_crear_motivo(
-      { descripcion: this.motivo, color: this.motivo_color },
-      this.auth.usuarioLogueado().uid
-    );
+    let newMotivo : Motivo = {descripcion:this.motivo_descripcion_input , color:this.motivo_color_input}
+    return this.user.nuevoMotivo(newMotivo,this.wallet.walletId);
   }
 
-  ngOnInit(): void {
-    this.motivosListaResponse = this.user
-      .get_motivos(this.auth.usuarioLogueado().uid)
-      .subscribe();
-  }
+
 
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);
@@ -108,4 +112,18 @@ export class MotivosComponent implements OnInit {
     this.router.navigate(['']);
     this.auth.logout();
   }
+
+  falsearMotivos() {
+    let m1 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    let m2 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    let m3 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    let m4 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    let m5 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    let m6 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    let m7 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    let m8 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    let m9 : Motivo = {descripcion:"Desconocido", color:"#454554"}
+    this.motivosLista = [m1,m2,m3,m4,m5,m6,m7,m8,m9]
+  }
+
 }
