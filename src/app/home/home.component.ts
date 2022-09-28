@@ -55,7 +55,8 @@ export class HomeComponent implements OnInit {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         const transaccionExitosa = { ...evento } as TransaccionExitosa;
         this.actualizarSaldo(evento);
-        this.alertaRecibo();
+        this.alertaAnimada()
+        this.alertaRecibo(transaccionExitosa);
         break;
     }
   }
@@ -64,11 +65,23 @@ export class HomeComponent implements OnInit {
     this.wallet.saldo += evento.valor.monto;
   }
 
-  private alertaRecibo() {
+  private alertaAnimada(){
+    Swal.fire({
+      title: 'RECIBISTE UN DEPOSITO!!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    })
+  }
+
+  private alertaRecibo(info:TransaccionExitosa) {
     Swal.fire(
-      'Te Han transferido!!',
-      'Has recibido un Deposito de dinero a tu Cuenta',
-      'success'
+      'Informacion de tu transferencia',
+      'Has recibido un Deposito de dinero a tu Cuenta por '+info.valor+'USD con motivo '+info.motivo+' Fecha '+info.when,
+      'info'
     );
   }
 }
