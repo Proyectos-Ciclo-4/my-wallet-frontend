@@ -13,8 +13,7 @@ import { Usuario as UsuarioBack } from '../models/usuario-backend.model';
 import { HttpClient } from '@angular/common/http';
 import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 import { Transferencia } from '../models/transferencia.model';
-import { HistoryGetter } from '../models/history-getter.model';
-import { Motivo, Transaction } from '../models/history.model';
+import { Motivo, TransactionAlternative } from '../models/history.model';
 import { usuarioMongo } from '../models/usuarioMongo.model';
 @Injectable({
   providedIn: 'root',
@@ -68,8 +67,11 @@ export class UserService {
   peticion_crear_contacto(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
   }
-  getHistory(startDate:string,endDate:string,walletId:string) {
-    return this.http.get<TransaccionDeHistorial[]>(`${this.URL_HTTP}/history/${startDate}/to/${endDate}/of/${walletId}`);
+
+  getHistory(startDate: string, endDate: string, walletId: string) {
+    return this.http.get<TransaccionDeHistorial[]>(
+      `${this.URL_HTTP}/history/${startDate}/to/${endDate}/of/${walletId}`
+    );
   }
   
   // getHistory(body: HistoryGetter): Transaction[] {
@@ -104,9 +106,11 @@ export class UserService {
       `${this.URL_HTTP}/validateBoth/${telefono}/email/${email}`
     );
   }
+
   EliminarWallet(userId: any) {
     return this.http.delete(`${this.URL_HTTP}/deletewallet/${userId}`);
   }
+
   /*
   get_motivos(userId: string) {
     return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
@@ -116,7 +120,16 @@ export class UserService {
   /* nuevoMotivo(motivo:Motivo, walletId:string){
     return this.http.post(`${this.URL_HTTP}/new/motivo`, { walletId, motivo });
   }*/
-  nuevoMotivo(motivo:Motivo, walletID:string){
-    return this.http.post(`${this.URL_HTTP}/new/motivo/`, { walletID, ...motivo });
+  nuevoMotivo(motivo: Motivo, walletID: string) {
+    return this.http.post(`${this.URL_HTTP}/new/motivo/`, {
+      walletID,
+      ...motivo,
+    });
+  }
+
+  getAllHistory(id: string) {
+    return this.http.get<TransactionAlternative[]>(
+      `${this.URL_HTTP}/history/${id}`
+    );
   }
 }
