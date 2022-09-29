@@ -1,7 +1,19 @@
 .final {
-  flex-grow: 1;
+  display: flex;
+  // flex-grow: 1;
   min-height: 100vh;
+  flex-direction: column;
+  
 }
 .enrutados {
+display: block;
+}
+.headerGeneral{
+  min-width: 100%;
+  
+  width: 100%;
+}
+.contenedor-super{
   display: flex;
+  flex-direction: row;
 }

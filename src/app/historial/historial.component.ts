@@ -41,4 +41,5 @@ export class HistorialComponent implements OnInit {
     this.router.navigate(['']);
     this.auth.logout();
   }
+  
 }

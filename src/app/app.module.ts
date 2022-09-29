@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartModule } from 'primeng/chart';
 import { HomeComponent } from './home/home.component';
 import { TableModule } from 'primeng/table';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TableModule } from 'primeng/table';
     
     MotivosComponent,
     MisGastosComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
