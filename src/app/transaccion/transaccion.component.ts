@@ -232,4 +232,13 @@ export class TransaccionComponent implements OnInit {
       'warning'
     );
   }
+
+  vista_nueva_transfer() {
+    let seleccionar = document.getElementById('contenedor_general');
+    seleccionar?.classList.remove('ocultar');
+    let seleccionarExitoso = document.getElementById(
+      'contenedor_oculto_exitoso'
+    );
+    seleccionarExitoso?.classList.add('ocultar');
+  }
 }

@@ -1,119 +1,74 @@
 <div class="cont">
-  <nav class="main-menu">
-    <ul>
-      <li>
-        <a [routerLink]="['/home']">
-          <i class="fa fa-home fa-2x"></i>
-          <span class="nav-text"> Home </span>
-        </a>
-      </li>
-      <li class="has-subnav">
-        <a [routerLink]="['/transaccion']">
-          <i class="fa fa-money fa-2x"></i>
-          <span class="nav-text"> Transferencias </span>
-        </a>
-      </li>
-      
-      <li class="has-subnav">
-        <a [routerLink]="['/motivos']">
-          <i class="fa fa-folder-open fa-2x"></i>
-          <span class="nav-text"> Motivos </span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/mis-gastos']">
-          <i class="fa fa-bar-chart-o fa-2x"></i>
-          <span class="nav-text"> Gastos </span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/historial']">
-          <i class="fa fa-clock-o fa-2x"></i>
-          <span class="nav-text"> Historial </span>
-        </a>
-      </li>
-    </ul>
-
-    <ul class="logout">
-      <li>
-        <a [routerLink]="['/']" (click)="logout()">
-          <i class="fa fa-power-off fa-2x"></i>
-          <span class="nav-text"> Logout </span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-<div
-  class=" flex-column justify-content-start justify-content-sm-between pt-1 container"
->
-
-  <h1>Mis gastos</h1>
-
-  <div class="gastos-body align-self-start">
-    Con esta funcionalidad queremos que tengas informacion clara y disponible
-    para que hagas una mejor distribucion de tu dinero. Seleciona el rango de
-    fecha para el cual quieres visualizar tus gastos por motivo de
-    transferencia.
-  </div>
-
-  <form
-    (submit)="sendForm()"
-    [formGroup]="form"
-    class="fechas align-self-sm-center justify-self-start mt-1 mb-1 align-self-center d-flex flex-column justify-content-center align-content-center"
+  <div
+    class="flex-column justify-content-start justify-content-sm-between pt-1 container"
   >
-    <div class="mb-3 fromDateContainer">
-      <label for="fromDatePicker">Desde:</label>
-      <p-calendar
-        id="fromDatePicker"
-        [touchUI]="true"
-        formControlName="from"
-        [showIcon]="true"
-        [(ngModel)]="from"
-      ></p-calendar>
+    <h1>Mis gastos</h1>
+
+    <div class="gastos-body align-self-start">
+      Con esta funcionalidad queremos que tengas informacion clara y disponible
+      para que hagas una mejor distribucion de tu dinero. Seleciona el rango de
+      fecha para el cual quieres visualizar tus gastos por motivo de
+      transferencia.
     </div>
 
-    <div class="mb-3 untilDateContainer">
-      <label for="untilDatePicker" class="me-1">Hasta:</label>
-      <p-calendar
-        id="untilDatePicker"
-        [inline]="false"
-        [touchUI]="true"
-        [showIcon]="true"
-        formControlName="until"
-        [(ngModel)]="until"
-      ></p-calendar>
-    </div>
-
-    <div class="buttonContainer d-flex justify-content-center mt-1">
-      <button type="submit" pButton label="Ver mis gastos"></button>
-    </div>
-  </form>
-
-  <div class="graphicsContainer d-flex mt-5 w-100">
-    <p-chart
-      class="align-self-start"
-      [options]="chartOptions"
-      [style]="{ width: '40%' }"
-      type="pie"
-      [data]="data"
-    ></p-chart>
-
-    <div
-      class="trending align-self-start p-0 d-flex flex-column align-content-end text-end"
+    <form
+      (submit)="sendForm()"
+      [formGroup]="form"
+      class="fechas align-self-sm-center justify-self-start mt-1 mb-1 align-self-center d-flex flex-column justify-content-center align-content-center"
     >
-      <h4>Tendencia actual</h4>
-      <div class="sube">
-        <i class="pi pi-angle-double-up"></i>
-        <i [style]="mostExpensive" class="pi pi-circle-fill"></i>
-        <span class="ms-1">{{ mostExpensive.description }}</span>
+      <div class="mb-3 fromDateContainer">
+        <label for="fromDatePicker">Desde:</label>
+        <p-calendar
+          id="fromDatePicker"
+          [touchUI]="true"
+          formControlName="from"
+          [showIcon]="true"
+          [(ngModel)]="from"
+        ></p-calendar>
       </div>
-      <div class="baja">
-        <i class="pi pi-angle-double-down"></i>
-        <i [style]="cheapest" class="pi pi-circle-fill"></i>
-        <span class="ms-1">{{ cheapest.description }}</span>
+
+      <div class="mb-3 untilDateContainer">
+        <label for="untilDatePicker" class="me-1">Hasta:</label>
+        <p-calendar
+          id="untilDatePicker"
+          [inline]="false"
+          [touchUI]="true"
+          [showIcon]="true"
+          formControlName="until"
+          [(ngModel)]="until"
+        ></p-calendar>
+      </div>
+
+      <div class="buttonContainer d-flex justify-content-center mt-1">
+        <button type="submit" pButton label="Ver mis gastos"></button>
+      </div>
+    </form>
+
+    <div class="graphicsContainer d-flex mt-5 w-100">
+      <p-chart
+        class="align-self-start grafico"
+        [options]="chartOptions"
+        [style]="{ width: '40%' }"
+        type="pie"
+        [data]="data"
+      ></p-chart>
+
+      <div
+        class="trending align-self-start p-0 d-flex flex-column align-content-end text-end"
+      >
+        <h4>Tendencia actual</h4>
+        <div class="sube">
+          <i class="pi pi-angle-double-up"></i>
+          <i [style]="mostExpensive" class="pi pi-circle-fill"></i>
+          <span class="ms-1">{{ mostExpensive.description }}</span>
+        </div>
+        <div class="baja">
+          <i class="pi pi-angle-double-down"></i>
+          <i [style]="cheapest" class="pi pi-circle-fill"></i>
+          <span class="ms-1">{{ cheapest.description }}</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 <!--[options]="options"-->
