@@ -29,7 +29,7 @@ export class TransaccionComponent implements OnInit {
   email: string = '';
   motivosLista: Motivo[] = [];
   motivo!: Motivo;
-  dinero!: number;
+  dinero: number = 0;
   saldo: number = 0;
   selectedOption: string[] = ['Desconocido', '#CBCBCB'];
   wallet!: Wallet;

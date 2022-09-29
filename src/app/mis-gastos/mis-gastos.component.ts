@@ -111,26 +111,27 @@ export class MisGastosComponent implements OnInit, OnDestroy {
       .getHistory(fromURL, untilURL, this.walletId)
       .subscribe((response) => {
         this.historyQuery = this.transHistReformatter(response);
+
+        const sortedResult = this.historyQuery
+          .filter((a) => a.valor < 0)
+          .sort((a, b) => b.valor - a.valor);
+        const cheapest = sortedResult[0];
+        const expensive = sortedResult[sortedResult.length - 1];
+
+        this.mostExpensive = {
+          color: `${expensive.motivo.color}`,
+          description: expensive.motivo.descripcion,
+        };
+
+        this.cheapest = {
+          color: `${cheapest.motivo.color}`,
+          description: cheapest.motivo.descripcion,
+        };
+
+        const mappedTransactions =
+          this.transformHistoryInDataSets(sortedResult);
+        this.data = this.getData(mappedTransactions);
       });
-
-    const sortedResult = this.historyQuery.sort((a, b) => b.valor - a.valor);
-    const expensive = sortedResult[0];
-    const cheapest = sortedResult[sortedResult.length - 1];
-
-    this.mostExpensive = {
-      color: `${expensive.motivo.color}`,
-      description: expensive.motivo.descripcion,
-    };
-
-    this.cheapest = {
-      color: `${cheapest.motivo.color}`,
-      description: cheapest.motivo.descripcion,
-    };
-
-    const mappedTransactions = this.transformHistoryInDataSets(
-      this.historyQuery
-    );
-    this.data = this.getData(mappedTransactions);
   }
 
   private formatTime(date: Date) {
