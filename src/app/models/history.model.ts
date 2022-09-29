@@ -12,6 +12,16 @@ export interface Transaction {
   transferencia_id: string;
 }
 
+export interface TransactionAlternative {
+  walletId: string;
+  fecha: string;
+  estado: string;
+  motivo: Motivo;
+  valor: number;
+  destino: string;
+  transferencia_id: string;
+}
+
 export interface Fecha {
   date: string;
 }
