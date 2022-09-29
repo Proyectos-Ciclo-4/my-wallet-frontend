@@ -12,6 +12,7 @@ import { History, TransactionAlternative } from '../models/history.model';
 import { WsService } from '../services/ws.service';
 import { Wallet } from '../models/wallet.model';
 import Swal from 'sweetalert2';
+import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
 
 @Component({
   selector: 'app-historial',
@@ -39,28 +40,33 @@ export class HistorialComponent implements OnInit {
 
     this.user
       .getAllHistory(this.auth.usuarioLogueado().uid)
-      .subscribe((historial) => {
-        this.historial = historial.reverse();
-      });
+      .subscribe((historial) => {});
+
+    this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((wallet) => {
+      this.wallet = wallet;
+    });
   }
 
   switchHandler(evento: any) {
-    console.log(evento);
+    //console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.HistorialRecuperado':
-        const transaccionAlternative = { ...evento } as TransactionAlternative;
-        this.appendToHistorial(transaccionAlternative);
+        console.log('Historial recuperado!');
+        const transExt = { ...evento } as TransaccionExitosa;
+        this.appendToHistorial(this.exitosaToAlternative(transExt));
         break;
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
-        const transaccionExitosa = { ...evento } as TransactionAlternative;
-        this.alertaRecibo(transaccionExitosa);
-        this.appendToHistorial(transaccionExitosa);
+        console.log(this.historial);
+        console.log(evento);
+        const transExt2 = { ...evento } as TransaccionExitosa;
+        this.appendToHistorial(this.exitosaToAlternative(transExt2));
+        this.alertaRecibo(this.exitosaToAlternative(transExt2));
         break;
     }
   }
 
   private alertaRecibo(info: TransactionAlternative) {
-    if (this.wallet.walletId != info.walletId) {
+    if (this.wallet.walletId == info.destino) {
       Swal.fire(
         'Informacion de tu transferencia',
         'Has recibido un Deposito de dinero a tu Cuenta por ' +
@@ -69,6 +75,18 @@ export class HistorialComponent implements OnInit {
           info.motivo.descripcion
       );
     }
+  }
+
+  exitosaToAlternative(event: TransaccionExitosa): TransactionAlternative {
+    return {
+      destino: event.walletDestino.uuid,
+      estado: event.estado.tipoDeEstado,
+      motivo: event.motivo,
+      fecha: new Date(event.when.seconds * 1000).toString(),
+      transferencia_id: event.uuid,
+      valor: event.valor.monto,
+      walletId: event.aggregateRootId,
+    };
   }
 
   appendToHistorial(evento: TransactionAlternative) {

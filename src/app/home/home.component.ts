@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         const transaccionExitosa = { ...evento } as TransaccionExitosa;
         this.actualizarSaldo(evento);
-        this.alertaAnimada();
+        //this.alertaAnimada();
         this.alertaRecibo(transaccionExitosa);
         this.appendToHistorial(transaccionExitosa);
         break;

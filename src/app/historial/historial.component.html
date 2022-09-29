@@ -63,8 +63,8 @@
       </ng-template>
       <ng-template pTemplate="body" let-historial>
         <tr>
-          <td>{{ historial.fecha.split(" ")[0] + " " +  historial.fecha.split(" ")[1] + " " + historial.fecha.split(" ")[2] + " " + historial.fecha.split(" ")[5]}}</td>
-          <td>{{ historial.fecha.split(" ")[3]}}</td>
+          <td>{{ historial.fecha.split(" ")[0] + " " +  historial.fecha.split(" ")[1] + " " + historial.fecha.split(" ")[2] + " " + historial.fecha.split(" ")[3]}}</td>
+          <td>{{ historial.fecha.split(" ")[4]}}</td>
           <td>{{ historial.valor > 0 ? "Deposito" : "Transferencia" }}</td>
           <td>{{ historial.valor }}</td>
           <td>{{ historial.motivo.descripcion }}</td>
