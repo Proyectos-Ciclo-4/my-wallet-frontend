@@ -1,50 +1,5 @@
 <div class="cont">
-  <nav class="main-menu">
-    <ul>
-      <li>
-
-          <a [routerLink]="['/home']">
-
-          <i class="fa fa-home fa-2x"></i>
-          <span class="nav-text"> Home </span>
-        </a>
-      </li>
-      <li class="has-subnav">
-        <a [routerLink]="['/transaccion']">
-          <i class="fa fa-money fa-2x"></i>
-          <span class="nav-text"> Transferencias </span>
-        </a>
-      </li>
-      
-      <li class="has-subnav">
-        <a [routerLink]="['/motivos']">
-          <i class="fa fa-folder-open fa-2x"></i>
-          <span class="nav-text"> Motivos </span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/gastos']">
-          <i class="fa fa-bar-chart-o fa-2x"></i>
-          <span class="nav-text"> Gastos </span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/historial']">
-          <i class="fa fa-clock-o fa-2x"></i>
-          <span class="nav-text"> Historial </span>
-        </a>
-      </li>
-    </ul>
-
-    <ul class="logout">
-      <li>
-        <a [routerLink]="['/']">
-          <i class="fa fa-power-off fa-2x"></i>
-          <span class="nav-text"> Logout </span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  
     <div>
       <div id="contenedor_oculto_exitoso" class="ocultar">
         <div class="contenedor_vista_exitosa">
@@ -67,9 +22,10 @@
             <button
               type="submit"
               class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
+              (click)="vista_nueva_transfer()"
 
             >
-              <a href="transaccion" style="text-decoration: none;">
+              <a style="text-decoration: none;">
                 <span class="nav-text"> Nueva transferencia </span>
               </a>
             </button>
@@ -157,3 +113,10 @@
   </div>
   <!-- [disabled]="habilitarBoton==false" -->
 </div>
+
+<button
+          type="submit"
+          class="btnTransfer btn-secondary btn-block mb-4 boton-tamaño contenedor-hijos-inputs"
+          (click)="vista_exitosa()"
+        >hola
+      </button>
