@@ -100,6 +100,7 @@ export class HomeComponent implements OnInit {
       );
     }
   }
+
   alertaEliminarwallet() {
     this.alertsService.confirm({
       title: '¿Estás seguro que quieres cancelar tu cuenta?',
