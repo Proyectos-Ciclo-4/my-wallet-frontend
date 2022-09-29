@@ -43,7 +43,8 @@ export class HomeComponent implements OnInit {
     this.user.getWallet(this.userId).subscribe((wallet) => {
       this.wallet = wallet;
       this.saldo = wallet.saldo;
-      this.historial = buildHomeHistorial(wallet.historial);
+      console.log(wallet.historial);
+      this.historial = this.buildHomeHistorial(wallet.historial);
     });
   }
 
@@ -58,37 +59,46 @@ export class HomeComponent implements OnInit {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         const transaccionExitosa = { ...evento } as TransaccionExitosa;
         this.actualizarSaldo(evento);
-        this.alertaAnimada()
+        this.alertaAnimada();
         this.alertaRecibo(transaccionExitosa);
+        this.appendToHistorial(transaccionExitosa);
         break;
-      case'com.sofka.domain.wallet.eventos.WalletDesactivada':
-      this.alertaEliminarConfirmada()
-      break
+      case 'com.sofka.domain.wallet.eventos.WalletDesactivada':
+        this.alertaEliminarConfirmada();
+        break;
     }
   }
 
   private actualizarSaldo(evento: any) {
     this.wallet.saldo += evento.valor.monto;
+    this.user.getWallet(this.userId).subscribe((wallet) => {
+      console.log(wallet.historial);
+      this.historial = this.buildHomeHistorial(wallet.historial);
+    });
   }
 
-  private alertaAnimada(){
+  private alertaAnimada() {
     Swal.fire({
       title: 'RECIBISTE UN DEPOSITO!!',
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: 'animate__animated animate__fadeInDown',
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    })
+        popup: 'animate__animated animate__fadeOutUp',
+      },
+    });
   }
 
-  private alertaRecibo(info:TransaccionExitosa) {
-    Swal.fire(
-      'Informacion de tu transferencia',
-      'Has recibido un Deposito de dinero a tu Cuenta por '+info.valor+'USD con motivo '+info.motivo+' Fecha '+info.when,
-      'info'
-    );
+  private alertaRecibo(info: TransaccionExitosa) {
+    if (info.walletDestino != info.walletOrigen) {
+      Swal.fire(
+        'Informacion de tu transferencia',
+        'Has recibido un Deposito de dinero a tu Cuenta por ' +
+          info.valor.monto +
+          ' USD con motivo ' +
+          info.motivo.descripcion
+      );
+    }
   }
   alertaEliminarwallet() {
     this.alertsService.confirm({
@@ -114,33 +124,42 @@ export class HomeComponent implements OnInit {
     );
   }
 
-}
+  buildHomeHistorial(
+    historial: Array<TransaccionDeHistorial>
+  ): Array<HistoryHome> {
+    let historialDeHome: HistoryHome[] = [];
 
+    historial
+      .reverse()
+      .slice(0, 3)
+      .forEach((transaccion) => {
+        let fechaDate = transaccion.fecha.split(' ');
+        let entrada: HistoryHome = {
+          fecha: `${fechaDate[0]} ${fechaDate[1]} ${fechaDate[2]} ${fechaDate[5]}`,
+          hora: fechaDate[3],
+          valor:
+            transaccion.destino == transaccion.walletId
+              ? '+' + transaccion.valor
+              : '' + transaccion.valor,
+        };
+        historialDeHome.push(entrada);
+      });
+    return historialDeHome;
+  }
 
-function buildHomeHistorial(
-  historial: Array<TransaccionDeHistorial>
-): Array<HistoryHome> {
-  let historialDeHome: Array<HistoryHome> = new Array<HistoryHome>();
-
-  historial
-    .reverse()
-    .slice(0, 3)
-    .forEach((transaccion) => {
-      let fechaSplit = transaccion.fecha.split(' ');
-
-      //REFACTORIZAR Y CASTEAR ESTAS FECHAS APROPIADAMENTE
-      //INVESTIGAR QUE PUEDE CASTEARME ESO PROPIAMENTE tipo: LOCALDATETIME en formato str() a DATE()
-
-      let entrada: HistoryHome = {
-        fecha: `${fechaSplit[0]} ${fechaSplit[1]} ${fechaSplit[2]} ${fechaSplit[5]}`,
-        hora: fechaSplit[3],
-        valor:
-          transaccion.destino == transaccion.walletId
-            ? '+' + transaccion.valor
-            : '' + transaccion.valor,
-      };
-
-      historialDeHome.push(entrada);
-    });
-  return historialDeHome;
+  appendToHistorial(evento: TransaccionExitosa) {
+    let fecha = new Date(evento.when.seconds * 1000);
+    let entrada: HistoryHome = {
+      fecha: fecha.toDateString(),
+      hora: fecha.toTimeString().split(' ')[0],
+      valor:
+        evento.walletDestino == evento.walletOrigen
+          ? '+' + evento.valor.monto
+          : '' + evento.valor.monto,
+    };
+    console.log(entrada);
+    console.log('pusheando');
+    this.historial = [entrada, ...this.historial];
+    console.log(this.historial);
+  }
 }

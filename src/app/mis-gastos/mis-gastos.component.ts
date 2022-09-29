@@ -110,10 +110,7 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     this.userService
       .getHistory(fromURL, untilURL, this.walletId)
       .subscribe((response) => {
-        console.log(typeof response[0].motivo);
-        console.log(response[0].motivo);
         this.historyQuery = this.transHistReformatter(response);
-        console.log(this.historyQuery);
       });
 
     const sortedResult = this.historyQuery.sort((a, b) => b.valor - a.valor);

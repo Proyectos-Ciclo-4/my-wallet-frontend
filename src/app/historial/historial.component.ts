@@ -33,7 +33,7 @@ export class HistorialComponent implements OnInit {
     this.user
       .getAllHistory(this.auth.usuarioLogueado().uid)
       .subscribe((historial) => {
-        this.historial = historial;
+        this.historial = historial.reverse();
       });
   }
 

@@ -31,7 +31,7 @@ export class TransaccionComponent implements OnInit {
   motivo!: Motivo;
   dinero!: number;
   saldo: number = 0;
-  selectedOption: Array<string> = [];
+  selectedOption: string[] = ['Desconocido', '#CBCBCB'];
   wallet!: Wallet;
 
   //Vista de Transaccion exitosa
@@ -59,8 +59,6 @@ export class TransaccionComponent implements OnInit {
     this.user.getWallet(userId).subscribe((wallet) => {
       this.wallet = wallet;
       this.motivosLista = wallet.motivos;
-      this.motivo = this.motivosLista[0];
-      this.selectedOption = [this.motivo.descripcion];
     });
   }
 
@@ -91,7 +89,6 @@ export class TransaccionComponent implements OnInit {
   }
 
   validar_dinero() {
-    console.log(this.selectedOption);
     this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((data) => {
       this.saldo = data.saldo;
       if (this.dinero < 1 || this.dinero > this.saldo) {
@@ -130,7 +127,8 @@ export class TransaccionComponent implements OnInit {
     }
     this.user.validar_alguno(telefono, email).subscribe({
       next: (res) => {
-        if (res == true) {
+        if (res) {
+          console.log(res);
           this.transaccion_armar_peticion();
         } else {
           Swal.fire(
@@ -194,12 +192,10 @@ export class TransaccionComponent implements OnInit {
   }
 
   updateTransConfirmation(evento: any) {
-    console.log(evento);
-    let unixtime = new Date(evento.when.seconds * 1000)
-      .toISOString()
-      .split('T');
-    this.fecha = unixtime[0];
-    this.hora = unixtime[1].split('Z')[0] + ' Universal Time';
+    console.log(new Date(evento.when.seconds * 1000));
+    let fecha = new Date(evento.when.seconds * 1000);
+    this.fecha = fecha.toDateString();
+    this.hora = fecha.toTimeString();
     this.IdTransaccion = evento.transferenciaID.uuid;
     this.Destinatario = this.email == '' ? this.telefono : this.email;
     this.Monto = evento.valor.monto;
