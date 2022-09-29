@@ -88,13 +88,10 @@ export class RegistroComponent implements OnInit {
 
   crear() {
     this.nuevo_arreglo.telefono = this.Telefono;
-    if (
-      this.nuevo_arreglo.telefono.length < 13 ||
-      this.nuevo_arreglo.telefono == ''
-    ) {
+    if (!/^\+[0-9]{8,12}$/.test(this.nuevo_arreglo.telefono)) {
       Swal.fire(
-        'Numero de Telefono Invalido',
-        'ingrese un numero de telefono valido',
+        '¡Numero de Telefono Invalido!',
+        'Empiece por "+" seguido de su indicador de pais y su número de telefono',
         'warning'
       );
     } else {
@@ -104,10 +101,8 @@ export class RegistroComponent implements OnInit {
 
   alertaRegistrado() {
     Swal.fire(
-      'USUARIO EXISTENTE',
-      'hola!' +
-        this.nuevo_arreglo.nombre +
-        ' Ya tienes una cuenta Registrada en my wallet',
+      'Tu email ya esta asociado a una cuenta!',
+      'Iniciamos sesión por ti',
       'warning'
     );
   }
