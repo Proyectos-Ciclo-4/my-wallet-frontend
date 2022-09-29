@@ -110,9 +110,7 @@ export class MotivosComponent implements OnInit {
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);
   }
-  contactoRoute() {
-    this.router.navigate(['/contacto']);
-  }
+  
   historialRoute() {
     this.router.navigate(['/historial']);
   }

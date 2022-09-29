@@ -8,7 +8,7 @@ import { UserService } from '../services/user.service';
 import { Transaction } from '../models/history.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { TransaccionDeHistorial } from '../models/wallet.model';
+import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 
 @Component({
   selector: 'app-mis-gastos',
@@ -23,10 +23,11 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   from: Date = new Date();
   until: Date = new Date();
   form!: FormGroup;
-  historyQuery: Array<Transaction> = [];
+  historyQuery: TransaccionDeHistorial[] = [];
   mostExpensive = { color: '#f45g56', description: 'Test' };
   cheapest = { color: '#fff192', description: 'Test' };
   walletId!: string;
+  wallet!: Wallet;
 
   constructor(
     private configService: ChartConfigService,
@@ -52,15 +53,26 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.config = this.configService.config;
     this.updateChartOptions();
+
     this.subscription = this.configService.configUpdate$.subscribe((config) => {
       this.config = config;
       this.updateChartOptions();
     });
+
     this.walletId = this.auth.getMyUser()?.uid!;
+    this.userService.getWallet(this.walletId).subscribe((wallet) => {
+      this.wallet = wallet;
+    });
   }
 
-  private transformHistoryInDataSets(history: Transaction[]): Gastos {
-    let data = history.map((transaction) => transaction.valor);
+  private transformHistoryInDataSets(
+    history: TransaccionDeHistorial[]
+  ): Gastos {
+    let dataP = history.map((transaction) => Math.abs(transaction.valor));
+    let total = dataP.reduce((a, b) => a + b, 0);
+    let data = dataP.map((valor) => {
+      return (valor * 100) / total;
+    });
 
     let backgroundColor = history.map(
       (transaction) => transaction.motivo.color
@@ -98,10 +110,7 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     this.userService
       .getHistory(fromURL, untilURL, this.walletId)
       .subscribe((response) => {
-        console.log(typeof response[0].motivo);
-        console.log(response[0].motivo);
         this.historyQuery = this.transHistReformatter(response);
-        console.log(this.historyQuery);
       });
 
     const sortedResult = this.historyQuery.sort((a, b) => b.valor - a.valor);
@@ -129,19 +138,45 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   private transHistReformatter(
-    transHistorial: Array<TransaccionDeHistorial>
-  ): Transaction[] {
-    return transHistorial.map(
-      (unformatted) =>
-        ({
-          motivo: {
-            descripcion: unformatted.motivo.descripcion,
-            color: unformatted.motivo.color,
+    transHistorial: TransaccionDeHistorial[]
+  ): TransaccionDeHistorial[] {
+    return this.wallet.motivos.map((motivoA) => {
+      return transHistorial
+        .filter(
+          (transaccion) => transaccion.motivo.descripcion == motivoA.descripcion
+        )
+        .reduce(
+          (a, b) => {
+            let currentValue = { ...b };
+            a.valor += b.valor;
+            return currentValue;
           },
-          valor: Math.abs(unformatted.valor),
-        } as Transaction)
-    );
+          { valor: 0 } as TransaccionDeHistorial
+        );
+    });
+
+    // return transHistorial.map(
+    //   (unformatted) =>
+    //     ({
+    //       motivo: {
+    //         descripcion: unformatted.motivo.descripcion,
+    //         color: unformatted.motivo.color,
+    //       },
+    //       valor: Math.abs(unformatted.valor),
+    //     } as Transaction)
+    // );
   }
+
+  // return transHistorial.map(
+  //   (unformatted) =>
+  //     ({
+  //       motivo: {
+  //         descripcion: unformatted.motivo.descripcion,
+  //         color: unformatted.motivo.color,
+  //       },
+  //       valor: Math.abs(unformatted.valor),
+  //     } as Transaction)
+  // );
 
   private setAvailableDates() {
     const today = new Date();

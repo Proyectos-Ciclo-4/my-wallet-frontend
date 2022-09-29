@@ -7,13 +7,16 @@ import { AuthService } from './auth.service';
 })
 export class WsService {
   private URL_WS: String = 'ws://localhost:8082/wallet';
-  readonly webSocket!: WebSocketSubject<unknown>;
+  private webSocket!: WebSocketSubject<unknown>;
 
   constructor(private auth: AuthService) {
+    this.reconnectWs();
+  }
+
+  reconnectWs() {
     this.webSocket = webSocket(
       `${this.URL_WS}/${this.auth.usuarioLogueado().uid}`
     );
-    // `${this.URL_WS}/${this.auth.usuarioLogueado().uid}`
   }
 
   getWs(): WebSocketSubject<unknown> {

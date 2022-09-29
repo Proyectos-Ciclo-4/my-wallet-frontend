@@ -14,7 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContactoComponent } from './contacto/contacto.component';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MotivosComponent } from './motivos/motivos.component';
 import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
@@ -33,7 +33,7 @@ import { TableModule } from 'primeng/table';
     HomeComponent,
     TransaccionComponent,
     HistorialComponent,
-    ContactoComponent,
+    
     MotivosComponent,
     MisGastosComponent,
   ],

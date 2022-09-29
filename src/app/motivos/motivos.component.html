@@ -1,115 +1,74 @@
 <div class="cont">
-
-  <nav class="main-menu align-self-start justify-content-start">
-    <ul>
-        <li>
-            <a [routerLink]="['/home']">
-                <i class="fa fa-home fa-2x"></i>
-                <span class="nav-text" >
-                    Home
-                </span>
-            </a>
-
-        </li>
-        <li class="has-subnav">
-            <a [routerLink]="['/transaccion']">
-                <i class="fa fa-money fa-2x"></i>
-                <span class="nav-text">
-                    Transferencias
-                </span>
-            </a>
-
-        </li>
-        <li class="has-subnav">
-            <a [routerLink]="['/contacto']">
-              <i class="fa fa-list fa-2x"></i>
-                <span class="nav-text">
-                    Contactos
-                </span>
-            </a>
-
-        </li>
-        <li class="has-subnav">
-            <a [routerLink]="['/motivos']">
-              <i class="fa fa-folder-open fa-2x"></i>
-                <span class="nav-text">
-                    Motivos
-                </span>
-            </a>
-
-        </li>
-        <li>
-            <a [routerLink]="['/mis-gastos']">
-                <i class="fa fa-bar-chart-o fa-2x"></i>
-                <span class="nav-text">
-                    Gastos
-                </span>
-            </a>
-        </li>
-        <li>
-            <a [routerLink]="['/historial']">
-                <i class="fa fa-clock-o fa-2x"></i>
-                <span class="nav-text">
-                  Historial
-                </span>
-            </a>
-        </li>
-    </ul>
-
-    <ul class="logout">
-        <li>
-          <a href="historial" (click)="logout()">
-                <i class="fa fa-power-off fa-2x"></i>
-                <span class="nav-text">
-                    Logout
-                </span>
-            </a>
-        </li>
-    </ul>
-  </nav>
   <div>
     <div class="mensaje">
-      <h1>Personaliza tu motivo  </h1>
+      <h1>Personaliza tu motivo</h1>
       <p>
         <!-- Queremos ayudarte a controlar tus gastos mediante la generacion de estadisticas sobre tus principales motivos al transferir dinero a otros usuarios de My Wallet
         ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo.
         El motivo "desconocido" es inmodificable y se asignara por defecto al momentode realizar una transferencia. -->
-        Queremos ayudarte a controlar tus gastos mediante la generacion de estadisticas sobre tus principales motivos al transferir dinero a otros usuarios de My Wallet
-        ingresa un nombre por tarjeta; una vez lo ingreses, no podras modificarlo; solo podras tener un máximo de 10 motivos
+        Queremos ayudarte a controlar tus gastos mediante la generacion de
+        estadisticas sobre tus principales motivos al transferir dinero a otros
+        usuarios de My Wallet ingresa un nombre por tarjeta; una vez lo
+        ingreses, no podras modificarlo; solo podras tener un máximo de 10
+        motivos
       </p>
       <div class="contenedor_padre">
-      
-      
-      <div class="contenedor_hijo">
-        
-        <label class="form-label" for="form5Example2">Seleccione su color :</label> <br>
-        <div class="contenedor_color"><input id="style2" type="color" class="boton-color" [(ngModel)]="motivo_color_input"></div>
-      
-      <br>    
-        <input type="text" id="form5Example4" maxlength="11" class="form-control" [(ngModel)]="motivo_descripcion_input" />
-        <label class="form-label" for="form5Example2" 
-          >Motivo de transferencia</label>
-        
-      </div>
-      <div class="impresion-motivos-hijo">
-        <h2>Motivos Usados</h2>
-        <br>
-        <div style="width:150px; height:120px; overflow: scroll ;overflow-x: hidden;">
-        <div *ngFor='let motivo of motivosLista'>          
-          <p  style="background-color: {{motivo.color}}">{{motivo.descripcion}}</p>
+        <div class="contenedor_hijo">
+          <label class="form-label" for="form5Example2"
+            >Seleccione su color :</label
+          >
+          <br />
+          <div class="contenedor_color">
+            <input
+              id="style2"
+              type="color"
+              class="boton-color"
+              [(ngModel)]="motivo_color_input"
+            />
+          </div>
+
+          <br />
+          <input
+            type="text"
+            id="form5Example4"
+            maxlength="11"
+            class="form-control"
+            [(ngModel)]="motivo_descripcion_input"
+          />
+          <label class="form-label" for="form5Example2"
+            >Motivo de transferencia</label
+          >
+        </div>
+        <div class="impresion-motivos-hijo">
+          <h2>Motivos Usados</h2>
+          <br />
+          <div
+            style="
+              width: 150px;
+              height: 120px;
+              overflow: scroll;
+              overflow-x: hidden;
+            "
+          >
+            <div *ngFor="let motivo of motivosLista">
+              <p style="background-color: {{ motivo.color }}">
+                {{ motivo.descripcion }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="boton-contenedor">
+        <button
+          class="btn5"
+          (click)="OnClick()"
+          [disabled]="motivosLista.length >= 10"
+        >
+          Crear Motivo
+        </button>
       </div>
-      
-      
-      
-      </div> 
-      <div class="boton-contenedor"><button class="btn5" (click)="OnClick()" [disabled] ="motivosLista.length >= 10" >Crear Motivo </button></div>        
-      
-       
-     
+    </div>
 
+    <div></div>
   </div>
-
-<div>
-
+</div>
