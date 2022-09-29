@@ -46,6 +46,12 @@ export class HomeComponent implements OnInit {
       console.log(wallet.historial);
       this.historial = this.buildHomeHistorial(wallet.historial);
     });
+
+    setTimeout(() => {
+      alert('Se ha cerrado la sesion por inactividad');
+      this.auth.logout();
+      this.router.navigate(['']);
+    }, 180000);
   }
 
   logout() {
