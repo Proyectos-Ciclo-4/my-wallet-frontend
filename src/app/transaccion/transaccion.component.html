@@ -66,8 +66,7 @@
           <div class="boton-submit-contenedor">
             <button
               type="submit"
-              class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
-
+              class="btn"
             >
               <a href="transaccion" style="text-decoration: none;">
                 <span class="nav-text"> Nueva transferencia </span>
@@ -139,7 +138,7 @@
         <a [routerLink]="['/motivos']" style="text-decoration: none"
           ><button
             type="submit"
-            class="btnTransfer btn-secondary contenedor-hijos-inputs boton-crearmotivo">
+            class="btn">
             Crear Motivo
           </button>
         </a>
@@ -147,7 +146,7 @@
       <div class="boton-submit-contenedor">
         <button
           type="submit"
-          class="btnTransfer btn-secondary btn-block mb-4 boton-tamaño contenedor-hijos-inputs"
+          class="btn"
           (click)="validar_dinero()"
         >
           Transferir

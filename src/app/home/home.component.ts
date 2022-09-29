@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
   }
 
   private alertaRecibo(info: TransaccionExitosa) {
-    if (info.walletDestino != info.walletOrigen) {
+    if (this.wallet.walletId != info.walletOrigen.uuid) {
       Swal.fire(
         'Informacion de tu transferencia',
         'Has recibido un Deposito de dinero a tu Cuenta por ' +
@@ -157,9 +157,6 @@ export class HomeComponent implements OnInit {
           ? '+' + evento.valor.monto
           : '' + evento.valor.monto,
     };
-    console.log(entrada);
-    console.log('pusheando');
     this.historial = [entrada, ...this.historial];
-    console.log(this.historial);
   }
 }
