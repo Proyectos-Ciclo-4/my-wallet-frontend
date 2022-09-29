@@ -36,7 +36,7 @@ export class RegistroComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private user: UserService,
-    private webSocket: WsService
+    private ws: WsService
   ) {}
 
   //this.nombre = this.auth.getMyUser()?.displayName!;this.email=this.auth.getMyUser()?.email!
@@ -45,9 +45,9 @@ export class RegistroComponent implements OnInit {
     this.checkWallet();
     this.autoComplete();
     this.resp = this.auth.usuarioLogueado();
-    
-    //this.resp.uid
-    this.connectToWs("1");
+
+    this.ws.reconnectWs();
+    this.ws.getWs().subscribe(this.switchHandler.bind(this));
 
     this.nuevo_arreglo = {
       email: this.resp.email,
@@ -65,20 +65,16 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-  connectToWs(id: string) {
-    console.log("Switch binding!")
-    this.webSocket.getWs().subscribe(this.switchHandler.bind(this));
-  }
-
   switchHandler(event: any) {
+    console.log(event);
     switch (event.type) {
       case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
-        console.log(event)
-        this.alertaCreado(" ");
+        console.log(event);
+        this.alertaCreado();
+        this.router.navigate(['/home']);
         break;
       case 'com.sofka.domain.wallet.eventos.WalletCreada':
-        console.log(event)
-        this.router.navigate(['/home']);
+        console.log(event);
         break;
     }
   }
@@ -116,13 +112,11 @@ export class RegistroComponent implements OnInit {
     );
   }
 
-  alertaCreado(nombre:string) {
+  alertaCreado() {
     Swal.fire(
-      'USUARIO CREADO',
-      'Bienvenido ' +
-        nombre +
-        ' a my Wallet  a partir de este momento podras disfrutar de las opciones que tenemos para ti!!!',
-      'warning'
+      'Saludos',
+      'Bienvenido a My Wallet a partir de este momento podras disfrutar de las opciones que tenemos para ti!!!',
+      'success'
     );
   }
 
