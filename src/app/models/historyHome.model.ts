@@ -1,5 +1,5 @@
-export interface HistoryHome{
-    fecha:string,
-    hora:string,
-    valor:string
+export interface HistoryHome {
+  fecha: string;
+  hora: string;
+  valor: string;
 }

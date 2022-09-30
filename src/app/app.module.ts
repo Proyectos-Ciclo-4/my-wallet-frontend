@@ -33,7 +33,7 @@ import { TableModule } from 'primeng/table';
     HomeComponent,
     TransaccionComponent,
     HistorialComponent,
-    
+
     MotivosComponent,
     MisGastosComponent,
   ],

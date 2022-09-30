@@ -35,7 +35,9 @@ export class UserService {
       telefono: user?.phoneNumber,
     });
   }
-  private URL_HTTP: String = 'http://localhost:8084';
+
+  private URL_HTTP: String = 'https://app-service-wallet.herokuapp.com';
+
   listar(): Observable<Usuario[]> {
     const databaseref = collection(this.firestore, 'users');
     return collectionData(databaseref, { idField: 'id' }) as Observable<
@@ -73,7 +75,7 @@ export class UserService {
       `${this.URL_HTTP}/history/${startDate}/to/${endDate}/of/${walletId}`
     );
   }
-  
+
   // getHistory(body: HistoryGetter): Transaction[] {
   //   // return this.http.post(`${this.URL_HTTP}/history`, { ...body });
   //   return [
