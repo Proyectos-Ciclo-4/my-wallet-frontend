@@ -1,4 +1,4 @@
-<div class="contreg">
+<div (click)="resetTimeout()" class="contreg">
   <div class="mensaje">
     <h1>Completa tu informacion</h1>
     <h5>
@@ -8,20 +8,23 @@
     </h5>
   </div>
 
-  <form  >
+  <form>
     <div class="form-outline mb-4">
       <label class="form-label bold" for="form5Example1">Nombre Completo</label>
       <input
         type="text"
         class="form-control Nombre"
         value="{{ nombre }}"
-        required minlength="4"
+        required
+        minlength="4"
         readonly
       />
     </div>
 
     <div class="form-outline mb-4">
-      <label class="form-label" for="form5Example1">Telefono (Incluya indicativo por país)</label>
+      <label class="form-label" for="form5Example1"
+        >Telefono (Incluya indicativo por país)</label
+      >
       <input
         required
         maxlength="14"
@@ -31,9 +34,7 @@
         class="form-control telefono"
         placeholder="Ejemplo: +573178768736"
       />
-
     </div>
-
 
     <div class="form-outline mb-4">
       <label class="form-label" for="form5Example2">Email</label>
@@ -44,9 +45,7 @@
         value="{{ email }}"
         readonly
       />
-
     </div>
-
 
     <button
       type="submit"
@@ -57,4 +56,3 @@
     </button>
   </form>
 </div>
-

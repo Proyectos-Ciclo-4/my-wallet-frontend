@@ -35,7 +35,9 @@ export class UserService {
       telefono: user?.phoneNumber,
     });
   }
-  private URL_HTTP: String = 'http://localhost:8084';
+
+  private URL_HTTP: String = 'https://app-service-wallet.herokuapp.com';
+
   listar(): Observable<Usuario[]> {
     const databaseref = collection(this.firestore, 'users');
     return collectionData(databaseref, { idField: 'id' }) as Observable<
@@ -46,19 +48,9 @@ export class UserService {
     return this.http.post(`${this.URL_HTTP}/new/wallet`, { ...body });
   }
   getWallet(userId: string) {
-    //console.log("Retrieving wallet of " + userId)
-    //console.log("petition: " + `${this.URL_HTTP}/wallet/${userId}`)
-    //this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`).subscribe((wallet) =>{
-    //console.log(wallet.historial)
-    //})
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
   getUserMongo(walletId: string) {
-    //console.log("Retrieving wallet of " + userId)
-    //console.log("petition: " + `${this.URL_HTTP}/wallet/${userId}`)
-    //this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`).subscribe((wallet) =>{
-    //console.log(wallet.historial)
-    //})
     return this.http.get<usuarioMongo>(`${this.URL_HTTP}/usuario/${walletId}`);
   }
   enviarTransaccion(body: Transferencia) {
@@ -73,7 +65,7 @@ export class UserService {
       `${this.URL_HTTP}/history/${startDate}/to/${endDate}/of/${walletId}`
     );
   }
-  
+
   // getHistory(body: HistoryGetter): Transaction[] {
   //   // return this.http.post(`${this.URL_HTTP}/history`, { ...body });
   //   return [

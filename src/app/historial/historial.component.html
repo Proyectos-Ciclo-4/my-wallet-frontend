@@ -1,54 +1,4 @@
-<div class="cont">
-  <nav class="main-menu">
-    <ul>
-      <li>
-        <a [routerLink]="['/home']">
-          <i class="fa fa-home fa-2x"></i>
-          <span class="nav-text"> Home </span>
-        </a>
-      </li>
-      <li class="has-subnav">
-        <a [routerLink]="['/transaccion']">
-          <i class="fa fa-money fa-2x"></i>
-          <span class="nav-text"> Transferencias </span>
-        </a>
-      </li>
-      <li class="has-subnav">
-        <a [routerLink]="['/contacto']">
-          <i class="fa fa-list fa-2x"></i>
-          <span class="nav-text"> Contactos </span>
-        </a>
-      </li>
-      <li class="has-subnav">
-        <a [routerLink]="['/motivos']">
-          <i class="fa fa-folder-open fa-2x"></i>
-          <span class="nav-text"> Motivos </span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/mis-gastos']">
-          <i class="fa fa-bar-chart-o fa-2x"></i>
-          <span class="nav-text"> Gastos </span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/historial']">
-          <i class="fa fa-clock-o fa-2x"></i>
-          <span class="nav-text"> Historial </span>
-        </a>
-      </li>
-    </ul>
-
-    <ul class="logout">
-      <li>
-        <a [routerLink]="['/historial']" (click)="logout()">
-          <i class="fa fa-power-off fa-2x"></i>
-          <span class="nav-text"> Logout </span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
+<div (click)="resetTimeout()" class="cont">
   <div class="content">
     <h1>Historial de Transacciones</h1>
     <p-table [value]="historial" responsiveLayout="scroll">
@@ -63,8 +13,18 @@
       </ng-template>
       <ng-template pTemplate="body" let-historial>
         <tr>
-          <td>{{ historial.fecha.split(" ")[0] + " " +  historial.fecha.split(" ")[1] + " " + historial.fecha.split(" ")[2] + " " + historial.fecha.split(" ")[3]}}</td>
-          <td>{{ historial.fecha.split(" ")[4]}}</td>
+          <td>
+            {{
+              historial.fecha.split(" ")[0] +
+                " " +
+                historial.fecha.split(" ")[1] +
+                " " +
+                historial.fecha.split(" ")[2] +
+                " " +
+                historial.fecha.split(" ")[3]
+            }}
+          </td>
+          <td>{{ historial.fecha.split(" ")[4] }}</td>
           <td>{{ historial.valor > 0 ? "Deposito" : "Transferencia" }}</td>
           <td>{{ historial.valor }}</td>
           <td>{{ historial.motivo.descripcion }}</td>

@@ -3,6 +3,9 @@
 
 .cont {
   width: 100vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
 h3 {
@@ -49,6 +52,7 @@ nav.main-menu.expanded {
 }
 
 .main-menu {
+  display: inline-block;
   background: #212121;
   border-right: 1px solid #e5e5e5;
   top: 0;

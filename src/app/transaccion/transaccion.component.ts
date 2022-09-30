@@ -10,6 +10,7 @@ import { AlertsService } from '../services/alerts.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
+
 @Component({
   selector: 'app-transaccion',
   templateUrl: './transaccion.component.html',
@@ -45,16 +46,13 @@ export class TransaccionComponent implements OnInit {
   userEmailPropio: any;
 
   ngOnInit(): void {
+    this.ws.timeOut();
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
     let userId = this.auth.getMyUser()?.uid!;
     this.user.getUserMongo(userId).subscribe((user) => {
       this.userTelefonoPropio = user.numero;
-      console.log(user);
-      console.log(this.userTelefonoPropio);
     });
     this.userEmailPropio = this.auth.getMyUser()?.email;
-
-    console.log(this.userEmailPropio, this.userTelefonoPropio);
 
     this.user.getWallet(userId).subscribe((wallet) => {
       this.wallet = wallet;
@@ -62,8 +60,11 @@ export class TransaccionComponent implements OnInit {
     });
   }
 
+  resetTimeout() {
+    this.ws.timeOut();
+  }
+
   switchHandler(evento: any) {
-    console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         this.updateTransConfirmation(evento);
@@ -128,7 +129,6 @@ export class TransaccionComponent implements OnInit {
     this.user.validar_alguno(telefono, email).subscribe({
       next: (res) => {
         if (res) {
-          console.log(res);
           this.transaccion_armar_peticion();
         } else {
           Swal.fire(
@@ -155,7 +155,6 @@ export class TransaccionComponent implements OnInit {
     } else {
       this.user.obtener_contacto_porEmail(this.email).subscribe((data) => {
         if (data) {
-          console.log(data);
           this.alertaConfirmar(data);
         } else {
           this.alertaError();
@@ -192,7 +191,6 @@ export class TransaccionComponent implements OnInit {
   }
 
   updateTransConfirmation(evento: any) {
-    console.log(new Date(evento.when.seconds * 1000));
     let fecha = new Date(evento.when.seconds * 1000);
     this.fecha = fecha.toDateString();
     this.hora = fecha.toTimeString();
@@ -215,12 +213,15 @@ export class TransaccionComponent implements OnInit {
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);
   }
+
   contactoRoute() {
     this.router.navigate(['/contacto']);
   }
+
   historialRoute() {
     this.router.navigate(['/historial']);
   }
+
   motivosRoute() {
     this.router.navigate(['/motivos']);
   }

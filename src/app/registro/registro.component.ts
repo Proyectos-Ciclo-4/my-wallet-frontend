@@ -42,6 +42,7 @@ export class RegistroComponent implements OnInit {
   //this.nombre = this.auth.getMyUser()?.displayName!;this.email=this.auth.getMyUser()?.email!
 
   ngOnInit(): void {
+    this.ws.timeOut();
     this.checkWallet();
     this.autoComplete();
     this.resp = this.auth.usuarioLogueado();
@@ -56,6 +57,10 @@ export class RegistroComponent implements OnInit {
     };
   }
 
+  resetTimeout() {
+    this.ws.timeOut();
+  }
+
   checkWallet() {
     this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((wallet) => {
       if (wallet) {
@@ -66,15 +71,12 @@ export class RegistroComponent implements OnInit {
   }
 
   switchHandler(event: any) {
-    console.log(event);
     switch (event.type) {
       case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
-        console.log(event);
         this.alertaCreado();
         this.router.navigate(['/home']);
         break;
       case 'com.sofka.domain.wallet.eventos.WalletCreada':
-        console.log(event);
         break;
     }
   }
@@ -83,7 +85,6 @@ export class RegistroComponent implements OnInit {
     this.resp = this.auth.usuarioLogueado();
     this.nombre = this.resp.displayName;
     this.email = this.resp.email;
-    console.log(this.nombre, this.email);
   }
 
   crear() {
@@ -128,9 +129,7 @@ export class RegistroComponent implements OnInit {
             );
           } else {
             this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
-              next: (res) => {
-                console.log(res);
-              },
+              next: (res) => {},
             });
           }
         },

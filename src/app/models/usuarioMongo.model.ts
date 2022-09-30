@@ -1,5 +1,5 @@
 export interface usuarioMongo {
-    usuarioId: string ;    
-    email: string;
-    numero:string;
-  }
+  usuarioId: string;
+  email: string;
+  numero: string;
+}
