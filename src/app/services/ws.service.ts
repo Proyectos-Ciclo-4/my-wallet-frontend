@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class WsService {
-  private URL_WS: String = 'ws://app-wallet-socket.herokuapp.com';
+  private URL_WS: String = 'wss://app-wallet-socket.herokuapp.com/wallet';
   private webSocket!: WebSocketSubject<unknown>;
 
   constructor(private auth: AuthService) {
