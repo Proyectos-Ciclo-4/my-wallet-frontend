@@ -10,6 +10,7 @@ import { AlertsService } from '../services/alerts.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
+
 @Component({
   selector: 'app-transaccion',
   templateUrl: './transaccion.component.html',
@@ -45,6 +46,7 @@ export class TransaccionComponent implements OnInit {
   userEmailPropio: any;
 
   ngOnInit(): void {
+    this.ws.timeOut();
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
     let userId = this.auth.getMyUser()?.uid!;
     this.user.getUserMongo(userId).subscribe((user) => {
@@ -60,6 +62,10 @@ export class TransaccionComponent implements OnInit {
       this.wallet = wallet;
       this.motivosLista = wallet.motivos;
     });
+  }
+
+  resetTimeout() {
+    this.ws.timeOut();
   }
 
   switchHandler(evento: any) {
@@ -215,12 +221,15 @@ export class TransaccionComponent implements OnInit {
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);
   }
+
   contactoRoute() {
     this.router.navigate(['/contacto']);
   }
+
   historialRoute() {
     this.router.navigate(['/historial']);
   }
+
   motivosRoute() {
     this.router.navigate(['/motivos']);
   }

@@ -38,6 +38,7 @@ export class MotivosComponent implements OnInit {
   motivosListaResponse: any;
 
   ngOnInit(): void {
+    this.ws.timeOut();
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
 
     let userId = this.auth.getMyUser()?.uid!;
@@ -47,6 +48,10 @@ export class MotivosComponent implements OnInit {
     });
     //this.falsearMotivos()
     console.log(this.motivosLista);
+  }
+
+  resetTimeout() {
+    this.ws.timeOut();
   }
 
   OnClick() {

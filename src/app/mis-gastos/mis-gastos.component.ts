@@ -5,10 +5,10 @@ import { AppConfig } from '../models/chartconfig.model';
 import { ChartConfigService } from '../services/chart-config.service';
 import { Gastos } from '../models/gastos.model';
 import { UserService } from '../services/user.service';
-import { Transaction } from '../models/history.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
+import { WsService } from '../services/ws.service';
 
 @Component({
   selector: 'app-mis-gastos',
@@ -33,16 +33,12 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     private configService: ChartConfigService,
     private userService: UserService,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private ws: WsService
   ) {
     this.setAvailableDates();
     this.buildForm();
   }
-
-  //actualizar grafico con base a porcentajes
-  //100% total de gastos en el perido de tiempo seleccionado
-  //consulto gastos en ese tiempo
-  //actualizar el modelo
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -51,6 +47,7 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.ws.timeOut();
     this.config = this.configService.config;
     this.updateChartOptions();
 
@@ -94,6 +91,10 @@ export class MisGastosComponent implements OnInit, OnDestroy {
       labels,
       datasets: [{ ...dataset }],
     };
+  }
+
+  resetTimeout() {
+    this.ws.timeOut();
   }
 
   private buildForm() {

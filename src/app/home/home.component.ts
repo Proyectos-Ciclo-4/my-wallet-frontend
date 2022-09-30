@@ -37,8 +37,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    //---AQUI EMPIEZA EL WS--/
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
+    this.ws.timeOut();
 
     this.user.getWallet(this.userId).subscribe((wallet) => {
       this.wallet = wallet;
@@ -47,11 +47,10 @@ export class HomeComponent implements OnInit {
       this.historial = this.buildHomeHistorial(wallet.historial);
     });
 
-    /*  setTimeout(() => {
-      alert('Se ha cerrado la sesion por inactividad');
-      this.auth.logout();
-      this.router.navigate(['']);
-    }, 180000);*/
+    // setTimeout(, 180000);
+  }
+  resetTimeout() {
+    this.ws.timeOut();
   }
 
   logout() {
@@ -120,9 +119,11 @@ export class HomeComponent implements OnInit {
       },
     });
   }
+
   eliminarWallet(data: any) {
     return this.user.EliminarWallet(data);
   }
+
   alertaEliminarConfirmada() {
     Swal.fire(
       'Wallet en proceso de eliminacion',
