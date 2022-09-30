@@ -48,19 +48,9 @@ export class UserService {
     return this.http.post(`${this.URL_HTTP}/new/wallet`, { ...body });
   }
   getWallet(userId: string) {
-    //console.log("Retrieving wallet of " + userId)
-    //console.log("petition: " + `${this.URL_HTTP}/wallet/${userId}`)
-    //this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`).subscribe((wallet) =>{
-    //console.log(wallet.historial)
-    //})
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
   getUserMongo(walletId: string) {
-    //console.log("Retrieving wallet of " + userId)
-    //console.log("petition: " + `${this.URL_HTTP}/wallet/${userId}`)
-    //this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`).subscribe((wallet) =>{
-    //console.log(wallet.historial)
-    //})
     return this.http.get<usuarioMongo>(`${this.URL_HTTP}/usuario/${walletId}`);
   }
   enviarTransaccion(body: Transferencia) {

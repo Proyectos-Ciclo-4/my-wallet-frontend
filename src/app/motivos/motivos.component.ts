@@ -46,8 +46,6 @@ export class MotivosComponent implements OnInit {
       this.wallet = wallet;
       this.motivosLista = wallet.motivos;
     });
-    //this.falsearMotivos()
-    console.log(this.motivosLista);
   }
 
   resetTimeout() {
@@ -70,11 +68,7 @@ export class MotivosComponent implements OnInit {
       //   'Dirigete a Transaccion y encontraras tu opcion de motivo lista para usar',
       //   'success'
       // )
-      console.log(
-        this.motivo_descripcion_input,
-        this.motivo_color_input,
-        this.auth.usuarioLogueado().uid
-      );
+
       Swal.fire({
         title: 'Luego no podrás modificar tus motivos',
         showDenyButton: true,
@@ -97,7 +91,6 @@ export class MotivosComponent implements OnInit {
       descripcion: this.motivo_descripcion_input,
       color: this.motivo_color_input,
     };
-    console.log(this.wallet.walletId);
     return this.user.nuevoMotivo(newMotivo, this.wallet.walletId);
   }
 

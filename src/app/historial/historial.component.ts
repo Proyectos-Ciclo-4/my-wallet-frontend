@@ -53,16 +53,12 @@ export class HistorialComponent implements OnInit {
   }
 
   switchHandler(evento: any) {
-    //console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.HistorialRecuperado':
-        console.log('Historial recuperado!');
         const transExt = { ...evento } as TransaccionExitosa;
         this.appendToHistorial(this.exitosaToAlternative(transExt));
         break;
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
-        console.log(this.historial);
-        console.log(evento);
         const transExt2 = { ...evento } as TransaccionExitosa;
         this.appendToHistorial(this.exitosaToAlternative(transExt2));
         this.alertaRecibo(this.exitosaToAlternative(transExt2));

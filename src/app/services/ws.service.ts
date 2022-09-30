@@ -37,7 +37,6 @@ export class WsService {
   }
 
   timeOut() {
-    console.log('timeOut');
     this.ClearTimeOut();
 
     this.timeOutId = setTimeout(() => {

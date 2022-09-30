@@ -12,12 +12,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(private auth: AuthService, private route: Router) {
     this.userName = this.auth.getMyUser()?.displayName!;
-    console.log(this.auth.getMyUser());
   }
 
-  ngOnInit(): void {
-    console.log(this.userName);
-  }
+  ngOnInit(): void {}
 
   logout() {
     this.route.navigate(['']);

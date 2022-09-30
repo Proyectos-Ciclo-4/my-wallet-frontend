@@ -27,15 +27,12 @@ export class LoginComponent implements OnInit {
 
   onClick() {
     this.auth.loginWithGoogle().then((response) => {
-      console.log(response);
-
       this.nuevo_arreglo = {
         nombre: response.user.displayName,
         email: response.user.email,
         telefono: response.user.phoneNumber,
         id: response.user.uid,
       };
-      console.log(this.nuevo_arreglo);
       this.verificacion(this.nuevo_arreglo);
       this.dataResponse = response;
       this.router.navigate(['home']);
@@ -50,10 +47,8 @@ export class LoginComponent implements OnInit {
   }
 
   verificacion(nuevo_arreglo: Usuario) {
-    console.log(nuevo_arreglo);
     this.user.validar_alguno(' ', nuevo_arreglo.email).subscribe({
       next: (res) => {
-        console.log(res);
         if (res == true) {
           Swal.fire(
             'Bienvenido de nuevo ' + nuevo_arreglo.nombre + ' a My Wallet!',
@@ -71,14 +66,4 @@ export class LoginComponent implements OnInit {
       },
     });
   }
-
-  /*
-  verificacion(nuevo_arreglo: Usuario) {
-    console.log(nuevo_arreglo)
-    this.user.verificarUsuarioPost(nuevo_arreglo).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-    });
-  }*/
 }

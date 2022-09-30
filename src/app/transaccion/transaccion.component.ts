@@ -51,12 +51,8 @@ export class TransaccionComponent implements OnInit {
     let userId = this.auth.getMyUser()?.uid!;
     this.user.getUserMongo(userId).subscribe((user) => {
       this.userTelefonoPropio = user.numero;
-      console.log(user);
-      console.log(this.userTelefonoPropio);
     });
     this.userEmailPropio = this.auth.getMyUser()?.email;
-
-    console.log(this.userEmailPropio, this.userTelefonoPropio);
 
     this.user.getWallet(userId).subscribe((wallet) => {
       this.wallet = wallet;
@@ -69,7 +65,6 @@ export class TransaccionComponent implements OnInit {
   }
 
   switchHandler(evento: any) {
-    console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         this.updateTransConfirmation(evento);
@@ -134,7 +129,6 @@ export class TransaccionComponent implements OnInit {
     this.user.validar_alguno(telefono, email).subscribe({
       next: (res) => {
         if (res) {
-          console.log(res);
           this.transaccion_armar_peticion();
         } else {
           Swal.fire(
@@ -161,7 +155,6 @@ export class TransaccionComponent implements OnInit {
     } else {
       this.user.obtener_contacto_porEmail(this.email).subscribe((data) => {
         if (data) {
-          console.log(data);
           this.alertaConfirmar(data);
         } else {
           this.alertaError();
@@ -198,7 +191,6 @@ export class TransaccionComponent implements OnInit {
   }
 
   updateTransConfirmation(evento: any) {
-    console.log(new Date(evento.when.seconds * 1000));
     let fecha = new Date(evento.when.seconds * 1000);
     this.fecha = fecha.toDateString();
     this.hora = fecha.toTimeString();

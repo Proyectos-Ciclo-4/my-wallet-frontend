@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
     this.user.getWallet(this.userId).subscribe((wallet) => {
       this.wallet = wallet;
       this.saldo = wallet.saldo;
-      console.log(wallet.historial);
       this.historial = this.buildHomeHistorial(wallet.historial);
     });
 
@@ -59,7 +58,6 @@ export class HomeComponent implements OnInit {
   }
 
   switchHandler(evento: any) {
-    console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         const transaccionExitosa = { ...evento } as TransaccionExitosa;
@@ -77,7 +75,6 @@ export class HomeComponent implements OnInit {
   private actualizarSaldo(evento: any) {
     this.wallet.saldo += evento.valor.monto;
     this.user.getWallet(this.userId).subscribe((wallet) => {
-      console.log(wallet.historial);
       this.historial = this.buildHomeHistorial(wallet.historial);
     });
   }
