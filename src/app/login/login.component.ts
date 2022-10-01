@@ -35,14 +35,12 @@ export class LoginComponent implements OnInit {
       };
       this.verificacion(this.nuevo_arreglo);
       this.dataResponse = response;
-      this.router.navigate(['home']);
     });
   }
 
   registro() {
     this.auth.loginWithGoogle().then((response) => {
       this.dataResponse = response;
-      this.router.navigate(['/registro']);
     });
   }
 
@@ -55,6 +53,7 @@ export class LoginComponent implements OnInit {
             '',
             'success'
           );
+          this.router.navigate(['home']);
         } else {
           Swal.fire(
             'Error!',
