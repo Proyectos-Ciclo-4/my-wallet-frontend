@@ -36,7 +36,7 @@ export class HistorialComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ws.timeOut();
+    this.resetTimeout();
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
 
     this.user
@@ -48,8 +48,13 @@ export class HistorialComponent implements OnInit {
     });
   }
 
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
+  }
+
   resetTimeout() {
-    this.ws.timeOut();
+    this.ws.timeOut(this.handleTimeOut.bind(this));
   }
 
   switchHandler(evento: any) {

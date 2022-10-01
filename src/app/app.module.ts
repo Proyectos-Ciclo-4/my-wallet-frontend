@@ -15,7 +15,11 @@ import { TransaccionComponent } from './transaccion/transaccion.component';
 import { HistorialComponent } from './historial/historial.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  FaIconLibrary,
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { MotivosComponent } from './motivos/motivos.component';
 import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
 import { CalendarModule } from 'primeng/calendar';
@@ -58,4 +62,8 @@ import { NavbarComponent } from './navbar/navbar.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faPencilAlt);
+  }
+}

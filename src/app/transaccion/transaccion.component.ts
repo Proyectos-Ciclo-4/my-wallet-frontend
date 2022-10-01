@@ -46,7 +46,7 @@ export class TransaccionComponent implements OnInit {
   userEmailPropio: any;
 
   ngOnInit(): void {
-    this.ws.timeOut();
+    this.resetTimeout();
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
     let userId = this.auth.getMyUser()?.uid!;
     this.user.getUserMongo(userId).subscribe((user) => {
@@ -61,10 +61,16 @@ export class TransaccionComponent implements OnInit {
   }
 
   resetTimeout() {
-    this.ws.timeOut();
+    this.ws.timeOut(this.handleTimeOut.bind(this));
+  }
+
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
   }
 
   switchHandler(evento: any) {
+    console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         this.updateTransConfirmation(evento);

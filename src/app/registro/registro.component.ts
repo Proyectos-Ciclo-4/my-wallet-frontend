@@ -42,7 +42,7 @@ export class RegistroComponent implements OnInit {
   //this.nombre = this.auth.getMyUser()?.displayName!;this.email=this.auth.getMyUser()?.email!
 
   ngOnInit(): void {
-    this.ws.timeOut();
+    this.resetTimeout();
     this.checkWallet();
     this.autoComplete();
     this.resp = this.auth.usuarioLogueado();
@@ -58,7 +58,12 @@ export class RegistroComponent implements OnInit {
   }
 
   resetTimeout() {
-    this.ws.timeOut();
+    this.ws.timeOut(this.handleTimeOut.bind(this));
+  }
+
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
   }
 
   checkWallet() {

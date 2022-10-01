@@ -47,7 +47,7 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.ws.timeOut();
+    this.resetTimeout();
     this.config = this.configService.config;
     this.updateChartOptions();
 
@@ -60,6 +60,11 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     this.userService.getWallet(this.walletId).subscribe((wallet) => {
       this.wallet = wallet;
     });
+  }
+
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
   }
 
   private transformHistoryInDataSets(
@@ -94,7 +99,7 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   resetTimeout() {
-    this.ws.timeOut();
+    this.ws.timeOut(this.handleTimeOut.bind(this));
   }
 
   private buildForm() {

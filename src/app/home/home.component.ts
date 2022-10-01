@@ -18,10 +18,9 @@ export class HomeComponent implements OnInit {
   private userId!: string;
   public userName!: string;
   public foto!: any;
-  wallet!: Wallet;
+  wallet: Wallet = { saldo: 0 } as Wallet;
   historial: any;
   saldo!: number;
-  idDestino!: string;
 
   constructor(
     private auth: AuthService,
@@ -38,18 +37,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
-    this.ws.timeOut();
+    this.resetTimeout();
 
     this.user.getWallet(this.userId).subscribe((wallet) => {
       this.wallet = wallet;
       this.saldo = wallet.saldo;
       this.historial = this.buildHomeHistorial(wallet.historial);
     });
-
-    // setTimeout(, 180000);
   }
+
   resetTimeout() {
-    this.ws.timeOut();
+    this.ws.timeOut(this.handleTimeOut.bind(this));
+  }
+
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
   }
 
   logout() {
@@ -58,6 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
   switchHandler(evento: any) {
+    console.log(evento);
     switch (evento.type) {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         const transaccionExitosa = { ...evento } as TransaccionExitosa;
@@ -129,11 +133,9 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  buildHomeHistorial(
-    historial: Array<TransaccionDeHistorial>
-  ): Array<HistoryHome> {
+  buildHomeHistorial(historial: TransaccionDeHistorial[]): HistoryHome[] {
     let historialDeHome: HistoryHome[] = [];
-
+    console.log(historial);
     historial
       .reverse()
       .slice(0, 3)
@@ -162,6 +164,9 @@ export class HomeComponent implements OnInit {
           ? '+' + evento.valor.monto
           : '' + evento.valor.monto,
     };
-    this.historial = [entrada, ...this.historial];
+
+    this.historial.pop();
+
+    this.historial = this.buildHomeHistorial([entrada, ...this.historial]);
   }
 }
