@@ -1,8 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { AlertsService } from '../services/alerts.service';
 import { UserService } from '../services/user.service';
+import { FaConfig } from '@fortawesome/angular-fontawesome';
+import {
+  faClock,
+  faPencilAlt,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import { faChartLine } from '@fortawesome/free-solid-svg-icons/faChartLine';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,12 +18,38 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  visible: boolean = false;
+
   constructor(
     private auth: AuthService,
     private router: Router,
     private alertsService: AlertsService,
-    private user: UserService
-  ) {}
+    private user: UserService,
+    private faConfig: FaConfig
+  ) {
+    faConfig.fixedWidth = false;
+
+    this.router.events
+      .pipe(filter((value) => value instanceof NavigationStart))
+      .subscribe((value) => {
+        if (value instanceof NavigationStart) {
+          this.hideNavbar(value);
+        }
+      });
+  }
+
+  private hideNavbar(value: NavigationStart) {
+    if (value.url === '/') {
+      this.visible = false;
+      return;
+    }
+
+    this.visible = true;
+  }
+
+  pencilIcon: IconDefinition = faPencilAlt;
+  chartIcon: IconDefinition = faChartLine;
+  clockIcon: IconDefinition = faClock;
 
   ngOnInit(): void {}
 
@@ -33,13 +67,11 @@ export class NavbarComponent implements OnInit {
       bodyDelCancel: 'Que gusto que desees continuar con Nosotros',
       tituloDelCancel: '  ',
       callback: () => {
-        this.eliminarWallet(this.userId).subscribe(console.log);
+        this.eliminarWallet(this.auth.usuarioLogueado().uid).subscribe(
+          console.log
+        );
       },
     });
-  }
-
-  userId(userId: any) {
-    throw new Error('Method not implemented.');
   }
 
   eliminarWallet(data: any) {

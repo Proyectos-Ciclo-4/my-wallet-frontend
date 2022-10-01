@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  faAddressBook,
-  faClockRotateLeft,
-  faMoneyBillTransfer,
-  faMoneyCheck,
-} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { History, TransactionAlternative } from '../models/history.model';
+import { TransactionAlternative } from '../models/history.model';
 import { WsService } from '../services/ws.service';
 import { Wallet } from '../models/wallet.model';
 import Swal from 'sweetalert2';
@@ -20,11 +14,6 @@ import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
   styleUrls: ['./historial.component.scss'],
 })
 export class HistorialComponent implements OnInit {
-  transferenciaIcon = faMoneyBillTransfer;
-  contactosIcon = faAddressBook;
-  historialIcon = faClockRotateLeft;
-  motivosIcon = faMoneyCheck;
-
   historial: TransactionAlternative[] = [];
   wallet!: Wallet;
 

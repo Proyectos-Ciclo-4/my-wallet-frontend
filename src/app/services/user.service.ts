@@ -15,6 +15,7 @@ import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 import { Transferencia } from '../models/transferencia.model';
 import { Motivo, TransactionAlternative } from '../models/history.model';
 import { usuarioMongo } from '../models/usuarioMongo.model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,6 +25,7 @@ export class UserService {
     private firestore: Firestore,
     private http: HttpClient
   ) {}
+
   newUser() {
     const databaseref = collection(this.firestore, 'users');
     const user = getAuth().currentUser;
@@ -44,18 +46,23 @@ export class UserService {
       Usuario[]
     >;
   }
+
   verificarUsuarioPost(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/wallet`, { ...body });
   }
+
   getWallet(userId: string) {
     return this.http.get<Wallet>(`${this.URL_HTTP}/wallet/${userId}`);
   }
+
   getUserMongo(walletId: string) {
     return this.http.get<usuarioMongo>(`${this.URL_HTTP}/usuario/${walletId}`);
   }
+
   enviarTransaccion(body: Transferencia) {
     return this.http.post(`${this.URL_HTTP}/new/transaction/`, { ...body });
   }
+
   peticion_crear_contacto(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
   }
@@ -88,11 +95,13 @@ export class UserService {
       `${this.URL_HTTP}/walletByTelefono/${telefono}`
     );
   }
+
   obtener_contacto_porEmail(email: string) {
     return this.http.get<UsuarioBack>(
       `${this.URL_HTTP}/walletByEmail/${email}`
     );
   }
+
   validar_alguno(telefono: string, email: string) {
     return this.http.get<Boolean>(
       `${this.URL_HTTP}/validateBoth/${telefono}/email/${email}`

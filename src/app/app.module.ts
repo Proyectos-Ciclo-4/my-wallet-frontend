@@ -19,7 +19,9 @@ import {
   FaIconLibrary,
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+// import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import { MotivosComponent } from './motivos/motivos.component';
 import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
 import { CalendarModule } from 'primeng/calendar';
@@ -64,6 +66,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faPencilAlt);
+    library.addIconPacks(far, fas);
   }
 }

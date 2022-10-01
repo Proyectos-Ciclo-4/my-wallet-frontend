@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faRupiahSign } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { Motivo } from '../models/motivo.model';
 import { Usuario } from '../models/usuario-backend.model';
