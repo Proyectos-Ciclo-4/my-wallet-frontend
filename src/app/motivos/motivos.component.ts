@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  faMoneyBillTransfer,
-  faAddressBook,
-  faClockRotateLeft,
-  faMoneyCheck,
-} from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { Motivo } from '../models/motivo.model';
 import { Wallet } from '../models/wallet.model';
@@ -19,11 +13,6 @@ import { WsService } from '../services/ws.service';
   styleUrls: ['./motivos.component.scss'],
 })
 export class MotivosComponent implements OnInit {
-  transferenciaIcon = faMoneyBillTransfer;
-  contactosIcon = faAddressBook;
-  historialIcon = faClockRotateLeft;
-  motivosIcon = faMoneyCheck;
-
   wallet!: Wallet;
   motivo_descripcion_input: string = '';
   motivo_color_input: string = '';
@@ -38,7 +27,7 @@ export class MotivosComponent implements OnInit {
   motivosListaResponse: any;
 
   ngOnInit(): void {
-    this.ws.timeOut();
+    this.resetTimeout();
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
 
     let userId = this.auth.getMyUser()?.uid!;
@@ -49,7 +38,12 @@ export class MotivosComponent implements OnInit {
   }
 
   resetTimeout() {
-    this.ws.timeOut();
+    this.ws.timeOut(this.handleTimeOut.bind(this));
+  }
+
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
   }
 
   OnClick() {

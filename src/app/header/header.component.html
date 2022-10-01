@@ -9,5 +9,9 @@
       alt=""
     />
   </a>
+  <div *ngIf = "userName" class="logged-user-header">
+    <img class="small-user-image" [src] = "userImage">
+    <span> {{ userName }} </span>
+  </div>
   <button class="btn" (click)="logout()">Salida Segura</button>
 </nav>

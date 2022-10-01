@@ -1,19 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
-import { query, QueryDocumentSnapshot } from 'firebase/firestore';
 import { Usuario } from '../models/Usuario.model';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { NgForm } from '@angular/forms';
 import { WsService } from '../services/ws.service';
-import {
-  faAddressBook,
-  faClockRotateLeft,
-  faMoneyBillTransfer,
-} from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import { mapToStyles } from '@popperjs/core/lib/modifiers/computeStyles';
 
 @Component({
   selector: 'app-registro',
@@ -24,13 +16,10 @@ export class RegistroComponent implements OnInit {
   nombre!: string | null;
   email!: string | null;
   resp!: User;
-  arreglo_enviar: Array<Usuario> = new Array<Usuario>();
+  arreglo_enviar: Usuario[] = [];
   nuevo_arreglo: any;
   telefono!: string | null;
   Telefono: string = '';
-  transferenciaIcon = faMoneyBillTransfer;
-  contactosIcon = faAddressBook;
-  historialIcon = faClockRotateLeft;
 
   constructor(
     private auth: AuthService,
@@ -42,7 +31,7 @@ export class RegistroComponent implements OnInit {
   //this.nombre = this.auth.getMyUser()?.displayName!;this.email=this.auth.getMyUser()?.email!
 
   ngOnInit(): void {
-    this.ws.timeOut();
+    this.resetTimeout();
     this.checkWallet();
     this.autoComplete();
     this.resp = this.auth.usuarioLogueado();
@@ -58,7 +47,12 @@ export class RegistroComponent implements OnInit {
   }
 
   resetTimeout() {
-    this.ws.timeOut();
+    this.ws.timeOut(this.handleTimeOut.bind(this));
+  }
+
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
   }
 
   checkWallet() {

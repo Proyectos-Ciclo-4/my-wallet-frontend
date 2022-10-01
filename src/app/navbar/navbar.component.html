@@ -1,48 +1,47 @@
-<nav class="main-menu align-self-start justify-content-start">
+<nav *ngIf="visible" class="main-menu align-self-start justify-content-start">
   <ul>
     <li>
       <a [routerLink]="['/home']">
-        <i class="fa fa-home fa-2x"></i>
+        <fa-icon icon="home"></fa-icon>
         <span class="nav-text"> Home </span>
       </a>
     </li>
     <li class="has-subnav">
       <a [routerLink]="['/transaccion']">
-        <i class="fa fa-money fa-2x"></i>
+        <fa-icon icon="money-bill"></fa-icon>
         <span class="nav-text"> Transferencias </span>
       </a>
     </li>
-
     <li class="has-subnav">
       <a [routerLink]="['/motivos']">
-        <i class="fa fa-folder-open fa-2x"></i>
+        <fa-icon [icon]="pencilIcon"></fa-icon>
         <span class="nav-text"> Motivos </span>
       </a>
     </li>
     <li>
       <a [routerLink]="['/mis-gastos']">
-        <i class="fa fa-bar-chart-o fa-2x"></i>
+        <fa-icon [icon]="chartIcon"></fa-icon>
         <span class="nav-text"> Gastos </span>
       </a>
     </li>
     <li>
       <a [routerLink]="['/historial']">
-        <i class="fa fa-clock-o fa-2x"></i>
+        <fa-icon [icon]="clockIcon"></fa-icon>
         <span class="nav-text"> Historial </span>
       </a>
     </li>
   </ul>
-
   <ul class="logout">
     <li>
       <a (click)="alertaEliminarwallet()">
-        <i class="fa fa-trash-o fa-2x"></i>
+        <fa-icon icon="trash"></fa-icon>
         <span class="nav-text"> Cancelar cuenta </span>
       </a>
     </li>
     <li>
       <a (click)="logout()">
-        <i class="fa fa-power-off fa-2x"></i>
+        <!--        <i class="fa fa-power-off fa-2x"></i>-->
+        <fa-icon icon="power-off"></fa-icon>
         <span class="nav-text"> Logout </span>
       </a>
     </li>

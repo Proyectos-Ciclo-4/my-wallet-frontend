@@ -16,6 +16,10 @@ export class AuthService {
     this.auth.onAuthStateChanged((user) => (this.user = user));
   }
 
+  onAuthStateChanged(callback: (user: User | null) => void): void {
+    this.auth.onAuthStateChanged(callback);
+  }
+
   getMyUser(): User | null {
     return this.auth.currentUser;
   }

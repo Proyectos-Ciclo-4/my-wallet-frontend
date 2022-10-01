@@ -11,7 +11,7 @@ export class WsService {
   private webSocket!: WebSocketSubject<unknown>;
   private timeOutId!: any;
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(private auth: AuthService) {
     this.reconnectWs();
     this.ping();
   }
@@ -36,14 +36,13 @@ export class WsService {
     }, 10000);
   }
 
-  timeOut() {
-    this.ClearTimeOut();
-
-    this.timeOutId = setTimeout(() => {
-      alert('Se ha cerrado la sesion por inactividad');
-      this.auth.logout();
-      this.router.navigate(['']);
-    }, 180000);
+  timeOut(callBack: () => void) {
+    // this.ClearTimeOut();
+    //
+    // this.timeOutId = setTimeout(() => {
+    //   alert('Se ha cerrado la sesion por inactividad');
+    //   callBack();
+    // }, 180000);
   }
 
   private ClearTimeOut() {
