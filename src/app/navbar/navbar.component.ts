@@ -54,8 +54,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {}
 
   logout() {
-    this.router.navigate(['']);
-    this.auth.logout();
+    this.auth.logout().then(() => {
+      this.router.navigate(['']);
+    });
   }
 
   alertaEliminarwallet() {
