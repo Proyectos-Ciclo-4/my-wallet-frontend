@@ -1,12 +1,15 @@
 .cont {
   min-height: 87vh;
+  overflow-x: hidden;
+  
 }
 
 .login-container-parent {
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: none;
+  min-width: 98vw;
   .header {
     display: flex;
     flex-grow: 1;
