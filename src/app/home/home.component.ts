@@ -97,13 +97,13 @@ export class HomeComponent implements OnInit {
 
   private alertaRecibo(info: TransaccionExitosa) {
     if (this.wallet.walletId != info.walletOrigen.uuid) {
-      Swal.fire(
-        'Informacion de tu transferencia',
-        'Has recibido un Deposito de dinero a tu Cuenta por ' +
-          info.valor.monto +
-          ' USD con motivo ' +
-          info.motivo.descripcion
-      );
+      this.user.getUserMongo(info.walletOrigen.uuid).subscribe((user) => {
+        Swal.fire(
+          'Recibiste una transacción!',
+          `Recibiste: ${info.valor.monto} USD del usuario con Email: ${user.email} y Telefono: ${user.numero}`,
+          'info'
+        );
+      });
     }
   }
 
