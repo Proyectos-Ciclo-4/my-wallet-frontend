@@ -24,7 +24,7 @@ export class TransaccionComponent implements OnInit {
   ) {}
 
   //icono
-  
+
 
   //Form
   telefono: string = '';
