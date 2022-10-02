@@ -86,6 +86,9 @@ export class HistorialComponent implements OnInit {
 
   appendToHistorial(evento: TransactionAlternative) {
     this.historial = [evento, ...this.historial];
+    this.historial.sort(
+      (t1, t2) => new Date(t2.fecha).getTime() - new Date(t1.fecha).getTime()
+    );
   }
 
   logout() {
