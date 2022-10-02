@@ -24,7 +24,7 @@ export class HistorialComponent implements OnInit {
     private auth: AuthService,
     private user: UserService,
     private ws: WsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.resetTimeout();
@@ -32,7 +32,7 @@ export class HistorialComponent implements OnInit {
 
     this.user
       .getAllHistory(this.auth.usuarioLogueado().uid)
-      .subscribe((historial) => {});
+      .subscribe((historial) => { });
 
     this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((wallet) => {
       this.wallet = wallet;
@@ -67,9 +67,9 @@ export class HistorialComponent implements OnInit {
       Swal.fire(
         'Informacion de tu transferencia',
         'Has recibido un Deposito de dinero a tu Cuenta por ' +
-          info.valor +
-          ' USD con motivo ' +
-          info.motivo.descripcion
+        info.valor +
+        ' USD con motivo ' +
+        info.motivo.descripcion
       );
     }
   }

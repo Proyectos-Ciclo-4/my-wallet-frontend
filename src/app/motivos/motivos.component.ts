@@ -23,7 +23,7 @@ export class MotivosComponent implements OnInit {
     private router: Router,
     private user: UserService,
     private ws: WsService
-  ) {}
+  ) { }
   motivosListaResponse: any;
 
   ngOnInit(): void {

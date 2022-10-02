@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class AlertsService {
-  constructor() {}
+  constructor() { }
 
   confirm(datos: datosDeConfirmacion): void {
     const {

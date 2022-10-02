@@ -4,7 +4,7 @@
       <div class="contenedor_vista_exitosa">
         <h1>Transferencia exitosa</h1>
 
-          <h3>Resumen de la transferencia</h3>
+        <h3>Resumen de la transferencia</h3>
 
         <p class="p-subtitulo"></p>
         <div class="contenedor_p">
@@ -32,11 +32,8 @@
         </div>
 
         <div class="boton-submit-contenedor">
-          <button
-            type="submit"
-            class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
-            (click)="vista_nueva_transfer()"
-          >
+          <button type="submit" class="btnTransfer btn-secondary btn-block mb-4 contenedor-hijos-inputs"
+            (click)="vista_nueva_transfer()">
             <a style="text-decoration: none">
               <span class="nav-text"> Nueva transferencia </span>
             </a>
@@ -57,73 +54,37 @@
       </div>
       <div class="contenedor-padre">
         <div class="form-outline mb-4 contenedor-hijos-inputs">
-          <input
-            placeholder="Telefono a ingresar"
-            maxlength="13"
-            type="text"
-            id="Nombre"
-            [(ngModel)]="telefono"
-            [disabled]="email.length > 0"
-            class="form-control"
-          />
+          <input placeholder="Telefono a ingresar" maxlength="13" type="text" id="Nombre" [(ngModel)]="telefono"
+            [disabled]="email.length > 0" class="form-control" />
         </div>
 
         <div class="form-outline mb-4 contenedor-hijos-inputs">
-          <input
-            type="email"
-            id="form5Example2"
-            [(ngModel)]="email"
-            [disabled]="telefono.length > 0"
-            class="form-control"
-            placeholder="Email a ingresar"
-          />
+          <input type="email" id="form5Example2" [(ngModel)]="email" [disabled]="telefono.length > 0"
+            class="form-control" placeholder="Email a ingresar" />
         </div>
         <div class="form-outline mb-4 contenedor-hijos-inputs">
-          <input
-            type="number"
-            step="any"
-            min="1"
-            id="form5Example3"
-            [(ngModel)]="dinero"
-            class="form-control"
-            placeholder="Dinero a ingresar"
-          />
+          <input type="number" step="any" min="1" id="form5Example3" [(ngModel)]="dinero" class="form-control"
+            placeholder="Dinero a ingresar" />
         </div>
         <label class="form-label" for="form5Example2">
-          Seleccionar Motivo:</label
-        >
+          Seleccionar Motivo:</label>
         <div class="form-outline mb-4 contenedor-hijos-inputs">
-          <select
-            id="select-menu"
-            [(ngModel)]="selectedOption"
-            class="bx--text-input"
-            required
-            name="actionSelection"
-          >
-            <option
-              style="background-color: {{ motivo.color }}"
-              *ngFor="let motivo of motivosLista"
-              [ngValue]="[motivo.descripcion, motivo.color]"
-            >
+          <select id="select-menu" [(ngModel)]="selectedOption" class="bx--text-input" required name="actionSelection">
+            <option style="background-color: {{ motivo.color }}" *ngFor="let motivo of motivosLista"
+              [ngValue]="[motivo.descripcion, motivo.color]">
               {{ motivo.descripcion }}
             </option>
           </select>
         </div>
-        <a [routerLink]="['/motivos']" style="text-decoration: none"
-          ><button
-            type="submit"
-            class="btnTransfer btn-secondary contenedor-hijos-inputs boton-crearmotivo"
-          >
+        <a [routerLink]="['/motivos']" style="text-decoration: none"><button type="submit"
+            class="btnTransfer btn-secondary contenedor-hijos-inputs boton-crearmotivo">
             Crear Motivo
           </button>
         </a>
       </div>
       <div class="boton-submit-contenedor">
-        <button
-          type="submit"
-          class="btnTransfer btn-secondary btn-block mb-4 boton-tamaño contenedor-hijos-inputs"
-          (click)="validar_dinero()"
-        >
+        <button type="submit" class="btnTransfer btn-secondary btn-block mb-4 boton-tamaño contenedor-hijos-inputs"
+          (click)="validar_dinero()">
           Transferir
         </button>
       </div>
@@ -131,4 +92,3 @@
   </div>
   <!-- [disabled]="habilitarBoton==false" -->
 </div>
-

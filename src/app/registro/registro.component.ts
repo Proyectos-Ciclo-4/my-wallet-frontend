@@ -26,7 +26,7 @@ export class RegistroComponent implements OnInit {
     private router: Router,
     private user: UserService,
     private ws: WsService
-  ) {}
+  ) { }
 
   //this.nombre = this.auth.getMyUser()?.displayName!;this.email=this.auth.getMyUser()?.email!
 
@@ -123,7 +123,7 @@ export class RegistroComponent implements OnInit {
             );
           } else {
             this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
-              next: (res) => {},
+              next: (res) => { },
             });
           }
         },

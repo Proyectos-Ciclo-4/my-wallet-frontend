@@ -21,7 +21,7 @@ export class TransaccionComponent implements OnInit {
     private user: UserService,
     private ws: WsService,
     private alertsService: AlertsService
-  ) {}
+  ) { }
 
   //icono
 

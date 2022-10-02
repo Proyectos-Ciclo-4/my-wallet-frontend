@@ -24,7 +24,7 @@ export class UserService {
     private auth: Auth,
     private firestore: Firestore,
     private http: HttpClient
-  ) {}
+  ) { }
 
   newUser() {
     const databaseref = collection(this.firestore, 'users');
