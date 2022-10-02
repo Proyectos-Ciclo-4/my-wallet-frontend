@@ -4,8 +4,6 @@ import { UserService } from 'src/app/services/user.service';
 import { Usuario } from '../models/Usuario.model';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 // import 'sweetalert2/*/sweetalert2.scss'
 
 @Component({
@@ -14,8 +12,6 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  googleIcon: IconDefinition = faGoogle;
-
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -23,6 +19,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   dataResponse: any | null;
+  arreglo_enviar: Array<Usuario> = new Array<Usuario>();
 
   nuevo_arreglo: any;
 
@@ -38,12 +35,14 @@ export class LoginComponent implements OnInit {
       };
       this.verificacion(this.nuevo_arreglo);
       this.dataResponse = response;
+      this.router.navigate(['home']);
     });
   }
 
   registro() {
     this.auth.loginWithGoogle().then((response) => {
       this.dataResponse = response;
+      this.router.navigate(['/registro']);
     });
   }
 
@@ -56,7 +55,6 @@ export class LoginComponent implements OnInit {
             '',
             'success'
           );
-          this.router.navigate(['home']);
         } else {
           Swal.fire(
             'Error!',

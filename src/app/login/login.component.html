@@ -1,26 +1,48 @@
+<!-- <div class="cont ">
+  <div class="cuadro">
+
+    <button class="btn" (click)="onClick()">log in</button>
+  </div>
+
+</div> -->
 <div class="login-container-parent cont">
-  <div class="mb-3 mt-3 header">
+  <div class="header">
     <div class="logo-wallet"></div>
-    <div class="mt-5 mb-5 app-title-container justify-content-center d-flex">
-      <img class="me-4" src="../../assets/Recurso%2026@3x.png" alt="" />
-      <div class="titles">
-        <h1 class="title-header d-inline">Bienvenido a MyWallet</h1>
-        <h5 class="subtitle">simple, segura y trazable</h5>
-      </div>
+    <div class="app-title-container">
+      <h1 class="title-header">Bienvenido a MyWallet</h1>
+      <p class="subtitle">simple, segura y trazable</p>
     </div>
   </div>
-  <div class="d-flex justify-content-center login-container">
-    <div class="d-flex flex-column buttons">
-      <span> Soy nuevo </span>
-      <div class="text-center mb-5 googleButton" (click)="onClick()">
-        <span>Iniciar sesión con Google&nbsp;</span>
-        <fa-icon [icon]="googleIcon"></fa-icon>
+  <div class="session-method">
+    <div class="login-container">
+      <h2 class="title">Iniciar Sesion</h2>
+      <div class="type-account">
+        <div class="google-container account-container btn" (click)="onClick()">
+          <div class="logo-google logo"></div>
+          <p class="login-type text">A través de tu cuenta de Google</p>
+        </div>
+        <!-- <div class="microsoft-container account-container btn" >
+          <div class="logo-microsoft logo"></div>
+          <p class="login-type text">A travéz de tu cuenta de Microsoft</p>
+        </div> -->
       </div>
-      <span> Soy nuevo </span>
-      <div class="text-center googleButton" (click)="registro()">
-        <span>Registrate con Google&nbsp;</span>
-        <fa-icon [icon]="googleIcon"></fa-icon>
+    </div>
+    <div class="login-container">
+      <h2 class="title">Soy Nuevo</h2>
+      <div class="type-account">
+        <div
+          class="google-container account-container btn"
+          (click)="registro()"
+        >
+          <div class="logo-google logo"></div>
+          <p class="login-type text">A través de tu cuenta de Google</p>
+        </div>
+        <!-- <div class="microsoft-container account-container btn">
+            <div class="logo-microsoft logo"></div>
+            <p class="login-type text">A travéz de tu cuenta de Microsoft</p>
+          </div> -->
       </div>
     </div>
   </div>
 </div>
+<!-- hola -->
