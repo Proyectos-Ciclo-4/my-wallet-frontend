@@ -7,6 +7,7 @@ import { WsService } from '../services/ws.service';
 import { Wallet } from '../models/wallet.model';
 import Swal from 'sweetalert2';
 import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
+import { faClock, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-historial',
@@ -16,6 +17,7 @@ import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
 export class HistorialComponent implements OnInit {
   historial: TransactionAlternative[] = [];
   wallet!: Wallet;
+  clockIcon: IconDefinition = faClock;
 
   constructor(
     private router: Router,

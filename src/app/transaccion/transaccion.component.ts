@@ -23,6 +23,9 @@ export class TransaccionComponent implements OnInit {
     private alertsService: AlertsService
   ) {}
 
+  //icono
+  
+
   //Form
   telefono: string = '';
   email: string = '';
