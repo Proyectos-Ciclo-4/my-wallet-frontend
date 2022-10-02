@@ -9,6 +9,7 @@
           <th>tipo</th>
           <th>monto</th>
           <th>motivo</th>
+          <th>Info de Origen</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-historial>
@@ -28,6 +29,7 @@
           <td>{{ historial.valor > 0 ? "Deposito" : "Transferencia" }}</td>
           <td>{{ historial.valor }}</td>
           <td>{{ historial.motivo.descripcion }}</td>
+          <th> <button (click)="displaySenderData(historial.walletId)">.</button> </th>
         </tr>
       </ng-template>
     </p-table>

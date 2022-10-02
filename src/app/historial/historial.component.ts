@@ -80,7 +80,7 @@ export class HistorialComponent implements OnInit {
       fecha: new Date(event.when.seconds * 1000).toString(),
       transferencia_id: event.uuid,
       valor: event.valor.monto,
-      walletId: event.aggregateRootId,
+      walletId: event.walletOrigen.uuid,
     };
   }
 
@@ -94,5 +94,15 @@ export class HistorialComponent implements OnInit {
   logout() {
     this.router.navigate(['']);
     this.auth.logout();
+  }
+
+  displaySenderData(id: string) {
+    this.user.getUserMongo(id).subscribe((user) => {
+      Swal.fire(
+        'Datos del Remitente',
+        `Email: ${user.email} Telefono: ${user.numero}`,
+        'info'
+      );
+    });
   }
 }
