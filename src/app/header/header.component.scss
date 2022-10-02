@@ -1,11 +1,9 @@
 .navbar {
   flex-wrap: nowrap;
-  background: radial-gradient(
-    circle,
-    rgba(79, 92, 239, 0.844958051580007) 0%,
-    rgba(0, 0, 0, 1) 100%,
-    rgba(63, 94, 251, 0.7357143541010154) 100%
-  );
+  background: radial-gradient(circle,
+      rgba(79, 92, 239, 0.844958051580007) 0%,
+      rgba(0, 0, 0, 1) 100%,
+      rgba(63, 94, 251, 0.7357143541010154) 100%);
   padding: 10px;
   box-sizing: border-box;
   max-height: 7vh;
@@ -22,10 +20,12 @@ fa-icon {
   font-family: Verdana;
   font-weight: bold;
 }
+
 .btn:hover {
   background-color: rgb(127, 158, 185);
   color: aliceblue;
 }
+
 .logged-user-header {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: aliceblue;

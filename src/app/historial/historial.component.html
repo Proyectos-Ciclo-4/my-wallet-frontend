@@ -29,7 +29,11 @@
           <td>{{ historial.valor > 0 ? "Deposito" : "Transferencia" }}</td>
           <td>{{ historial.valor }}</td>
           <td>{{ historial.motivo.descripcion }}</td>
-          <th> <button  (click)="displaySenderData(historial.walletId)"><fa-icon [icon]="clockIcon"></fa-icon></button> </th>
+          <th>
+            <button (click)="displaySenderData(historial.walletId)">
+              <fa-icon [icon]="clockIcon"></fa-icon>
+            </button>
+          </th>
         </tr>
       </ng-template>
     </p-table>

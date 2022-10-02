@@ -8,6 +8,7 @@
 .fa-2x {
   font-size: 2em;
 }
+
 .fa {
   position: relative;
   display: table-cell;
@@ -41,7 +42,7 @@ nav.main-menu.expanded {
   z-index: 1000;
 }
 
-.main-menu > ul {
+.main-menu>ul {
   margin: 7px 0;
 }
 
@@ -51,7 +52,7 @@ nav.main-menu.expanded {
   width: 250px;
 }
 
-.main-menu li > a {
+.main-menu li>a {
   position: relative;
   display: table;
   border-collapse: collapse;
@@ -83,7 +84,7 @@ nav.main-menu.expanded {
   font-family: "Titillium Web", sans-serif;
 }
 
-.main-menu > ul.logout {
+.main-menu>ul.logout {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -117,31 +118,33 @@ nav li {
   margin: 0;
   padding: 0;
 }
-.main-menu li:hover > a,
-nav.main-menu li.active > a,
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus,
-.dropdown-menu > .active > a,
-.dropdown-menu > .active > a:hover,
-.dropdown-menu > .active > a:focus,
+
+.main-menu li:hover>a,
+nav.main-menu li.active>a,
+.dropdown-menu>li>a:hover,
+.dropdown-menu>li>a:focus,
+.dropdown-menu>.active>a,
+.dropdown-menu>.active>a:hover,
+.dropdown-menu>.active>a:focus,
 .no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
 .dashboard-page nav.dashboard-menu ul li.active a {
   color: #fff;
   background-color: #5fa2db;
 }
+
 .area {
   float: left;
   background: #e2e2e2;
   width: 100%;
   height: 100%;
 }
+
 @font-face {
   font-family: "Titillium Web";
   font-style: normal;
   font-weight: 300;
   src: local("Titillium WebLight"), local("TitilliumWeb-Light"),
-    url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff)
-      format("woff");
+    url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format("woff");
 }
 
 p {
@@ -172,6 +175,7 @@ button {
   height: 50px;
   border-radius: 5px;
 }
+
 .inputs-forms {
   display: flex;
   display: flex;
@@ -210,6 +214,7 @@ body {
   background-color: #f5f6f8;
   overflow: hidden;
 }
+
 .btn5 {
   background-color: rgba(255, 166, 0, 0.585);
 }
@@ -293,12 +298,14 @@ $tooltip-background-color: $sidebar-background-color;
 .impresion-motivos-hijo p {
   padding: 10px;
 }
+
 .contenedor_padre {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-around;
 }
+
 .contenedor_hijo {
   display: flex;
   flex-direction: column;
@@ -307,11 +314,13 @@ $tooltip-background-color: $sidebar-background-color;
   align-items: flex-start;
   margin: 10px;
 }
+
 .impresion-motivos-hijo {
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
+
 .boton-contenedor {
   display: flex;
   justify-content: space-around;
@@ -319,13 +328,16 @@ $tooltip-background-color: $sidebar-background-color;
   flex-direction: row;
   padding-bottom: 10px;
 }
+
 @media (max-width: 768px) {
   .sidebar-navigation {
     min-height: 120vh;
   }
+
   .impresion-motivos-hijo p {
     padding: 10px;
   }
+
   h1 {
     padding-left: 30px;
   }
@@ -339,6 +351,7 @@ $tooltip-background-color: $sidebar-background-color;
     justify-content: center;
     align-items: center;
   }
+
   h2 {
     display: flex;
     flex-direction: column;
@@ -368,6 +381,7 @@ $tooltip-background-color: $sidebar-background-color;
     align-content: space-between;
     justify-content: center;
   }
+
   .boton-contenedor {
     display: flex;
     justify-content: space-around;
@@ -375,10 +389,12 @@ $tooltip-background-color: $sidebar-background-color;
     flex-direction: row;
   }
 }
+
 @media (max-width: 400px) {
   .main-menu {
     min-height: 150vh;
   }
+
   .mensaje {
     width: 100%;
 
@@ -386,12 +402,15 @@ $tooltip-background-color: $sidebar-background-color;
     font-family: Verdana;
   }
 }
+
 .boton-color {
   border-radius: 30%;
 }
+
 .contenedor_color {
   border-radius: 50%;
 }
+
 #style2 {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -402,9 +421,11 @@ $tooltip-background-color: $sidebar-background-color;
   border: none;
   cursor: pointer;
 }
+
 #style2::-webkit-color-swatch {
   border-radius: 50%;
 }
+
 #style2::-moz-color-swatch {
   border-radius: 50%;
 }

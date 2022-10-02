@@ -12,7 +12,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 export class HeaderComponent implements OnInit {
   signOutIcon: IconDefinition = faSignOutAlt;
 
-  constructor(private auth: AuthService, private route: Router) {}
+  constructor(private auth: AuthService, private route: Router) { }
 
   userName: string = '';
   userImage: string = '';

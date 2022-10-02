@@ -16,14 +16,14 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private user: UserService
-  ) {}
+  ) { }
 
   dataResponse: any | null;
   arreglo_enviar: Array<Usuario> = new Array<Usuario>();
 
   nuevo_arreglo: any;
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onClick() {
     this.auth.loginWithGoogle().then((response) => {
