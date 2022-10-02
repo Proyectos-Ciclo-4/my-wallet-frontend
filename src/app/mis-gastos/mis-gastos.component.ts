@@ -5,10 +5,10 @@ import { AppConfig } from '../models/chartconfig.model';
 import { ChartConfigService } from '../services/chart-config.service';
 import { Gastos } from '../models/gastos.model';
 import { UserService } from '../services/user.service';
-import { Transaction } from '../models/history.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { TransaccionDeHistorial } from '../models/wallet.model';
+import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
+import { WsService } from '../services/ws.service';
 
 @Component({
   selector: 'app-mis-gastos',
@@ -23,25 +23,22 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   from: Date = new Date();
   until: Date = new Date();
   form!: FormGroup;
-  historyQuery: Array<Transaction> = [];
+  historyQuery: TransaccionDeHistorial[] = [];
   mostExpensive = { color: '#f45g56', description: 'Test' };
   cheapest = { color: '#fff192', description: 'Test' };
   walletId!: string;
+  wallet!: Wallet;
 
   constructor(
     private configService: ChartConfigService,
     private userService: UserService,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private ws: WsService
   ) {
     this.setAvailableDates();
     this.buildForm();
   }
-
-  //actualizar grafico con base a porcentajes
-  //100% total de gastos en el perido de tiempo seleccionado
-  //consulto gastos en ese tiempo
-  //actualizar el modelo
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -50,17 +47,34 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.resetTimeout();
     this.config = this.configService.config;
     this.updateChartOptions();
+
     this.subscription = this.configService.configUpdate$.subscribe((config) => {
       this.config = config;
       this.updateChartOptions();
     });
+
     this.walletId = this.auth.getMyUser()?.uid!;
+    this.userService.getWallet(this.walletId).subscribe((wallet) => {
+      this.wallet = wallet;
+    });
   }
 
-  private transformHistoryInDataSets(history: Transaction[]): Gastos {
-    let data = history.map((transaction) => transaction.valor);
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
+  }
+
+  private transformHistoryInDataSets(
+    history: TransaccionDeHistorial[]
+  ): Gastos {
+    let dataP = history.map((transaction) => Math.abs(transaction.valor));
+    let total = dataP.reduce((a, b) => a + b, 0);
+    let data = dataP.map((valor) => {
+      return (valor * 100) / total;
+    });
 
     let backgroundColor = history.map(
       (transaction) => transaction.motivo.color
@@ -84,6 +98,10 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     };
   }
 
+  resetTimeout() {
+    this.ws.timeOut(this.handleTimeOut.bind(this));
+  }
+
   private buildForm() {
     this.form = new FormGroup({
       from: new FormControl(this.from),
@@ -98,30 +116,28 @@ export class MisGastosComponent implements OnInit, OnDestroy {
     this.userService
       .getHistory(fromURL, untilURL, this.walletId)
       .subscribe((response) => {
-        console.log(typeof response[0].motivo);
-        console.log(response[0].motivo);
         this.historyQuery = this.transHistReformatter(response);
-        console.log(this.historyQuery);
+
+        const sortedResult = this.historyQuery
+          .filter((a) => a.valor < 0)
+          .sort((a, b) => b.valor - a.valor);
+        const cheapest = sortedResult[0];
+        const expensive = sortedResult[sortedResult.length - 1];
+
+        this.mostExpensive = {
+          color: `${expensive.motivo.color}`,
+          description: expensive.motivo.descripcion,
+        };
+
+        this.cheapest = {
+          color: `${cheapest.motivo.color}`,
+          description: cheapest.motivo.descripcion,
+        };
+
+        const mappedTransactions =
+          this.transformHistoryInDataSets(sortedResult);
+        this.data = this.getData(mappedTransactions);
       });
-
-    const sortedResult = this.historyQuery.sort((a, b) => b.valor - a.valor);
-    const expensive = sortedResult[0];
-    const cheapest = sortedResult[sortedResult.length - 1];
-
-    this.mostExpensive = {
-      color: `${expensive.motivo.color}`,
-      description: expensive.motivo.descripcion,
-    };
-
-    this.cheapest = {
-      color: `${cheapest.motivo.color}`,
-      description: cheapest.motivo.descripcion,
-    };
-
-    const mappedTransactions = this.transformHistoryInDataSets(
-      this.historyQuery
-    );
-    this.data = this.getData(mappedTransactions);
   }
 
   private formatTime(date: Date) {
@@ -129,19 +145,45 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   private transHistReformatter(
-    transHistorial: Array<TransaccionDeHistorial>
-  ): Transaction[] {
-    return transHistorial.map(
-      (unformatted) =>
-        ({
-          motivo: {
-            descripcion: unformatted.motivo.descripcion,
-            color: unformatted.motivo.color,
+    transHistorial: TransaccionDeHistorial[]
+  ): TransaccionDeHistorial[] {
+    return this.wallet.motivos.map((motivoA) => {
+      return transHistorial
+        .filter(
+          (transaccion) => transaccion.motivo.descripcion == motivoA.descripcion
+        )
+        .reduce(
+          (a, b) => {
+            let currentValue = { ...b };
+            a.valor += b.valor;
+            return currentValue;
           },
-          valor: Math.abs(unformatted.valor),
-        } as Transaction)
-    );
+          { valor: 0 } as TransaccionDeHistorial
+        );
+    });
+
+    // return transHistorial.map(
+    //   (unformatted) =>
+    //     ({
+    //       motivo: {
+    //         descripcion: unformatted.motivo.descripcion,
+    //         color: unformatted.motivo.color,
+    //       },
+    //       valor: Math.abs(unformatted.valor),
+    //     } as Transaction)
+    // );
   }
+
+  // return transHistorial.map(
+  //   (unformatted) =>
+  //     ({
+  //       motivo: {
+  //         descripcion: unformatted.motivo.descripcion,
+  //         color: unformatted.motivo.color,
+  //       },
+  //       valor: Math.abs(unformatted.valor),
+  //     } as Transaction)
+  // );
 
   private setAvailableDates() {
     const today = new Date();

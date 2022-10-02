@@ -1,18 +1,22 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
-.cont{
-  display:flex;
-
+.cont {
+  display: flex;
+  min-height: 100%;
 }
 
 .container {
   width: fit-content;
   height: 78vh;
+  min-width: 98vw;
 }
 
 .fa-2x {
   font-size: 2em;
+}
+.ocultar{
+  display: none !important;
 }
 
 .fa {

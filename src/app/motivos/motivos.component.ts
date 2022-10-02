@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  faMoneyBillTransfer,
-  faAddressBook,
-  faClockRotateLeft,
-  faMoneyCheck,
-} from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { Motivo } from '../models/motivo.model';
 import { Wallet } from '../models/wallet.model';
@@ -18,15 +12,7 @@ import { WsService } from '../services/ws.service';
   templateUrl: './motivos.component.html',
   styleUrls: ['./motivos.component.scss'],
 })
-
-
-
 export class MotivosComponent implements OnInit {
-  transferenciaIcon = faMoneyBillTransfer;
-  contactosIcon = faAddressBook;
-  historialIcon = faClockRotateLeft;
-  motivosIcon = faMoneyCheck;
-
   wallet!: Wallet;
   motivo_descripcion_input: string = '';
   motivo_color_input: string = '';
@@ -40,18 +26,24 @@ export class MotivosComponent implements OnInit {
   ) {}
   motivosListaResponse: any;
 
-
   ngOnInit(): void {
-
-    this.ws.getWs().subscribe(this.switchHandler.bind(this))
+    this.resetTimeout();
+    this.ws.getWs().subscribe(this.switchHandler.bind(this));
 
     let userId = this.auth.getMyUser()?.uid!;
-    this.user.getWallet(userId).subscribe((wallet) => { 
-    this.wallet = wallet
-    this.motivosLista = wallet.motivos
-    })
-    //this.falsearMotivos()
-    console.log(this.motivosLista)
+    this.user.getWallet(userId).subscribe((wallet) => {
+      this.wallet = wallet;
+      this.motivosLista = wallet.motivos;
+    });
+  }
+
+  resetTimeout() {
+    this.ws.timeOut(this.handleTimeOut.bind(this));
+  }
+
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
   }
 
   OnClick() {
@@ -70,15 +62,11 @@ export class MotivosComponent implements OnInit {
       //   'Dirigete a Transaccion y encontraras tu opcion de motivo lista para usar',
       //   'success'
       // )
-      console.log(
-        this.motivo_descripcion_input,
-        this.motivo_color_input,
-        this.auth.usuarioLogueado().uid
-      );
+
       Swal.fire({
         title: 'Luego no podrás modificar tus motivos',
         showDenyButton: true,
-       
+
         confirmButtonText: 'Confirmar',
         denyButtonText: `Cancelar`,
       }).then((result) => {
@@ -93,24 +81,29 @@ export class MotivosComponent implements OnInit {
     }
   }
   enviar_motivo() {
-    let newMotivo : Motivo = {descripcion:this.motivo_descripcion_input , color:this.motivo_color_input}
-    console.log(this.wallet.walletId)
-    return this.user.nuevoMotivo(newMotivo,this.wallet.walletId);
+    let newMotivo: Motivo = {
+      descripcion: this.motivo_descripcion_input,
+      color: this.motivo_color_input,
+    };
+    return this.user.nuevoMotivo(newMotivo, this.wallet.walletId);
   }
 
-  switchHandler(evento : any){
-    switch(evento.type){
-      case("com.sofka.domain.wallet.eventos.MotivoCreado"):
-        Swal.fire('Motivo Creado','','success')
-        let motivoAgregar:Motivo = {descripcion: evento.motivo.descripcion , color:evento.motivo.color}
-        this.motivosLista.push(motivoAgregar)
+  switchHandler(evento: any) {
+    switch (evento.type) {
+      case 'com.sofka.domain.wallet.eventos.MotivoCreado':
+        Swal.fire('Motivo Creado', '', 'success');
+        let motivoAgregar: Motivo = {
+          descripcion: evento.motivo.descripcion,
+          color: evento.motivo.color,
+        };
+        this.motivosLista.push(motivoAgregar);
     }
   }
 
   trasferenciasRoute() {
     this.router.navigate(['/transaccion']);
   }
-  
+
   historialRoute() {
     this.router.navigate(['/historial']);
   }
@@ -123,16 +116,15 @@ export class MotivosComponent implements OnInit {
   }
 
   falsearMotivos() {
-    let m1 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    let m2 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    let m3 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    let m4 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    let m5 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    let m6 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    let m7 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    let m8 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    let m9 : Motivo = {descripcion:"Desconocido", color:"#454554"}
-    this.motivosLista = [m1,m2,m3,m4,m5,m6,m7,m8,m9]
+    let m1: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    let m2: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    let m3: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    let m4: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    let m5: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    let m6: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    let m7: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    let m8: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    let m9: Motivo = { descripcion: 'Desconocido', color: '#454554' };
+    this.motivosLista = [m1, m2, m3, m4, m5, m6, m7, m8, m9];
   }
-
 }

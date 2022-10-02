@@ -2,18 +2,21 @@
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
 .cont {
-  width: 100vw;
-
+  min-width: 100%;
+  min-height: 100%;
 }
 
-
-h3{
+h3 {
 }
 
-.table{
-  background: linear-gradient(0deg, rgba(0,0,0,0.7133053905155813) 0%, rgba(79,92,239,0.5620448863139005) 100%);
+.table {
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.7133053905155813) 0%,
+    rgba(79, 92, 239, 0.5620448863139005) 100%
+  );
 }
-.content{
+.content {
   display: flex;
   align-content: center;
 }
@@ -24,7 +27,6 @@ h3{
   font-size: large;
   font-family: Verdana;
   align-content: center;
-
 }
 
 .fa-2x {
@@ -160,6 +162,10 @@ nav.main-menu li.active > a,
   height: 100%;
 }
 
+p-table {
+  overflow: scroll;
+}
+
 @font-face {
   font-family: "Titillium Web";
   font-style: normal;
@@ -167,4 +173,11 @@ nav.main-menu li.active > a,
   src: local("Titillium WebLight"), local("TitilliumWeb-Light"),
     url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff)
       format("woff");
+}
+@media (min-width:550px) {
+  .cont{
+    min-width: 98vw;
+    
+  }
+  
 }

@@ -1,34 +1,29 @@
-<div class="cont d-flex">
-  
-  
-  <div class="content w-100 d-flex flex-column">
-    <div class="mensaje text-center">
-      <h1 class="mb-5">¡Hola {{ userName }}!</h1>
+<div (click)="resetTimeout()" class="cont d-flex w-100 flex-column">
+  <div class="mensaje text-center">
+    <h1 class="mb-5">¡Hola {{ userName }}!</h1>
 
-      <h3 class="mb-2">
-        Tu saldo actual es: <b>USD {{ wallet ? wallet.saldo : 0 }} $</b>
-      </h3>
-    </div>
+    <h3 class="mb-2">
+      Tu saldo actual es: <b>USD {{ wallet.saldo }} $</b>
+    </h3>
+  </div>
 
-
-    <div>
-      <h3 class="transacciones">Ultimas Transacciones</h3>
-      <p-table class="table" [value]="historial" responsiveLayout="scroll">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Valor</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-historial>
-          <tr>
-            <td>{{ historial.fecha }}</td>
-            <td>{{ historial.hora  }}</td>
-            <td>{{ historial.valor }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
+  <div>
+    <h3 class="transacciones">Ultimas Transacciones</h3>
+    <p-table class="table" [value]="historial" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Valor</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-historial>
+        <tr>
+          <td>{{ historial.fecha }}</td>
+          <td>{{ historial.hora }}</td>
+          <td>{{ historial.valor }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>

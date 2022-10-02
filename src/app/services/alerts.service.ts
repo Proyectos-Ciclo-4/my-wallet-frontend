@@ -32,7 +32,7 @@ export class AlertsService {
         text: text,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Confirmar cancelación',
+        confirmButtonText: 'Confirmar',
         cancelButtonText: 'Cancelar',
         reverseButtons: true,
       })

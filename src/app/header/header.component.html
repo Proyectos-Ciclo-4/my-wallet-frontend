@@ -1,13 +1,12 @@
-<nav class="navbar">
+<nav class="d-flex flex-row navbar">
   <a class="navbar-brand" [routerLink]="['/home']">
-    <img
-      src="../../assets/Recurso 26@3x.png"
-      alt=""
-      width="60"
-      height="60"
-      class="d-inline-block align-top"
-      alt=""
-    />
+    <img src="../../assets/Recurso 26@3x.png" class="" />
   </a>
-  <button class="btn" (click)="logout()">Salida Segura</button>
+  <div *ngIf="userName" class="logged-user-header">
+    <img class="small-user-image" [src]="userImage" />
+    <span> {{ userName }} </span>
+  </div>
+  <button class="btn" (click)="logout()">
+    <fa-icon [icon]="signOutIcon"></fa-icon>
+  </button>
 </nav>

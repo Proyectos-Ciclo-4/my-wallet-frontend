@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 
 @Component({
   selector: 'app-header',
@@ -8,20 +10,24 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  public userName!: string;
+  signOutIcon: IconDefinition = faSignOutAlt;
 
-  constructor(private auth: AuthService, private route: Router) {
-    this.userName = this.auth.getMyUser()?.displayName!;
-    console.log(this.auth.getMyUser());
-  }
+  constructor(private auth: AuthService, private route: Router) {}
+
+  userName: string = '';
+  userImage: string = '';
 
   ngOnInit(): void {
-    console.log(this.userName);
+    this.auth.onAuthStateChanged((user) => {
+      this.userName = user ? '' + user.displayName : '';
+      this.userImage = user ? '' + user.photoURL : '';
+    });
   }
 
   logout() {
-    this.route.navigate(['']);
-    this.auth.logout();
+    this.auth.logout().then(() => {
+      this.route.navigate(['/']);
+    });
   }
 
   home() {

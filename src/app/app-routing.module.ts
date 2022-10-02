@@ -51,7 +51,7 @@ const routes: Routes = [
     component: HistorialComponent,
     ...canActivate(() => redirectUnauthorizedTo([''])),
   },
-  
+
   {
     path: 'mis-gastos',
     component: MisGastosComponent,

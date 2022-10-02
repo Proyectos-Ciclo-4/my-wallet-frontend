@@ -1,6 +1,6 @@
 export interface Motivo {
-    descripcion: string;
-    color:       string;
+  descripcion: string;
+  color: string;
 }
 
-//Crear en el servicio 
+//Crear en el servicio

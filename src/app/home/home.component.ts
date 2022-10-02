@@ -18,10 +18,9 @@ export class HomeComponent implements OnInit {
   private userId!: string;
   public userName!: string;
   public foto!: any;
-  wallet!: Wallet;
+  wallet: Wallet = { saldo: 0 } as Wallet;
   historial: any;
   saldo!: number;
-  idDestino!: string;
 
   constructor(
     private auth: AuthService,
@@ -37,17 +36,29 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    //---AQUI EMPIEZA EL WS--/
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
+    this.resetTimeout();
 
     this.user.getWallet(this.userId).subscribe((wallet) => {
       this.wallet = wallet;
       this.saldo = wallet.saldo;
-      this.historial = buildHomeHistorial(wallet.historial);
+      this.historial = this.buildHomeHistorial(wallet.historial);
     });
   }
 
-  
+  resetTimeout() {
+    this.ws.timeOut(this.handleTimeOut.bind(this));
+  }
+
+  handleTimeOut() {
+    this.auth.logout();
+    this.router.navigate(['']);
+  }
+
+  logout() {
+    this.router.navigate(['']);
+    this.auth.logout();
+  }
 
   switchHandler(evento: any) {
     console.log(evento);
@@ -55,39 +66,65 @@ export class HomeComponent implements OnInit {
       case 'com.sofka.domain.wallet.eventos.TransferenciaExitosa':
         const transaccionExitosa = { ...evento } as TransaccionExitosa;
         this.actualizarSaldo(evento);
-        this.alertaAnimada()
+        //this.alertaAnimada();
         this.alertaRecibo(transaccionExitosa);
+        this.appendToHistorial(transaccionExitosa);
         break;
-      case'com.sofka.domain.wallet.eventos.WalletDesactivada':
-      this.alertaEliminarConfirmada()
-      break
+      case 'com.sofka.domain.wallet.eventos.WalletDesactivada':
+        this.alertaEliminarConfirmada();
+        break;
     }
   }
 
   private actualizarSaldo(evento: any) {
     this.wallet.saldo += evento.valor.monto;
+    this.user.getWallet(this.userId).subscribe((wallet) => {
+      this.historial = this.buildHomeHistorial(wallet.historial);
+    });
   }
 
-  private alertaAnimada(){
+  private alertaAnimada() {
     Swal.fire({
       title: 'RECIBISTE UN DEPOSITO!!',
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: 'animate__animated animate__fadeInDown',
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    })
+        popup: 'animate__animated animate__fadeOutUp',
+      },
+    });
   }
 
-  private alertaRecibo(info:TransaccionExitosa) {
-    Swal.fire(
-      'Informacion de tu transferencia',
-      'Has recibido un Deposito de dinero a tu Cuenta por '+info.valor+'USD con motivo '+info.motivo+' Fecha '+info.when,
-      'info'
-    );
+  private alertaRecibo(info: TransaccionExitosa) {
+    if (this.wallet.walletId != info.walletOrigen.uuid) {
+      this.user.getUserMongo(info.walletOrigen.uuid).subscribe((user) => {
+        Swal.fire(
+          'Recibiste una transacción!',
+          `Recibiste: ${info.valor.monto} USD del usuario con Email: ${user.email} y Telefono: ${user.numero}`,
+          'info'
+        );
+      });
+    }
   }
-  
+
+  alertaEliminarwallet() {
+    this.alertsService.confirm({
+      title: '¿Estás seguro que quieres cancelar tu cuenta?',
+      text: `Lamentamos que quieras abandonarnos tan pronto y que no puedas seguir disfrutando de la simplicidad, seguridad y trazabilidad de MyWallet. Si quieres continuar con el proceso de cierre, da clic en SI, de lo contrario da click en cancelar`,
+      bodyDeConfirmacion: 'Tu solicitud se encuentra en proceso',
+      tituloDeConfirmacion: 'EN PROCESO',
+      bodyDelCancel: 'Que gusto que desees continuar con Nosotros',
+      tituloDelCancel: '  ',
+      callback: () => {
+        this.eliminarWallet(this.userId).subscribe(console.log);
+      },
+    });
+  }
+
+  eliminarWallet(data: any) {
+    return this.user.EliminarWallet(data);
+  }
+
   alertaEliminarConfirmada() {
     Swal.fire(
       'Wallet en proceso de eliminacion',
@@ -96,33 +133,40 @@ export class HomeComponent implements OnInit {
     );
   }
 
-}
+  buildHomeHistorial(historial: TransaccionDeHistorial[]): HistoryHome[] {
+    let historialDeHome: HistoryHome[] = [];
+    console.log(historial);
+    historial
+      .reverse()
+      .slice(0, 3)
+      .forEach((transaccion) => {
+        let fechaDate = transaccion.fecha.split(' ');
+        let entrada: HistoryHome = {
+          fecha: `${fechaDate[0]} ${fechaDate[1]} ${fechaDate[2]} ${fechaDate[5]}`,
+          hora: fechaDate[3],
+          valor:
+            transaccion.destino == transaccion.walletId
+              ? '+' + transaccion.valor
+              : '' + transaccion.valor,
+        };
+        historialDeHome.push(entrada);
+      });
+    return historialDeHome;
+  }
 
+  appendToHistorial(evento: TransaccionExitosa) {
+    let fecha = new Date(evento.when.seconds * 1000);
+    let entrada: HistoryHome = {
+      fecha: fecha.toDateString(),
+      hora: fecha.toTimeString().split(' ')[0],
+      valor:
+        evento.walletDestino == evento.walletOrigen
+          ? '+' + evento.valor.monto
+          : '' + evento.valor.monto,
+    };
 
-function buildHomeHistorial(
-  historial: Array<TransaccionDeHistorial>
-): Array<HistoryHome> {
-  let historialDeHome: Array<HistoryHome> = new Array<HistoryHome>();
+    this.historial.pop();
 
-  historial
-    .reverse()
-    .slice(0, 3)
-    .forEach((transaccion) => {
-      let fechaSplit = transaccion.fecha.split(' ');
-
-      //REFACTORIZAR Y CASTEAR ESTAS FECHAS APROPIADAMENTE
-      //INVESTIGAR QUE PUEDE CASTEARME ESO PROPIAMENTE tipo: LOCALDATETIME en formato str() a DATE()
-
-      let entrada: HistoryHome = {
-        fecha: `${fechaSplit[0]} ${fechaSplit[1]} ${fechaSplit[2]} ${fechaSplit[5]}`,
-        hora: fechaSplit[3],
-        valor:
-          transaccion.destino == transaccion.walletId
-            ? '+' + transaccion.valor
-            : '' + transaccion.valor,
-      };
-
-      historialDeHome.push(entrada);
-    });
-  return historialDeHome;
+    this.historial = this.buildHomeHistorial([entrada, ...this.historial]);
+  }
 }
