@@ -2,7 +2,8 @@
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
 .cont {
-  width: 100vw;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 h3 {
@@ -159,6 +160,10 @@ nav.main-menu li.active > a,
   background: #e2e2e2;
   width: 100%;
   height: 100%;
+}
+
+p-table {
+  overflow: scroll;
 }
 
 @font-face {
