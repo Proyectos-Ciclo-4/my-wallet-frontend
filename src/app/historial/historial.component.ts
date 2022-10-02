@@ -7,6 +7,7 @@ import { WsService } from '../services/ws.service';
 import { Wallet } from '../models/wallet.model';
 import Swal from 'sweetalert2';
 import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
+import { faClock, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-historial',
@@ -16,13 +17,14 @@ import { TransaccionExitosa } from '../models/eventos/transaccionExitosa.model';
 export class HistorialComponent implements OnInit {
   historial: TransactionAlternative[] = [];
   wallet!: Wallet;
+  clockIcon: IconDefinition = faClock;
 
   constructor(
     private router: Router,
     private auth: AuthService,
     private user: UserService,
     private ws: WsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.resetTimeout();
@@ -30,7 +32,7 @@ export class HistorialComponent implements OnInit {
 
     this.user
       .getAllHistory(this.auth.usuarioLogueado().uid)
-      .subscribe((historial) => {});
+      .subscribe((historial) => { });
 
     this.user.getWallet(this.auth.usuarioLogueado().uid).subscribe((wallet) => {
       this.wallet = wallet;
@@ -65,9 +67,9 @@ export class HistorialComponent implements OnInit {
       Swal.fire(
         'Informacion de tu transferencia',
         'Has recibido un Deposito de dinero a tu Cuenta por ' +
-          info.valor +
-          ' USD con motivo ' +
-          info.motivo.descripcion
+        info.valor +
+        ' USD con motivo ' +
+        info.motivo.descripcion
       );
     }
   }
@@ -80,16 +82,29 @@ export class HistorialComponent implements OnInit {
       fecha: new Date(event.when.seconds * 1000).toString(),
       transferencia_id: event.uuid,
       valor: event.valor.monto,
-      walletId: event.aggregateRootId,
+      walletId: event.walletOrigen.uuid,
     };
   }
 
   appendToHistorial(evento: TransactionAlternative) {
     this.historial = [evento, ...this.historial];
+    this.historial.sort(
+      (t1, t2) => new Date(t2.fecha).getTime() - new Date(t1.fecha).getTime()
+    );
   }
 
   logout() {
     this.router.navigate(['']);
     this.auth.logout();
+  }
+
+  displaySenderData(id: string) {
+    this.user.getUserMongo(id).subscribe((user) => {
+      Swal.fire(
+        'Datos del Remitente',
+        `Email: ${user.email} Telefono: ${user.numero}`,
+        'info'
+      );
+    });
   }
 }

@@ -13,12 +13,18 @@ import { HistorialComponent } from './historial/historial.component';
 
 import { MotivosComponent } from './motivos/motivos.component';
 import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LoginComponent,
     ...canActivate(() => redirectLoggedInTo(['home'])),
+  },
+  {
+    path: 'navbar',
+    component: NavbarComponent,
+    
   },
   {
     path: 'registro',

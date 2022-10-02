@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,9 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private auth: AuthService, private route: Router) {}
+  signOutIcon: IconDefinition = faSignOutAlt;
+
+  constructor(private auth: AuthService, private route: Router) { }
 
   userName: string = '';
   userImage: string = '';

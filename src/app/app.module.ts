@@ -30,6 +30,7 @@ import { ChartModule } from 'primeng/chart';
 import { HomeComponent } from './home/home.component';
 import { TableModule } from 'primeng/table';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     NavbarComponent,
     MotivosComponent,
     MisGastosComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

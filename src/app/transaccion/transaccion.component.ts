@@ -21,7 +21,10 @@ export class TransaccionComponent implements OnInit {
     private user: UserService,
     private ws: WsService,
     private alertsService: AlertsService
-  ) {}
+  ) { }
+
+  //icono
+
 
   //Form
   telefono: string = '';
@@ -170,7 +173,7 @@ export class TransaccionComponent implements OnInit {
   alertaConfirmar(data: Usuario) {
     this.alertsService.confirm({
       title: '¿Desea realizar la transferencia?',
-      text: `Valor a enviar USD: ${this.dinero}\n Destinatario: ${data.email}\n Motivo de transferencia: ${this.selectedOption[0]}`,
+      text: `Valor a enviar USD: ${this.dinero}\n Destinatario: ${this.email == "" ? data.numero : data.email}\n Motivo de transferencia: ${this.selectedOption[0]}`,
       bodyDeConfirmacion: 'Espere por favor...',
       tituloDeConfirmacion: 'Transferencia en progreso',
       bodyDelCancel: 'No se pudo realizar la transferencia',
