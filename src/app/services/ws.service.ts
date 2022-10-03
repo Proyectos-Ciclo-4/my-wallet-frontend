@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { AuthService } from './auth.service';
 
@@ -37,12 +36,12 @@ export class WsService {
   }
 
   timeOut(callBack: () => void) {
-    // this.ClearTimeOut();
-    //
-    // this.timeOutId = setTimeout(() => {
-    //   alert('Se ha cerrado la sesion por inactividad');
-    //   callBack();
-    // }, 180000);
+    this.ClearTimeOut();
+
+    this.timeOutId = setTimeout(() => {
+      alert('Se ha cerrado la sesion por inactividad');
+      callBack();
+    }, 180000);
   }
 
   private ClearTimeOut() {
