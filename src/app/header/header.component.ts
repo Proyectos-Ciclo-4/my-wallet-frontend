@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,23 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  canNavigate: boolean = true;
   signOutIcon: IconDefinition = faSignOutAlt;
 
-  constructor(private auth: AuthService, private route: Router) { }
+  constructor(private auth: AuthService, private route: Router) {
+    this.route.events
+      .pipe(filter((value) => value instanceof NavigationStart))
+      .subscribe((value) => {
+        if (value instanceof NavigationStart) {
+          if (value.url === '/registro') {
+            console.log('registro');
+            this.canNavigate = false;
+            return;
+          }
+          this.canNavigate = true;
+        }
+      });
+  }
 
   userName: string = '';
   userImage: string = '';
@@ -31,6 +46,8 @@ export class HeaderComponent implements OnInit {
   }
 
   home() {
-    this.route.navigate(['home']);
+    if (this.canNavigate) {
+      this.route.navigate(['home']);
+    }
   }
 }
