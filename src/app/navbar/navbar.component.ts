@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   private hideNavbar(value: NavigationStart) {
-    if (value.url === '/') {
+    if (value.url === '/' || value.url === '/registro') {
       this.visible = false;
       return;
     }
@@ -51,7 +51,7 @@ export class NavbarComponent implements OnInit {
   chartIcon: IconDefinition = faChartLine;
   clockIcon: IconDefinition = faClock;
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   logout() {
     this.auth.logout().then(() => {

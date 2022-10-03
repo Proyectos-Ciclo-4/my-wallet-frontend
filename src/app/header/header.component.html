@@ -1,5 +1,5 @@
 <nav class="d-flex flex-row navbar">
-  <a class="navbar-brand" [routerLink]="['/home']">
+  <a class="navbar-brand" (click)="home()">
     <img src="../../assets/Recurso 26@3x.png" class="" />
   </a>
   <div *ngIf="userName" class="logged-user-header">
