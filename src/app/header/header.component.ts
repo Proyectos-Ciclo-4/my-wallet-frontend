@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
       .pipe(filter((value) => value instanceof NavigationStart))
       .subscribe((value) => {
         if (value instanceof NavigationStart) {
-          if (value.url === '/registro') {
+          if (value.url === '/registro' || value.url === '/') {
             console.log('registro');
             this.canNavigate = false;
             return;
