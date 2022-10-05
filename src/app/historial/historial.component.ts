@@ -40,9 +40,9 @@ export class HistorialComponent implements OnInit {
   }
 
   handleTimeOut() {
-    this.auth.logout();
-    this.router.navigate(['']);
+    this.auth.logout().then(() => this.router.navigate(['']));
   }
+
 
   resetTimeout() {
     this.ws.timeOut(this.handleTimeOut.bind(this));
