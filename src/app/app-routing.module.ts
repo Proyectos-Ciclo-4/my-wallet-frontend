@@ -14,6 +14,7 @@ import { HistorialComponent } from './historial/historial.component';
 import { MotivosComponent } from './motivos/motivos.component';
 import { MisGastosComponent } from './mis-gastos/mis-gastos.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ContactoComponent } from './contacto/contacto.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,12 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    ...canActivate(() => redirectUnauthorizedTo([''])),
+  },
+  
+  {
+    path: 'contacto',
+    component: ContactoComponent,
     ...canActivate(() => redirectUnauthorizedTo([''])),
   },
   {
