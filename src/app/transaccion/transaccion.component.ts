@@ -36,6 +36,11 @@ export class TransaccionComponent implements OnInit {
   selectedOption: string[] = ['Desconocido', '#CBCBCB'];
   wallet!: Wallet;
 
+  //
+  contactoLista: Motivo[] = [];
+
+  //
+
   //Vista de Transaccion exitosa
   fecha: string = '';
   hora: string = '';

@@ -66,6 +66,10 @@ export class UserService {
   peticion_crear_contacto(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
   }
+  getContacto(body:any){
+    return this.http.get(`http://localhost:8084/usuario/`);
+
+  }
 
   getHistory(startDate: string, endDate: string, walletId: string) {
     return this.http.get<TransaccionDeHistorial[]>(
