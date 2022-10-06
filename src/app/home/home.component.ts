@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
       this.wallet = wallet;
       this.saldo = wallet.saldo;
       this.historial = this.buildHomeHistorial(wallet.historial);
+      console.log("soy wallet",wallet)
     });
   }
 
