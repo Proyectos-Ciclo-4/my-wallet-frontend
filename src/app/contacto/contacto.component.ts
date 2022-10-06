@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
 import Swal from 'sweetalert2';
 import { CrearContacto } from '../models/Contactos.model';
+import { Motivo } from '../models/motivo.model';
 import { Usuario } from '../models/Usuario.model';
+import { Wallet } from '../models/wallet.model';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { WsService } from '../services/ws.service';
@@ -23,6 +25,9 @@ export class ContactoComponent implements OnInit {
   walletId!:   string;
   userId = this.auth.getMyUser()?.uid!;
 
+  contactoLista: Motivo[] = [];
+  wallet: Wallet = { saldo: 0 } as Wallet;
+
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -39,6 +44,11 @@ export class ContactoComponent implements OnInit {
     });
     this.ws.reconnectWs();
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
+    this.user.getWallet(this.userId).subscribe((wallet) => {
+      this.wallet = wallet;
+      
+      console.log("soy wallet",wallet , "this.wallet" ,this.wallet.contactos[0].nombre)
+    });
   }
 
   resetTimeout() {
@@ -84,21 +94,23 @@ export class ContactoComponent implements OnInit {
       );
       return false;
     } else {
+      console.log(this.nombre,this.telefono,this.email)
       return this.user.crear_contacto({
-          nombre: this.nombre,
-          telefono:   this.telefono,
-          email:      this.email,
-          contactoId:  '',
-          walletId:   this.userId
-      });
+
+          nombre:this.nombre,
+          telefono:this.telefono,
+          email:this.email,
+          contactoId:'',
+          walletId:this.userId
+      }).subscribe(console.log);
     }
   }
   eliminarContacto(){
     this.user.EliminarContacto({
-      telefono:   this.telefono,
+      
       contactoId:  '',
       walletId:   this.userId
-  });
+  }).subscribe(console.log);
   }
 }
 

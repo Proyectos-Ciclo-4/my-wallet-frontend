@@ -5,7 +5,7 @@
         Cree su propia agenda de contactos donde podra almacenar su informacion siempre que dispongan de MyWallet.Podra eliminar sus contactos si asi lo desea </h5>
     </div>
 
-    <form>
+    
       <div class="form-outline mb-4 contenedor-hijos-inputs">
         <input type="email" id="form5Example2" [(ngModel)]="nombre"
           class="form-control" placeholder="Nombre del Contacto" />
@@ -25,9 +25,22 @@
       <button type="submit" class="btn btn-primary btn-block mb-4" (click)="Crearcontacto()" >
         Crear
       </button>
+      <!-- CONTACTO -->
+      <label class="form-label" for="form5Example2">
+        Seleccionar Contacto:</label>
+      <div class="form-outline mb-4 contenedor-hijos-inputs">
+        <select id="select-menu"  class="bx--text-input"  name="actionSelection">
+          <option  *ngFor="let contacto of wallet.contactos"
+           [ngValue]=[contacto.walletId]>
+           {{contacto.nombre}}
+
+            
+          </option>
+        </select>
+      </div>
 
       <button type="submit" class="btn btn-primary btn-block mb-4" (click)="eliminarContacto()" >
         Eliminar
       </button>
-    </form>
+    
   </div>

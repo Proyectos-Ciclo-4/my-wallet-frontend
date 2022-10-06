@@ -37,7 +37,7 @@ export class TransaccionComponent implements OnInit {
   wallet!: Wallet;
 
   //
-  contactoLista: Motivo[] = [];
+  contactoLista: any[] = [];
 
   //
 

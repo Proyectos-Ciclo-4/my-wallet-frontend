@@ -129,6 +129,7 @@ export class UserService {
   }
 
 crear_contacto(body: CrearContacto) {
+  console.log(body)
   return this.http.post(`${this.URL_HTTP}/nuevo/contacto`, { ...body });
 }
 
