@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
 import Swal from 'sweetalert2';
+import { CrearContacto } from '../models/Contactos.model';
 import { Usuario } from '../models/Usuario.model';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -12,13 +13,15 @@ import { WsService } from '../services/ws.service';
   templateUrl: './contacto.component.html',
   styleUrls: ['./contacto.component.scss']
 })
-export class ContactoComponent implements OnInit {nombre!: string | null;
-  email!: string | null;
-  resp!: User;
-  arreglo_enviar: Usuario[] = [];
-  nuevo_arreglo: any;
-  telefono!: string | null;
-  Telefono: string = '';
+export class ContactoComponent implements OnInit {
+  userTelefonoPropio: any;
+  userEmailPropio: any;
+  nombre!:     string;
+  telefono!:   string;
+  email!:      string;
+  contactoId!: string | null ;
+  walletId!:   string;
+  userId = this.auth.getMyUser()?.uid!;
 
   constructor(
     private auth: AuthService,
@@ -27,22 +30,15 @@ export class ContactoComponent implements OnInit {nombre!: string | null;
     private ws: WsService
   ) { }
 
-  //this.nombre = this.auth.getMyUser()?.displayName!;this.email=this.auth.getMyUser()?.email!
-
   ngOnInit(): void {
     this.resetTimeout();
-    
-    // this.autoComplete();
-    this.resp = this.auth.usuarioLogueado();
-
+    let userId = this.auth.getMyUser()?.uid!;
+    this.userEmailPropio = this.auth.getMyUser()?.email;
+    this.user.getUserMongo(userId).subscribe((user) => {
+      this.userTelefonoPropio = user.numero;
+    });
     this.ws.reconnectWs();
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
-
-    this.nuevo_arreglo = {
-      email: this.resp.email,
-      telefono: this.Telefono,
-      usuarioID: this.resp.uid,
-    };
   }
 
   resetTimeout() {
@@ -54,72 +50,56 @@ export class ContactoComponent implements OnInit {nombre!: string | null;
     this.router.navigate(['']);
   }
 
-  
+  Crearcontacto(){
+    this.validacion_datos_propios()
+    this.alertaCreado()
+  }
 
   switchHandler(event: any) {
     switch (event.type) {
-      case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
-        this.alertaCreado();
-        this.router.navigate(['/home']);
-        break;
-      case 'com.sofka.domain.wallet.eventos.WalletCreada':
-        break;
+      // case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
+      //   this.alertaCreado();
+      //   this.router.navigate(['/home']);
+      //   break;
+      // case 'com.sofka.domain.wallet.eventos.WalletCreada':
+      //   break;
     }
   }
-
-  // autoComplete() {
-  //   this.resp = this.auth.usuarioLogueado();
-  //   this.nombre = this.resp.displayName;
-  //   this.email = this.resp.email;
-  // }
-
-  crear() {
-    this.nuevo_arreglo.telefono = this.Telefono;
-    if (!/^\+[0-9]{8,12}$/.test(this.nuevo_arreglo.telefono)) {
-      Swal.fire(
-        '¡Numero de Telefono Invalido!',
-        'Empiece por "+" seguido de su indicador de pais y su número de telefono',
-        'warning'
-      );
-    } else {
-      this.validacionTelefonoExistente();
-    }
-  }
-
-  alertaRegistrado() {
-    Swal.fire(
-      'Tu email ya esta asociado a una cuenta!',
-      'Iniciamos sesión por ti',
-      'warning'
-    );
-  }
-
   alertaCreado() {
     Swal.fire(
-      'Saludos',
-      'Bienvenido a My Wallet a partir de este momento podras disfrutar de las opciones que tenemos para ti!!!',
+      'Contacto creado exitosamente',
+      'Ahora '+this.nombre+' hace parte de tus contactos!',
       'success'
     );
   }
-
-  validacionTelefonoExistente() {
-    this.user
-      .validar_alguno(this.nuevo_arreglo.telefono, this.nuevo_arreglo.email)
-      .subscribe({
-        next: (res) => {
-          if (res == true) {
-            Swal.fire(
-              'Numero de Telefono Invalido',
-              'El numero de telefono ya esta asignado a un usuario',
-              'warning'
-            );
-          } else {
-            this.user.verificarUsuarioPost(this.nuevo_arreglo).subscribe({
-              next: (res) => { },
-            });
-          }
-        },
+  validacion_datos_propios() {
+    if (
+      this.email == this.userEmailPropio ||
+      this.telefono == this.userTelefonoPropio
+    ) {
+      Swal.fire(
+        'Error',
+        'El nuevo contacto no puede ser usted mismo!',
+        'warning'
+      );
+      return false;
+    } else {
+      return this.user.crear_contacto({
+          nombre: this.nombre,
+          telefono:   this.telefono,
+          email:      this.email,
+          contactoId:  '',
+          walletId:   this.userId
       });
+    }
   }
-
+  eliminarContacto(){
+    this.user.EliminarContacto({
+      telefono:   this.telefono,
+      contactoId:  '',
+      walletId:   this.userId
+  });
+  }
 }
+
+

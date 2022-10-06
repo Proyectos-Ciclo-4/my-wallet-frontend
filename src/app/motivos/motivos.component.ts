@@ -42,9 +42,9 @@ export class MotivosComponent implements OnInit {
   }
 
   handleTimeOut() {
-    this.auth.logout();
-    this.router.navigate(['']);
+    this.auth.logout().then(() => this.router.navigate(['']));
   }
+
 
   OnClick() {
     if (this.motivo_descripcion_input == '') {

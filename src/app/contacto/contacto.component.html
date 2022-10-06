@@ -4,27 +4,30 @@
       <h5>
         Cree su propia agenda de contactos donde podra almacenar su informacion siempre que dispongan de MyWallet.Podra eliminar sus contactos si asi lo desea </h5>
     </div>
-  
+
     <form>
-      <div class="form-outline mb-4">
-        <label class="form-label bold" for="form5Example1">Nombre Completo</label>
-        <input type="text" class="form-control Nombre" value="{{ nombre }}" required minlength="4" readonly />
+      <div class="form-outline mb-4 contenedor-hijos-inputs">
+        <input type="email" id="form5Example2" [(ngModel)]="nombre"
+          class="form-control" placeholder="Nombre del Contacto" />
       </div>
-  
+
       <div class="form-outline mb-4">
         <label class="form-label" for="form5Example1">Telefono (Incluya indicativo por país)</label>
-        <input required maxlength="14" type="text" name="telefono" [(ngModel)]="Telefono" class="form-control telefono"
+        <input required maxlength="14" type="text" name="telefono" [(ngModel)]="telefono" class="form-control telefono"
           placeholder="Ejemplo: +573178768736" />
       </div>
-  
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form5Example2">Email</label>
-        <input type="email" id="form5Example2" class="form-control email" value="{{ email }}" readonly />
+
+      <div class="form-outline mb-4 contenedor-hijos-inputs">
+        <input type="email" id="form5Example2" [(ngModel)]="email"
+          class="form-control" placeholder="Email a ingresar" />
       </div>
-  
-      <button type="submit" class="btn btn-primary btn-block mb-4" (click)="crear()">
+
+      <button type="submit" class="btn btn-primary btn-block mb-4" (click)="Crearcontacto()" >
         Crear
+      </button>
+
+      <button type="submit" class="btn btn-primary btn-block mb-4" (click)="eliminarContacto()" >
+        Eliminar
       </button>
     </form>
   </div>
-  
