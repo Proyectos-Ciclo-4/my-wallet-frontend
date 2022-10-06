@@ -28,6 +28,8 @@ export class ContactoComponent implements OnInit {
   contactoLista: Motivo[] = [];
   wallet: Wallet = { saldo: 0 } as Wallet;
 
+  selectedOption!: string;
+
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -106,10 +108,12 @@ export class ContactoComponent implements OnInit {
     }
   }
   eliminarContacto(){
+    console.log("soy selectec options tiene q salir el id xD" ,this.selectedOption)
+    console.log(this.selectedOption[0])
     this.user.EliminarContacto({
       
-      contactoId:  '',
-      walletId:   this.userId
+      contactoId:  this.selectedOption[0],
+      walletId:   this.walletId
   }).subscribe(console.log);
   }
 }
