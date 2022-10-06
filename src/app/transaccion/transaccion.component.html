@@ -79,8 +79,8 @@
         <label class="form-label" for="form5Example2">
           Seleccionar Contacto:</label>
         <div class="form-outline mb-4 contenedor-hijos-inputs">
-          <select id="select-menu" [(ngModel)]="selectedOption" class="bx--text-input" required name="actionSelection">
-            <option style="background-color: {{ motivo.color }}" *ngFor="let motivo of motivosLista"
+          <select id="select-menu"  class="bx--text-input"  name="actionSelection">
+            <option  *ngFor="let contacto of contactoLista"
               [ngValue]="[motivo.descripcion, motivo.color]">
               {{ motivo.descripcion }}
             </option>
