@@ -63,9 +63,9 @@ export class MisGastosComponent implements OnInit, OnDestroy {
   }
 
   handleTimeOut() {
-    this.auth.logout();
-    this.router.navigate(['']);
+    this.auth.logout().then(() => this.router.navigate(['']));
   }
+
 
   private transformHistoryInDataSets(
     history: TransaccionDeHistorial[]

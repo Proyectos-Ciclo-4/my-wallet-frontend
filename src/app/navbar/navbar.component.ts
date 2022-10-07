@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { NavigationStart, Router } from '@angular/router';
-import { AlertsService } from '../services/alerts.service';
-import { UserService } from '../services/user.service';
-import { FaConfig } from '@fortawesome/angular-fontawesome';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../services/auth.service';
+import {NavigationStart, Router} from '@angular/router';
+import {AlertsService} from '../services/alerts.service';
+import {UserService} from '../services/user.service';
+import {FaConfig} from '@fortawesome/angular-fontawesome';
 import {
+  faAddressBook,
   faClock,
   faPencilAlt,
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-import { faChartLine } from '@fortawesome/free-solid-svg-icons/faChartLine';
-import { filter } from 'rxjs';
+import {faChartLine} from '@fortawesome/free-solid-svg-icons/faChartLine';
+import {filter} from 'rxjs';
+import {faCalendar} from "@fortawesome/free-solid-svg-icons/faCalendar";
 
 @Component({
   selector: 'app-navbar',
@@ -50,8 +52,10 @@ export class NavbarComponent implements OnInit {
   pencilIcon: IconDefinition = faPencilAlt;
   chartIcon: IconDefinition = faChartLine;
   clockIcon: IconDefinition = faClock;
+  contactsIcon: IconDefinition = faAddressBook;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   logout() {
     this.auth.logout().then(() => {

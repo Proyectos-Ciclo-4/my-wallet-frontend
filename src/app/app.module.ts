@@ -31,6 +31,7 @@ import { HomeComponent } from './home/home.component';
 import { TableModule } from 'primeng/table';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
+import { ContactoComponent } from './contacto/contacto.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { LoginComponent } from './login/login.component';
     MotivosComponent,
     MisGastosComponent,
     LoginComponent,
+    ContactoComponent,
   ],
   imports: [
     BrowserModule,

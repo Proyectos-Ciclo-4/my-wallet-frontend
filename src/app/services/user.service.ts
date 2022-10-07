@@ -15,6 +15,7 @@ import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
 import { Transferencia } from '../models/transferencia.model';
 import { Motivo, TransactionAlternative } from '../models/history.model';
 import { usuarioMongo } from '../models/usuarioMongo.model';
+import { CrearContacto } from '../models/Contactos.model';
 
 @Injectable({
   providedIn: 'root',
@@ -66,6 +67,10 @@ export class UserService {
   peticion_crear_contacto(body: any) {
     return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
   }
+  getContacto(body:any){
+    return this.http.get(`http://localhost:8084/usuario/`);
+
+  }
 
   getHistory(startDate: string, endDate: string, walletId: string) {
     return this.http.get<TransaccionDeHistorial[]>(
@@ -112,21 +117,21 @@ export class UserService {
     return this.http.delete(`${this.URL_HTTP}/deletewallet/${userId}`);
   }
 
-  /*
-  get_motivos(userId: string) {
-    return this.http.get<Wallet>(`${this.URL_HTTP}/motivo/${userId}`);
+  EliminarContacto(body: any) {
+    return this.http.delete(`${this.URL_HTTP}/borrar/contacto`,{ ...body });
   }
 
-
-  /* nuevoMotivo(motivo:Motivo, walletId:string){
-    return this.http.post(`${this.URL_HTTP}/new/motivo`, { walletId, motivo });
-  }*/
   nuevoMotivo(motivo: Motivo, walletID: string) {
     return this.http.post(`${this.URL_HTTP}/new/motivo/`, {
       walletID,
       ...motivo,
     });
   }
+
+crear_contacto(body: CrearContacto) {
+  console.log(body)
+  return this.http.post(`${this.URL_HTTP}/nuevo/contacto`, { ...body });
+}
 
   getAllHistory(id: string) {
     return this.http.get<TransactionAlternative[]>(

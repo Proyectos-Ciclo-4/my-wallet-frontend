@@ -76,6 +76,17 @@
             </option>
           </select>
         </div>
+        <!-- CONTACTO  -->
+        <label class="form-label" for="form5Example2">
+          Seleccionar Contacto:</label>
+        <div class="form-outline mb-4 contenedor-hijos-inputs">
+          <select id="select-menu"  class="bx--text-input"  name="actionSelection">
+            <option  *ngFor="let contacto of contactoLista"
+              [ngValue]="[motivo.descripcion, motivo.color]">
+              {{ motivo.descripcion }}
+            </option>
+          </select>
+        </div>
         <a [routerLink]="['/motivos']" style="text-decoration: none"><button type="submit"
             class="btnTransfer btn-secondary contenedor-hijos-inputs boton-crearmotivo">
             Crear Motivo

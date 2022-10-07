@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
       this.wallet = wallet;
       this.saldo = wallet.saldo;
       this.historial = this.buildHomeHistorial(wallet.historial);
+      console.log("soy wallet",wallet)
     });
   }
 
@@ -51,9 +52,9 @@ export class HomeComponent implements OnInit {
   }
 
   handleTimeOut() {
-    this.auth.logout();
-    this.router.navigate(['']);
+    this.auth.logout().then(() => this.router.navigate(['']));
   }
+
 
   logout() {
     this.router.navigate(['']);

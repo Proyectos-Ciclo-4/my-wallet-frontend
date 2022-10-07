@@ -36,6 +36,11 @@ export class TransaccionComponent implements OnInit {
   selectedOption: string[] = ['Desconocido', '#CBCBCB'];
   wallet!: Wallet;
 
+  //
+  contactoLista: any[] = [];
+
+  //
+
   //Vista de Transaccion exitosa
   fecha: string = '';
   hora: string = '';
@@ -66,9 +71,9 @@ export class TransaccionComponent implements OnInit {
   }
 
   handleTimeOut() {
-    this.auth.logout();
-    this.router.navigate(['']);
+    this.auth.logout().then(() => this.router.navigate(['']));
   }
+
 
   switchHandler(evento: any) {
     console.log(evento);
