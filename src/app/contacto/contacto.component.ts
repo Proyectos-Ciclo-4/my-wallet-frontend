@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { User } from 'firebase/auth';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {User} from 'firebase/auth';
 import Swal from 'sweetalert2';
-import { CrearContacto } from '../models/Contactos.model';
-import { Motivo } from '../models/motivo.model';
-import { Usuario } from '../models/Usuario.model';
-import { Wallet } from '../models/wallet.model';
-import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
-import { WsService } from '../services/ws.service';
+import {CrearContacto} from '../models/Contactos.model';
+import {Motivo} from '../models/motivo.model';
+import {Usuario} from '../models/Usuario.model';
+import {ContactoWallet, Wallet} from '../models/wallet.model';
+import {AuthService} from '../services/auth.service';
+import {UserService} from '../services/user.service';
+import {WsService} from '../services/ws.service';
+import {ContactoEliminado} from "../models/eventos/contactoEliminado";
+import {Contacto, ContactoAgregado} from "../models/eventos/contactoAgregado";
 
 @Component({
   selector: 'app-contacto',
@@ -26,7 +28,7 @@ export class ContactoComponent implements OnInit {
   userId = this.auth.getMyUser()?.uid!;
 
   contactoLista: Motivo[] = [];
-  wallet: Wallet = { saldo: 0 } as Wallet;
+  wallet: Wallet = {saldo: 0} as Wallet;
 
   selectedOption!: string;
 
@@ -35,7 +37,8 @@ export class ContactoComponent implements OnInit {
     private router: Router,
     private user: UserService,
     private ws: WsService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.resetTimeout();
@@ -75,15 +78,29 @@ export class ContactoComponent implements OnInit {
   switchHandler(event: any) {
     switch (
       event.type) {
-        case 'com.sofka.domain.wallet.eventos.ContactoAgregado':
-          this.alertaCreado()
-          break;
-        case 'com.sofka.domain.wallet.eventos.ContactoEliminado':
-          this.alertaEliminado()
-          break;
+      case 'com.sofka.domain.wallet.eventos.ContactoAgregado':
+        const contactoAgregado = event as ContactoAgregado;
+        this.wallet.contactos.push(this.contactoToContactoWallet(contactoAgregado.contacto))
+        this.alertaCreado()
+        break;
+      case 'com.sofka.domain.wallet.eventos.ContactoEliminado':
+        const localEvent = event as ContactoEliminado;
+        this.alertaEliminado()
+        this.wallet.contactos = this.wallet.contactos.filter(value => value.walletId !== localEvent.contactoID.uuid)
+        break;
 
     }
   }
+
+  contactoToContactoWallet(contacto: Contacto) {
+    return {
+      walletId: contacto.entityId.uuid,
+      email: contacto.email.direccion,
+      telefono: contacto.telefono.numero,
+      nombre: contacto.nombre.nombreDeUsuario,
+    } as ContactoWallet;
+  }
+
   alertaCreado() {
     Swal.fire(
       'Contacto creado exitosamente',
@@ -99,6 +116,7 @@ export class ContactoComponent implements OnInit {
       'success'
     );
   }
+
   validacion_datos_propios() {
     if (
       this.email == this.userEmailPropio ||
