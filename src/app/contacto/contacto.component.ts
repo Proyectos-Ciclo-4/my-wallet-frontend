@@ -48,7 +48,7 @@ export class ContactoComponent implements OnInit {
     this.ws.getWs().subscribe(this.switchHandler.bind(this));
     this.user.getWallet(this.userId).subscribe((wallet) => {
       this.wallet = wallet;
-      
+
       console.log("soy wallet",wallet , "this.wallet" ,this.wallet.contactos[0].nombre)
     });
   }
@@ -111,7 +111,6 @@ export class ContactoComponent implements OnInit {
     console.log("soy selectec options tiene q salir el id xD" ,this.selectedOption)
     console.log(this.selectedOption[0])
     this.user.EliminarContacto({
-      
       contactoId:  this.selectedOption[0],
       walletId:   this.walletId
   }).subscribe(console.log);
