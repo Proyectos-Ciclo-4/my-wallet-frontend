@@ -74,20 +74,28 @@ export class ContactoComponent implements OnInit {
 
   switchHandler(event: any) {
     switch (
-      event.type
-      // case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
-      //   this.alertaCreado();
-      //   this.router.navigate(['/home']);
-      //   break;
-      // case 'com.sofka.domain.wallet.eventos.WalletCreada':
-      //   break;
-    ) {
+      event.type) {
+        case 'com.sofka.domain.wallet.eventos.ContactoAgregado':
+          this.alertaCreado()
+          break;
+        case 'com.sofka.domain.wallet.eventos.ContactoEliminado':
+          this.alertaEliminado()
+          break;
+
     }
   }
   alertaCreado() {
     Swal.fire(
       'Contacto creado exitosamente',
       'Ahora ' + this.nombre + ' hace parte de tus contactos!',
+      'success'
+    );
+  }
+
+  alertaEliminado() {
+    Swal.fire(
+      'Contacto Eliminado exitosamente',
+      'El contacto ha sido eliminado correctamente',
       'success'
     );
   }
@@ -115,16 +123,12 @@ export class ContactoComponent implements OnInit {
         .subscribe(console.log);
     }
   }
+
   eliminarContacto() {
-    console.log(
-      'soy selectec options tiene q salir el id xD',
-      this.selectedOption
-    );
-    console.log(this.selectedOption[0]);
     this.user
       .EliminarContacto({
         contactoId: this.selectedOption[0],
-        walletId: this.walletId,
+        walletId: this.userId,
       })
       .subscribe(console.log);
   }

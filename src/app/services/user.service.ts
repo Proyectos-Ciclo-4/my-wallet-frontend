@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Auth, getAuth } from '@angular/fire/auth';
+import {Injectable} from '@angular/core';
+import {Auth, getAuth} from '@angular/fire/auth';
 import {
   collection,
   collectionData,
@@ -7,15 +7,16 @@ import {
   Firestore,
   setDoc,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { Usuario } from '../models/Usuario.model';
-import { Usuario as UsuarioBack } from '../models/usuario-backend.model';
-import { HttpClient } from '@angular/common/http';
-import { TransaccionDeHistorial, Wallet } from '../models/wallet.model';
-import { Transferencia } from '../models/transferencia.model';
-import { Motivo, TransactionAlternative } from '../models/history.model';
-import { usuarioMongo } from '../models/usuarioMongo.model';
-import { CrearContacto } from '../models/Contactos.model';
+import {Observable} from 'rxjs';
+import {Usuario} from '../models/Usuario.model';
+import {Usuario as UsuarioBack} from '../models/usuario-backend.model';
+import {HttpClient} from '@angular/common/http';
+import {TransaccionDeHistorial, Wallet} from '../models/wallet.model';
+import {Transferencia} from '../models/transferencia.model';
+import {Motivo, TransactionAlternative} from '../models/history.model';
+import {usuarioMongo} from '../models/usuarioMongo.model';
+import {CrearContacto} from '../models/Contactos.model';
+import {BorrarContacto} from "../models/borrarContacto.model";
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,8 @@ export class UserService {
     private auth: Auth,
     private firestore: Firestore,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   newUser() {
     const databaseref = collection(this.firestore, 'users');
@@ -43,13 +45,11 @@ export class UserService {
 
   listar(): Observable<Usuario[]> {
     const databaseref = collection(this.firestore, 'users');
-    return collectionData(databaseref, { idField: 'id' }) as Observable<
-      Usuario[]
-    >;
+    return collectionData(databaseref, {idField: 'id'}) as Observable<Usuario[]>;
   }
 
   verificarUsuarioPost(body: any) {
-    return this.http.post(`${this.URL_HTTP}/new/wallet`, { ...body });
+    return this.http.post(`${this.URL_HTTP}/new/wallet`, {...body});
   }
 
   getWallet(userId: string) {
@@ -61,13 +61,14 @@ export class UserService {
   }
 
   enviarTransaccion(body: Transferencia) {
-    return this.http.post(`${this.URL_HTTP}/new/transaction/`, { ...body });
+    return this.http.post(`${this.URL_HTTP}/new/transaction/`, {...body});
   }
 
   peticion_crear_contacto(body: any) {
-    return this.http.post(`${this.URL_HTTP}/new/contacto`, { ...body });
+    return this.http.post(`${this.URL_HTTP}/new/contacto`, {...body});
   }
-  getContacto(body:any){
+
+  getContacto(body: any) {
     return this.http.get(`http://localhost:8084/usuario/`);
 
   }
@@ -78,23 +79,6 @@ export class UserService {
     );
   }
 
-  // getHistory(body: HistoryGetter): Transaction[] {
-  //   // return this.http.post(`${this.URL_HTTP}/history`, { ...body });
-  //   return [
-  //     {
-  //       motivo: { color: '#42A5F5', descripcion: 'indefinido' },
-  //       valor: 70,
-  //     } as Transaction,
-  //     {
-  //       motivo: { color: '#66BB6A', descripcion: 'diversion' },
-  //       valor: 90,
-  //     } as Transaction,
-  //     {
-  //       motivo: { color: '#FFA726', descripcion: 'servicios' },
-  //       valor: 50,
-  //     } as Transaction,
-  //   ];
-  // }
   obtener_contacto_porTelefono(telefono: string) {
     return this.http.get<UsuarioBack>(
       `${this.URL_HTTP}/walletByTelefono/${telefono}`
@@ -117,8 +101,8 @@ export class UserService {
     return this.http.delete(`${this.URL_HTTP}/deletewallet/${userId}`);
   }
 
-  EliminarContacto(body: any) {
-    return this.http.delete(`${this.URL_HTTP}/borrar/contacto`,{ ...body });
+  EliminarContacto(body: BorrarContacto) {
+    return this.http.delete(`${this.URL_HTTP}/borrar/contacto`, {body: body});
   }
 
   nuevoMotivo(motivo: Motivo, walletID: string) {
@@ -128,10 +112,10 @@ export class UserService {
     });
   }
 
-crear_contacto(body: CrearContacto) {
-  console.log(body)
-  return this.http.post(`${this.URL_HTTP}/nuevo/contacto`, { ...body });
-}
+  crear_contacto(body: CrearContacto) {
+    console.log(body)
+    return this.http.post(`${this.URL_HTTP}/nuevo/contacto`, {...body});
+  }
 
   getAllHistory(id: string) {
     return this.http.get<TransactionAlternative[]>(

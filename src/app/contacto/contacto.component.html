@@ -21,7 +21,7 @@
 
   <div class="form-outline mb-4">
     <label class="form-label" for="form5Example1"
-      >Telefono (Incluya indicativo por país)</label
+    >Telefono (Incluya indicativo por país)</label
     >
     <input
       required
@@ -45,6 +45,10 @@
     />
   </div>
 
+  <div class="form-outline mb-4">
+    <label class="form-label adv" for="form5Example2"> Una vez crees un contacto, no podrás editarlo ni
+      Eliminarlo</label>
+  </div>
   <button
     type="submit"
     class="btn btn-primary btn-block mb-4"
@@ -52,10 +56,11 @@
   >
     Crear
   </button>
+
   <!-- CONTACTO -->
 
   <div class="form-outline mb-4">
-    <label class="form-label" for="form5Example2"> Seleccionar el contacto que deseas eliminar</label>
+    <label class="form-label" for="form5Example2"> Contactos</label>
     <select
       id="select-menu"
       [(ngModel)]="selectedOption"
@@ -71,11 +76,12 @@
     </select>
   </div>
 
-    <button
+  <button
     type="submit"
     class="btn btn-primary btn-block mb-4"
     (click)="eliminarContacto()"
   >
     Eliminar
   </button>
+
 </div>

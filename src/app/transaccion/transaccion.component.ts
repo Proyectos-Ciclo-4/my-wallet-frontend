@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import { Motivo } from '../models/motivo.model';
-import { Usuario } from '../models/usuario-backend.model';
-import { Wallet } from '../models/wallet.model';
-import { AlertsService } from '../services/alerts.service';
-import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
-import { WsService } from '../services/ws.service';
+import {Motivo} from '../models/motivo.model';
+import {Usuario} from '../models/usuario-backend.model';
+import {ContactoWallet, Wallet} from '../models/wallet.model';
+import {AlertsService} from '../services/alerts.service';
+import {AuthService} from '../services/auth.service';
+import {UserService} from '../services/user.service';
+import {WsService} from '../services/ws.service';
 
 @Component({
   selector: 'app-transaccion',
@@ -21,7 +21,8 @@ export class TransaccionComponent implements OnInit {
     private user: UserService,
     private ws: WsService,
     private alertsService: AlertsService
-  ) { }
+  ) {
+  }
 
   //icono
 
@@ -62,6 +63,8 @@ export class TransaccionComponent implements OnInit {
 
     this.user.getWallet(userId).subscribe((wallet) => {
       this.wallet = wallet;
+      this.wallet.contactos.push({walletId: "", nombre: "", telefono: "", email: ""} as ContactoWallet)
+      this.wallet.contactos = this.wallet.contactos.reverse();
       this.motivosLista = wallet.motivos;
     });
   }
@@ -190,7 +193,7 @@ export class TransaccionComponent implements OnInit {
   }
 
   peticionTransferencia(data: Usuario) {
-    const { usuarioId } = data;
+    const {usuarioId} = data;
     return this.user.enviarTransaccion({
       walletDestino: usuarioId,
       walletOrigen: this.auth.usuarioLogueado().uid,
@@ -200,6 +203,14 @@ export class TransaccionComponent implements OnInit {
       },
       valor: this.dinero,
     });
+  }
+
+  print(event: any) {
+    const select = document.getElementById("select-menu-contacto") as HTMLSelectElement;
+    const id = select.options[select.selectedIndex].value;
+    const contactoSeleccionado = this.wallet.contactos.filter((contacto) => contacto.walletId == id)[0];
+    this.email = contactoSeleccionado.email;
+    this.telefono = contactoSeleccionado.telefono;
   }
 
   updateTransConfirmation(evento: any) {
