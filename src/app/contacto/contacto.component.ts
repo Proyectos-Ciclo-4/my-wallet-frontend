@@ -72,7 +72,6 @@ export class ContactoComponent implements OnInit {
 
   Crearcontacto() {
     this.validacion_datos_propios();
-    this.alertaCreado();
   }
 
   switchHandler(event: any) {
@@ -129,7 +128,6 @@ export class ContactoComponent implements OnInit {
       );
       return false;
     } else {
-      console.log(this.nombre, this.telefono, this.email);
       return this.user
         .crear_contacto({
           nombre: this.nombre,
@@ -138,8 +136,14 @@ export class ContactoComponent implements OnInit {
           contactoId: '',
           walletId: this.userId,
         })
-        .subscribe(console.log);
+        .subscribe({error: (error) => this.alertaError(error)});
     }
+  }
+
+  alertaError(content:any){
+    console.log(content)
+    let title= "Error"
+    Swal.fire(title,content.error, "error")
   }
 
   eliminarContacto() {
