@@ -116,20 +116,23 @@
 
         <div class="form-outline mb-4 contenedor-hijos-inputs">
           <select
-            id="select-menu"
+            id="select-menu-contacto"
             class="bx--text-input"
             name="actionSelection"
+            (change)="print($event)"
           >
-          <option
-          *ngFor="let contacto of wallet.contactos"
-          [ngValue]="[contacto.walletId]"
-        >
-          {{ contacto.nombre }}
-        </option>
+            <option
+              *ngFor="let contacto of wallet.contactos"
+              value="{{contacto.walletId}}"
+              [ngValue]="[contacto.walletId]"
+            >
+              {{ contacto.nombre }}
+            </option>
           </select>
         </div>
         <a [routerLink]="['/motivos']" style="text-decoration: none"
-          ><button
+        >
+          <button
             type="submit"
             class="btnTransfer btn-secondary contenedor-hijos-inputs boton-crearmotivo"
           >

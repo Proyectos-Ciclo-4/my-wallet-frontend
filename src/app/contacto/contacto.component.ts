@@ -123,17 +123,13 @@ export class ContactoComponent implements OnInit {
         .subscribe(console.log);
     }
   }
-  // eliminarContacto() {
-  //   console.log(
-  //     'soy selectec options tiene q salir el id xD',
-  //     this.selectedOption
-  //   );
-  //   console.log(this.selectedOption[0]);
-  //   this.user
-  //     .EliminarContacto({
-  //       contactoId: this.selectedOption[0],
-  //       walletId: this.walletId,
-  //     })
-  //     .subscribe(console.log);
-  // }
+
+  eliminarContacto() {
+    this.user
+      .EliminarContacto({
+        contactoId: this.selectedOption[0],
+        walletId: this.userId,
+      })
+      .subscribe(console.log);
+  }
 }
