@@ -53,12 +53,13 @@
     Crear
   </button>
   <!-- CONTACTO -->
-  <label class="form-label" for="form5Example2"> Seleccionar Contacto:</label>
-  <div class="form-outline mb-4 contenedor-hijos-inputs">
+
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form5Example2"> Seleccionar Contacto:</label>
     <select
       id="select-menu"
       [(ngModel)]="selectedOption"
-      class="bx--text-input"
+      class="form-control"
       name="actionSelection"
     >
       <option
@@ -70,7 +71,7 @@
     </select>
   </div>
 
-  <button
+    <button
     type="submit"
     class="btn btn-primary btn-block mb-4"
     (click)="eliminarContacto()"

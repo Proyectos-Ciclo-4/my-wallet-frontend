@@ -13,16 +13,16 @@ import { WsService } from '../services/ws.service';
 @Component({
   selector: 'app-contacto',
   templateUrl: './contacto.component.html',
-  styleUrls: ['./contacto.component.scss']
+  styleUrls: ['./contacto.component.scss'],
 })
 export class ContactoComponent implements OnInit {
   userTelefonoPropio: any;
   userEmailPropio: any;
-  nombre!:     string;
-  telefono!:   string;
-  email!:      string;
-  contactoId!: string | null ;
-  walletId!:   string;
+  nombre!: string;
+  telefono!: string;
+  email!: string;
+  contactoId!: string | null;
+  walletId!: string;
   userId = this.auth.getMyUser()?.uid!;
 
   contactoLista: Motivo[] = [];
@@ -35,7 +35,7 @@ export class ContactoComponent implements OnInit {
     private router: Router,
     private user: UserService,
     private ws: WsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.resetTimeout();
@@ -49,7 +49,12 @@ export class ContactoComponent implements OnInit {
     this.user.getWallet(this.userId).subscribe((wallet) => {
       this.wallet = wallet;
 
-      console.log("soy wallet",wallet , "this.wallet" ,this.wallet.contactos[0].nombre)
+      console.log(
+        'soy wallet',
+        wallet,
+        'this.wallet',
+        this.wallet.contactos[0].nombre
+      );
     });
   }
 
@@ -62,25 +67,27 @@ export class ContactoComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  Crearcontacto(){
-    this.validacion_datos_propios()
-    this.alertaCreado()
+  Crearcontacto() {
+    this.validacion_datos_propios();
+    this.alertaCreado();
   }
 
   switchHandler(event: any) {
-    switch (event.type) {
+    switch (
+      event.type
       // case 'com.sofka.domain.wallet.eventos.UsuarioAsignado':
       //   this.alertaCreado();
       //   this.router.navigate(['/home']);
       //   break;
       // case 'com.sofka.domain.wallet.eventos.WalletCreada':
       //   break;
+    ) {
     }
   }
   alertaCreado() {
     Swal.fire(
       'Contacto creado exitosamente',
-      'Ahora '+this.nombre+' hace parte de tus contactos!',
+      'Ahora ' + this.nombre + ' hace parte de tus contactos!',
       'success'
     );
   }
@@ -96,25 +103,29 @@ export class ContactoComponent implements OnInit {
       );
       return false;
     } else {
-      console.log(this.nombre,this.telefono,this.email)
-      return this.user.crear_contacto({
-
-          nombre:this.nombre,
-          telefono:this.telefono,
-          email:this.email,
-          contactoId:'',
-          walletId:this.userId
-      }).subscribe(console.log);
+      console.log(this.nombre, this.telefono, this.email);
+      return this.user
+        .crear_contacto({
+          nombre: this.nombre,
+          telefono: this.telefono,
+          email: this.email,
+          contactoId: '',
+          walletId: this.userId,
+        })
+        .subscribe(console.log);
     }
   }
-  eliminarContacto(){
-    console.log("soy selectec options tiene q salir el id xD" ,this.selectedOption)
-    console.log(this.selectedOption[0])
-    this.user.EliminarContacto({
-      contactoId:  this.selectedOption[0],
-      walletId:   this.walletId
-  }).subscribe(console.log);
+  eliminarContacto() {
+    console.log(
+      'soy selectec options tiene q salir el id xD',
+      this.selectedOption
+    );
+    console.log(this.selectedOption[0]);
+    this.user
+      .EliminarContacto({
+        contactoId: this.selectedOption[0],
+        walletId: this.walletId,
+      })
+      .subscribe(console.log);
   }
 }
-
-
