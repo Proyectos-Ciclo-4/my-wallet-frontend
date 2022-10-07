@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {Motivo} from '../models/motivo.model';
 import {Usuario} from '../models/usuario-backend.model';
-import {Wallet} from '../models/wallet.model';
+import {ContactoWallet, Wallet} from '../models/wallet.model';
 import {AlertsService} from '../services/alerts.service';
 import {AuthService} from '../services/auth.service';
 import {UserService} from '../services/user.service';
@@ -63,6 +63,8 @@ export class TransaccionComponent implements OnInit {
 
     this.user.getWallet(userId).subscribe((wallet) => {
       this.wallet = wallet;
+      this.wallet.contactos.push({walletId: "", nombre: "", telefono: "", email: ""} as ContactoWallet)
+      this.wallet.contactos = this.wallet.contactos.reverse();
       this.motivosLista = wallet.motivos;
     });
   }
